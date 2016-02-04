@@ -1,4 +1,4 @@
-package src.org.usfirst.frc.team5895.robot;
+package org.usfirst.frc.team5895.robot;
 import java.io.FileNotFoundException;
 import java.util.Formatter;
 import java.util.FormatterClosedException;
