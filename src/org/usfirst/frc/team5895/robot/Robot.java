@@ -10,8 +10,11 @@ import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.Drive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+<<<<<<< HEAD
 import edu.wpi.first.wpilibj.Joystick;
 
+=======
+>>>>>>> origin/master
 
 /**
  * The VM is configured to automatically run this class, and to call the

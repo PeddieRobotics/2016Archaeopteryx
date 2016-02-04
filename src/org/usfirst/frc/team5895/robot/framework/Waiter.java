@@ -11,13 +11,9 @@ public class Waiter {
 	 * 
 	 * @param time The amount of time to wait in milliseconds
 	 */
-	public static void waitFor(long time) {
-		try {
-			Thread.sleep(time);
-		} catch (InterruptedException e) {
-			return;
-		}
-		return;
+	public static void waitFor(double time) {
+		double timeSeconds = time / 1000;
+		Timer.delay(timeSeconds);
 	}
 	
 	/**
@@ -38,18 +34,15 @@ public class Waiter {
 	 * @param time The amount of time to wait in milliseconds
 	 * @param precision The amount of time in milliseconds between checks to the condition method
 	 */
-	public static void waitFor(Checkable condition, double time, long precision) {
+	public static void waitFor(Checkable condition, double time, double precision) {
 		double timeSeconds = time / 1000;
+		double precisionSeconds = precision / 1000;
 		double start = Timer.getFPGATimestamp();
 		while (Timer.getFPGATimestamp() - start < timeSeconds) {
 			if (condition.check()) {
 				return;
 			}
-			try {
-				Thread.sleep(precision);
-			} catch (InterruptedException e) {
-				return;
-			}
+			Timer.delay(precisionSeconds);
 		}
 		return;
 	}
