@@ -22,9 +22,6 @@ public class Flywheel {
 	private double dV;
 	private double currentSpeed;
 	
-	boolean recordFile;
-	Formatter fmm;
-	
 	public Flywheel(){
 		myMotor = new Spark(0);
 		myController = new PID(Kp, Ki, Kd, dV);
@@ -50,35 +47,4 @@ public class Flywheel {
 		myMotor.set(myController.getOutput(c.getRate()));
 		currentSpeed= getSpeed();
 	}
-	
-	public void startRecording(String filename) {
-    	try {
-    		if (recordFile==false){
-    		fmm= new Formatter("/c/Logs/Drive//" + filename);
-    		fmm.format("Time,Rpm");
-    		recordFile=true;
-    		}
-    	} catch (FileNotFoundException e) {
-    		DriverStation.reportError(
-    				"File not Found Exception in Drive::startRecording\n", false);
-	 }
-    }
-    
-    public void stopRecording(){
-    	try {
-    		if (recordFile==true){
-    			fmm.close();
-    			recordFile=false;
-    		}
-    	} catch (FormatterClosedException e) {
-    		DriverStation.reportError(
-    				"Formatter Closed Exception in Drive::stopRecording\n", false);
-    	}
-    }
-    
-    public void record() {
-    	if (recordFile==true){
-    		fmm.format("\r\n%f,%f", Timer.getFPGATimestamp(), currentSpeed);
-    	}
-    }
 }

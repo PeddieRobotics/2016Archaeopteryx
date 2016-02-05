@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class Drive {
-	
-	private boolean recordFile;
 
 	//for turn()
 	private static final double TURN_KP = 0.02;
@@ -33,14 +31,11 @@ public class Drive {
 	
 	private Talon rightMotor;
     private Talon leftMotor;
-    private Formatter f;
-    private Scanner sca;
 
     private double rightMotorSpeed = 0;
     private double leftMotorSpeed = 0;
 
     private NavX ahrs;
-    
     private Encoder enc;
     
     public Drive()
@@ -59,36 +54,7 @@ public class Drive {
     	ahrs.reset();
     }
     
-    public void startRecording(String filename) {
-    	try {
-    		if (recordFile==false){
-    		f= new Formatter("/c/Logs/Drive//" + filename);
-    		f.format("Time,Angle,Distance");
-    		recordFile=true;
-    		}
-    	} catch (FileNotFoundException e) {
-    		DriverStation.reportError(
-    				"File not Found Exception in Drive::startRecording\n", false);
-	 }
-    }
     
-    public void stopRecording(){
-    	try {
-    		if (recordFile==true){
-    			f.close();
-    			recordFile=false;
-    		}
-    	} catch (FormatterClosedException e) {
-    		DriverStation.reportError(
-    				"Formatter Closed Exception in Drive::stopRecording\n", false);
-    	}
-    }
-    
-    public void record() {
-    	if (recordFile==true){
-    		f.format("\r\n%f,%f,%f", Timer.getFPGATimestamp(), getAngle(), getDistance());
-    	}
-    }
     
     /**
      * Gets the angle the of the robot
