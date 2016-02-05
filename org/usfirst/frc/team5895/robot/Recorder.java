@@ -11,21 +11,23 @@ public class Recorder {
 	private Drive drive;
 	private CDFArm arm;
 	private Flywheel fly;
+	private Intake intake;
 	
 	private boolean recordFile;
 	Formatter f = new Formatter();
 	
-	public Recorder(Drive d, CDFArm a, Flywheel fy ){
+	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in ){
 		this.drive = d;
 		this.arm = a;
 		this.fly = fy;	
+		this.intake = in;
 	}
 	
 	public void startRecording(String filename) {
     	try {
     		if (recordFile==false) {
     		f= new Formatter("/c/Logs/" + filename);
-    		f.format("Time,DriveAngle,DriveDistance,ArmPositionUp,FlywheelRPM");
+    		f.format("Time,DriveAngle,DriveDistance,ArmPositionUp,FlywheelRPM,IntakePositionUp,Intaking,Ball\r\n");
     		recordFile=true;
     		}
     	} catch (FileNotFoundException e) {
@@ -48,12 +50,15 @@ public class Recorder {
     
     public void record() {
     	if (recordFile==true) {
-    		f.format("\r\n%f,%f,%f,%b,%f",
+    		f.format("%f,%f,%f,%b,%f,%b,%b,%b\r\n",
     				Timer.getFPGATimestamp(),
     				drive.getAngle(),
     				drive.getDistance(),
     				arm.getArmPosition(),
-    				fly.getSpeed());
+    				fly.getSpeed(),
+    				intake.getUpDown(),
+    				intake.getIntaking(),
+    				intake.getBall());
     	}
     }
 }
