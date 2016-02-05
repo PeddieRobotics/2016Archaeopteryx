@@ -1,33 +1,65 @@
 package org.usfirst.frc.team5895.robot;
 
+import java.io.FileNotFoundException;
+import java.util.Formatter;
+import java.util.FormatterClosedException;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
 
 public class Intake {
 	
-	Spark myMotor;
+	Spark intakeMotor;
+	Solenoid upDownSolenoid;
 	DigitalInput Sensor; 
+	public boolean intaking;
+	public boolean upDown;
 	
 	public Intake(){
-		myMotor = new Spark(0);
+		intakeMotor = new Spark(0);
+		upDownSolenoid = new Solenoid(0);
 		Sensor = new DigitalInput(0);
-		
 	}
 	
 	public void on(){
-		myMotor.set(1);
+		intakeMotor.set(1);
+		intaking = true;
+	}
+	
+	public void up(){
+		upDown = true;
+	} 
+	public void down(){
+		upDown = false;
 	}
 	
 	public void shoot(){
 		if (Sensor.get()== true){
-			myMotor.set(1);
+			intakeMotor.set(1);
 		}
 	}
 	
 	public void update(){
 		if (Sensor.equals(true)){
-			myMotor.set(0);
+			intakeMotor.set(0);
+			intaking = true;
 		}
+		if (upDown == true){
+			upDownSolenoid.set(true);
+		} else upDownSolenoid.set(false);
+	}
+	
+	public boolean getUpDown(){
+		return upDown;
+	}
+	
+	public boolean getIntaking(){
+		return intaking;
+	}
+	
+	public boolean getBall(){
+		return Sensor.get();
 	}
 	
 }
