@@ -1,24 +1,22 @@
-package src.org.usfirst.frc.team5895.robot;
+package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Spark;
 
-public class Intake {
-	
+public class Flywheel {
+
 	Spark myMotor;
-	DigitalInput Sensor; 
 	PID myController;
 	Counter c;
-	private double kP;
-	private double kI;
-	private double kD;
+	private double Kp;
+	private double Ki;
+	private double Kd;
 	private double dV;
 	
-	public Intake(){
+	public Flywheel(){
 		myMotor = new Spark(0);
-		Sensor = new DigitalInput(0);
-		myController = new PID(kP, kI, kD, dV);
+		myController = new PID(Kp, Ki, Kd, dV);
 		c = new Counter(8);
 		c.setDistancePerPulse(1);
 		c.setSamplesToAverage(2);
@@ -29,11 +27,9 @@ public class Intake {
 		myController.set(speed/60);
 	}
 	
-	public void update(){
-		if (Sensor.equals(true)){
-			myController.set(0);
-		}
+	public void update() {
 		myMotor.set(myController.getOutput(c.getRate()));
+		
 	}
-	
+
 }

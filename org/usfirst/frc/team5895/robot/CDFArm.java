@@ -1,4 +1,4 @@
-package src.org.usfirst.frc.team5895.robot;
+package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Solenoid;
 
