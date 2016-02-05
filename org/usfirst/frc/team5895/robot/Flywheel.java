@@ -42,16 +42,20 @@ public class Flywheel {
 		myController.set(speed/60);
 	}
 	
+	public double getSpeed() {
+		return e.getRate()*60;
+	}
+	
 	public void update() {
 		myMotor.set(myController.getOutput(c.getRate()));
-		currentSpeed=e.getRate();
+		currentSpeed= getSpeed();
 	}
 	
 	public void startRecording(String filename) {
     	try {
     		if (recordFile==false){
     		fmm= new Formatter("/c/Logs/Drive//" + filename);
-    		fmm.format("Time,Speed");
+    		fmm.format("Time,Rpm");
     		recordFile=true;
     		}
     	} catch (FileNotFoundException e) {

@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class CDFArm {
 
-	private Solenoid myCylinder;
+	Solenoid myCylinder;
 	
-	private boolean getPosition;
-	private boolean recordFile;
+	boolean getPosition;
+	boolean recordFile;
 	
-	private Formatter fm;
+	Formatter fm;
 	
 	public CDFArm(){
 		myCylinder = new Solenoid(0);
@@ -30,16 +30,25 @@ public class CDFArm {
 		getPosition = false;
 	}
 	
+	public boolean getArmPosition() {
+		if(getPosition ==false){
+		return false;
+		}
+		else{
+		return true;
+		}
+	}
+	
 	public void startRecording(String filename) {
     	try {
-    		if (recordFile==false) {
-    			fm = new Formatter("/c/Logs/CDFArm//" + filename);
-    			fm.format("Time,Up?");
-    			recordFile=true;
+    		if (recordFile==false){
+    		fm= new Formatter("/c/Logs/Drive//" + filename);
+    		fm.format("Time,Up?");
+    		recordFile=true;
     		}
     	} catch (FileNotFoundException e) {
     		DriverStation.reportError(
-    				"File not Found Exception in CDFArm::startRecording\n", false);
+    				"File not Found Exception in Drive::startRecording\n", false);
 	 }
     }
     
@@ -51,13 +60,13 @@ public class CDFArm {
     		}
     	} catch (FormatterClosedException e) {
     		DriverStation.reportError(
-    				"Formatter Closed Exception in CDFArm::stopRecording\n", false);
+    				"Formatter Closed Exception in Drive::stopRecording\n", false);
     	}
     }
 	
 	public void record() {
     	if (recordFile==true){
-    		fm.format("\r\n%f,%b", Timer.getFPGATimestamp(), getPosition);
+    		fm.format("\r\n%f,%b", Timer.getFPGATimestamp(), getArmPosition());
     	}
     }
 	

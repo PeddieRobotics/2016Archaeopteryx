@@ -86,7 +86,7 @@ public class Drive {
     
     public void record() {
     	if (recordFile==true){
-    		f.format("\r\n%f,%f,%f", Timer.getFPGATimestamp(), getAngle(), enc.getDistance());
+    		f.format("\r\n%f,%f,%f", Timer.getFPGATimestamp(), getAngle(), getDistance());
     	}
     }
     
@@ -97,6 +97,10 @@ public class Drive {
      */
     public double getAngle(){
     	return ahrs.getAngle();
+    }
+    
+    public double getDistance(){
+    	return enc.getDistance();
     }
     
     public void haloDrive(double throttle, double turn) {
