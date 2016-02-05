@@ -29,7 +29,9 @@ public class Robot extends IterativeRobot {
 	CDFArm arm;
 	Flywheel flywheel;
 	Looper updater;
-	Looper recorder;
+	Looper r;
+	
+	Recorder recorder;
 	
 	int incCount;
 	
@@ -39,13 +41,13 @@ public class Robot extends IterativeRobot {
         rightJoystick = new Joystick(1);
     	
     	updater = new Looper(10);
-    	recorder = new Looper(250);
+    	r = new Looper(250);
     	drive = new Drive();
     	arm = new CDFArm();
     	flywheel = new Flywheel();
     	
     	updater.start();
-    	recorder.start();
+    	r.start();
     	
     	incCount = incrementCount();
     }
