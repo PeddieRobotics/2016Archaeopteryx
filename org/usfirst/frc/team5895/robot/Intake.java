@@ -15,16 +15,12 @@ public class Intake {
 	DigitalInput Sensor; 
 	public boolean intaking;
 	public boolean upDown;
+	public boolean shoot;
 	
 	public Intake(){
 		intakeMotor = new Spark(0);
 		upDownSolenoid = new Solenoid(0);
 		Sensor = new DigitalInput(0);
-	}
-	
-	public void on(){
-		intakeMotor.set(1);
-		intaking = true;
 	}
 	
 	public void up(){
@@ -36,7 +32,7 @@ public class Intake {
 	
 	public void shoot(){
 		if (Sensor.get()== true){
-			intakeMotor.set(1);
+			shoot = true;
 		}
 	}
 	
@@ -44,6 +40,9 @@ public class Intake {
 		if (Sensor.equals(true)){
 			intakeMotor.set(0);
 			intaking = true;
+		}
+		if (Sensor.equals(false) || (shoot == true)){
+			intakeMotor.set(1);
 		}
 		if (upDown == true){
 			upDownSolenoid.set(true);
