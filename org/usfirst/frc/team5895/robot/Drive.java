@@ -85,7 +85,6 @@ public class Drive {
     }
     
     public void record() {
-    	DriverStation.reportError("HIIIIII \n", false);
     	if (recordFile==true){
     		f.format("\r\n%f,%f,%f", Timer.getFPGATimestamp(), getAngle(), enc.getDistance());
     	}
@@ -190,7 +189,7 @@ public class Drive {
     			speed = -0.8;
     		}
 //    		
-//    		// end testing code
+//    		// end tfesting code
     		
 //    		if (atAngle()==true){
 //    			speed=0;

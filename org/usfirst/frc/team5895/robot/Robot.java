@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team5895.robot;
 
 import java.io.File;
@@ -25,6 +26,7 @@ public class Robot extends IterativeRobot {
     Joystick rightJoystick;
 	
 	Drive drive;
+	CDFArm arm;
 	Looper updater;
 	Looper recorder;
 	
@@ -38,6 +40,7 @@ public class Robot extends IterativeRobot {
     	updater = new Looper(10);
     	recorder = new Looper(250);
     	drive = new Drive();
+    	arm = new CDFArm();
     	
     	updater.start();
     	recorder.start();
@@ -53,21 +56,29 @@ public class Robot extends IterativeRobot {
 
     public void teleopInit() {
  	   drive.startRecording("teleopDrive"+incCount+".csv");
+ 	   arm.startRecording("teleopArm"+incCount+".csv");
  	   
     }
     
     public void teleopPeriodic() {
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
+    	if(leftJoystick.getRawButton(1)){
+    		arm.up();
+    	}
+    	if(leftJoystick.getRawButton(2)){
+    		arm.down();
+    	}
     }
     
     public void disabledInit() {
-    	drive.stopRecording();    	
+    	drive.stopRecording();  
+    	arm.stopRecording();
     }
     
     private int incrementCount() {
     	try {
     		   Scanner sca;
-    		sca = new Scanner(new File("//c/Logs//Count.txt"));
+    		   sca = new Scanner(new File("//c/Logs//Count.txt"));
     		   int x = sca.nextInt();
     		   Formatter count;
     		   count = new Formatter("//c/Logs//Count.txt");
