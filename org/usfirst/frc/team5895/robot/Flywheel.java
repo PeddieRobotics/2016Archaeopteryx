@@ -1,14 +1,9 @@
 package org.usfirst.frc.team5895.robot;
 
-import java.io.FileNotFoundException;
-import java.util.Formatter;
-import java.util.FormatterClosedException;
 
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
-import edu.wpi.first.wpilibj.Timer;
 
 public class Flywheel {
 
@@ -20,7 +15,6 @@ public class Flywheel {
 	private double Ki;
 	private double Kd;
 	private double dV;
-	private double currentSpeed;
 	
 	public Flywheel(){
 		myMotor = new Spark(0);
@@ -45,6 +39,5 @@ public class Flywheel {
 	
 	public void update() {
 		myMotor.set(myController.getOutput(c.getRate()));
-		currentSpeed= getSpeed();
 	}
 }

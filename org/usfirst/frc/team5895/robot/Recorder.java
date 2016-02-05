@@ -23,14 +23,14 @@ public class Recorder {
 	
 	public void startRecording(String filename) {
     	try {
-    		if (recordFile==false) {
-    		f= new Formatter("/c/Logs/" + filename);
+    		if (recordFile==false){
+    		f= new Formatter("/c/Logs/Drive//" + filename);
     		f.format("Time,DriveAngle,DriveDistance,ArmPositionUp,FlywheelRPM");
     		recordFile=true;
     		}
     	} catch (FileNotFoundException e) {
     		DriverStation.reportError(
-    				"File not Found Exception in Recorder::startRecording\n", false);
+    				"File not Found Exception in Drive::startRecording\n", false);
 	 }
     }
     
@@ -42,18 +42,13 @@ public class Recorder {
     		}
     	} catch (FormatterClosedException e) {
     		DriverStation.reportError(
-    				"Formatter Closed Exception in Recorder::stopRecording\n", false);
+    				"Formatter Closed Exception in Drive::stopRecording\n", false);
     	}
     }
     
     public void record() {
-    	if (recordFile==true) {
-    		f.format("\r\n%f,%f,%f,%b,%f",
-    				Timer.getFPGATimestamp(),
-    				drive.getAngle(),
-    				drive.getDistance(),
-    				arm.getArmPosition(),
-    				fly.getSpeed());
+    	if (recordFile==true){
+    		f.format("\r\n%f,%f,%f,%b,%f", Timer.getFPGATimestamp(), drive.getAngle(), drive.getDistance(), arm.getArmPosition(), fly.getSpeed());
     	}
     }
 }
