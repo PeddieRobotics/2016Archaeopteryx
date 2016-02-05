@@ -42,26 +42,26 @@ public class Robot extends IterativeRobot {
     	
     	updater = new Looper(10);
     	r = new Looper(250);
+    	
     	drive = new Drive();
     	arm = new CDFArm();
     	flywheel = new Flywheel();
     	
+     	recorder = new Recorder(drive,arm,flywheel);
+    	
     	updater.start();
     	r.start();
-    	
     	incCount = incrementCount();
     }
     
     public void autonomousInit() {
-    	drive.startRecording("autoDrive"+incCount+".csv");
+    	recorder.startRecording("auto"+incCount+".csv");
     	drive.turnTo(180);
-    	drive.stopRecording();
+    	recorder.stopRecording();
     }
 
     public void teleopInit() {
- 	   drive.startRecording("teleopDrive"+incCount+".csv");
- 	   arm.startRecording("teleopArm"+incCount+".csv");
- 	   flywheel.startRecording("teleopFlywheel"+incCount+".csv");
+ 	   recorder.startRecording("teleop"+incCount+".csv");
     }
     
     public void teleopPeriodic() {
@@ -84,9 +84,7 @@ public class Robot extends IterativeRobot {
     
     
     public void disabledInit() {
-    	drive.stopRecording();  
-    	arm.stopRecording();
-    	flywheel.stopRecording();
+    	recorder.stopRecording();  
     }
     
     private int incrementCount() {
