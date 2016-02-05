@@ -31,17 +31,17 @@ public class Intake {
 	}
 	
 	public void shoot(){
-		if (Sensor.get()== true){
+		if (Sensor.get() == true){
 			shoot = true;
 		}
 	}
 	
 	public void update(){
-		if (Sensor.equals(true)){
+		if ((Sensor.get() == true)){
 			intakeMotor.set(0);
 			intaking = true;
 		}
-		if (Sensor.equals(false) || (shoot == true)){
+		if ((Sensor.get() == false) || (shoot == true)){
 			intakeMotor.set(1);
 		}
 		if (upDown == true){
