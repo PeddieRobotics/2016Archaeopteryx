@@ -1,8 +1,10 @@
 package org.usfirst.frc.team5895.robot;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Formatter;
 import java.util.FormatterClosedException;
+import java.util.Scanner;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -64,4 +66,20 @@ public class Recorder {
     				turret.getAngle());
     	}
     }
+    public int incrementCount() {
+    	try {
+    		   Scanner sca;
+    		   sca = new Scanner(new File("/c/Logs/Count.txt"));
+    		   int x = sca.nextInt();
+    		   Formatter count;
+    		   count = new Formatter("/c/Logs/Count.txt");
+    		   count.format("%d", x+1);
+    		   count.close();
+    		   sca.close();
+    		   return x;
+    	} catch (FileNotFoundException e) {
+    		DriverStation.reportError("FileNotFoundExeption\n", true);
+    		return -1;
+    	}
+       }
 }

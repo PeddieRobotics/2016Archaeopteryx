@@ -56,7 +56,7 @@ public class Robot extends IterativeRobot {
     	
     	updater.start();
     	r.start();
-    	matchCount = incrementCount();
+    	matchCount = recorder.incrementCount();
     }
     
     public void autonomousInit() {
@@ -114,26 +114,7 @@ public class Robot extends IterativeRobot {
     	}
     }
     
-    
     public void disabledInit() {
     	recorder.stopRecording();  
-    }
-    
-    private int incrementCount() {
-    	try {
-    		   Scanner sca;
-    		   sca = new Scanner(new File("/c/Logs/Count.txt"));
-    		   int x = sca.nextInt();
-    		   Formatter count;
-    		   count = new Formatter("/c/Logs/Count.txt");
-    		   count.format("%d", x+1);
-    		   count.close();
-    		   sca.close();
-    		   return x;
-    	} catch (FileNotFoundException e) {
-    		DriverStation.reportError("FileNotFoundExeption\n", true);
-    		return -1;
-    	}
-       }
-    
+    }  
 }
