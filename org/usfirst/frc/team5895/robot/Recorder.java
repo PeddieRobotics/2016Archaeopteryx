@@ -31,7 +31,7 @@ public class Recorder {
     	try {
     		if (recordFile==false) {
     		f= new Formatter("/c/Logs/" + filename);
-    		f.format("Time,DriveAngle,DriveDistance,ArmPositionUp,FlywheelRPM,IntakePositionUp,Intaking,Ball\r\n");
+    		f.format("Time,DriveAngle,DriveDistance,ArmPositionUp,FlywheelRPM,IntakePositionUp,Ball,TurretAngle\r\n");
     		recordFile=true;
     		}
     	} catch (FileNotFoundException e) {
@@ -54,14 +54,13 @@ public class Recorder {
     
     public void record() {
     	if (recordFile==true) {
-    		f.format("%f,%f,%f,%b,%f,%b,%b,%b,%f\r\n",
+    		f.format("%f,%f,%f,%b,%f,%b,%b,%f\r\n",
     				Timer.getFPGATimestamp(),
     				drive.getAngle(),
     				drive.getDistance(),
     				arm.getArmPosition(),
     				fly.getSpeed(),
     				intake.getUpDown(),
-    				intake.getIntaking(),
     				intake.getBall(),
     				turret.getAngle());
     	}

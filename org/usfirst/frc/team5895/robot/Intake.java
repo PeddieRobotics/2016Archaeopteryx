@@ -12,7 +12,6 @@ public class Intake {
 	Spark intakeMotor;
 	Solenoid upDownSolenoid;
 	DigitalInput Sensor; 
-	public boolean intaking;
 	public boolean upDown;
 	private double shootTimeStamp;
 	
@@ -36,12 +35,12 @@ public class Intake {
 	}
 	
 	public void update(){
-		if ((Sensor.get() == true)){
-			intakeMotor.set(0);
-			intaking = true;
-		}
+		
 		if ((Sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
+		}
+		else {
+			intakeMotor.set(0);
 		}
 		if (upDown == true){
 			upDownSolenoid.set(true);
@@ -50,10 +49,6 @@ public class Intake {
 	
 	public boolean getUpDown(){
 		return upDown;
-	}
-	
-	public boolean getIntaking(){
-		return intaking;
 	}
 	
 	public boolean getBall(){
