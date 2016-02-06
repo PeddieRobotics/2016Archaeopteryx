@@ -1,22 +1,20 @@
 package org.usfirst.frc.team5895.robot;
 
-import org.usfirst.frc.team5895.robot.framework.Waiter;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Intake {
 	
-	Spark intakeMotor;
+	TalonSRX intakeMotor;
 	Solenoid upDownSolenoid;
 	DigitalInput Sensor; 
 	public boolean upDown;
 	private double shootTimeStamp;
 	
 	public Intake(){
-		intakeMotor = new Spark(0);
+		intakeMotor = new TalonSRX(0);
 		upDownSolenoid = new Solenoid(0);
 		Sensor = new DigitalInput(0);
 	}

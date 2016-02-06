@@ -1,13 +1,13 @@
 package org.usfirst.frc.team5895.robot;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.TalonSRX;
 
 public class Turret {
 
-	Spark myMotor;
+	TalonSRX myMotor;
 	PID myPID;
 	Encoder e;
-	private double myAngle;
 	private double Kp;
 	private double Ki;
 	private double Kd;
@@ -16,7 +16,7 @@ public class Turret {
 	
 	public Turret(){
 		
-		myMotor = new Spark(0);
+		myMotor = new TalonSRX(0);
 		myPID = new PID(Kp, Ki, Kd, dV);
 		e = new Encoder(0,1);
 		e.setDistancePerPulse(degreesPerPulse);

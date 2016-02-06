@@ -3,6 +3,7 @@ package org.usfirst.frc.team5895.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class Drive {
@@ -24,9 +25,9 @@ public class Drive {
 	private PID straightPID;
 	private PID straightTurnPID;
 	
-	private Talon rightMotor;
-    private Talon leftMotor;
-
+	private TalonSRX rightMotor;
+    private TalonSRX leftMotor;
+    
     private double rightMotorSpeed = 0;
     private double leftMotorSpeed = 0;
 
@@ -35,8 +36,8 @@ public class Drive {
     
     public Drive()
     {
-    	rightMotor = new Talon(2);
-    	leftMotor = new Talon(1);
+    	rightMotor = new TalonSRX(2);
+    	leftMotor = new TalonSRX(1);
     	ahrs = new NavX();
     	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05);
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
@@ -154,7 +155,7 @@ public class Drive {
     			speed = -0.8;
     		}
 //    		
-//    		// end tfesting code
+//    		// end testing code
     		
 //    		if (atAngle()==true){
 //    			speed=0;

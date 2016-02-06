@@ -22,12 +22,7 @@ public class CDFArm {
 	}
 	
 	public boolean getArmPosition() {
-		if(getPosition ==false){
-		return false;
-		}
-		else{
-		return true;
-		}
-	}
+	return getPosition;
+			}
 	
 }

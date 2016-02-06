@@ -2,10 +2,11 @@ package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Counter;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.TalonSRX;
 
 public class Flywheel {
 
-	Spark myMotor;
+	TalonSRX myMotor;
 	PID myController;
 	Counter c;
 	private double Kp;
@@ -14,7 +15,7 @@ public class Flywheel {
 	private double dV;
 	
 	public Flywheel(){
-		myMotor = new Spark(0);
+		myMotor = new TalonSRX(0);
 		myController = new PID(Kp, Ki, Kd, dV);
 		
 		c = new Counter(8);
