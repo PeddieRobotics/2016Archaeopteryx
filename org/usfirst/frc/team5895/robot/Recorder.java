@@ -34,7 +34,7 @@ public class Recorder {
     		}
     	} catch (FileNotFoundException e) {
     		DriverStation.reportError(
-    				"FileNotFoundException \n", true);
+    				"FileNotFoundException\n", true);
 	 }
     }
     
@@ -60,8 +60,8 @@ public class Recorder {
     				fly.getSpeed(),
     				intake.getUpDown(),
     				intake.getIntaking(),
-    				intake.getBall());
-    				turret.getAngle();
+    				intake.getBall(),
+    				turret.getAngle());
     	}
     }
 }

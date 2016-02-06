@@ -34,7 +34,7 @@ public class Robot extends IterativeRobot {
 	
 	Recorder recorder;
 	
-	int incCount;
+	int matchCount;
 	
     public void robotInit() {
     	
@@ -52,17 +52,17 @@ public class Robot extends IterativeRobot {
     	
     	updater.start();
     	r.start();
-    	incCount = incrementCount();
+    	matchCount = incrementCount();
     }
     
     public void autonomousInit() {
-    	recorder.startRecording("auto"+incCount+".csv");
+    	recorder.startRecording("auto"+matchCount+".csv");
     	drive.turnTo(180);
     	recorder.stopRecording();
     }
 
     public void teleopInit() {
- 	   recorder.startRecording("teleop"+incCount+".csv");
+ 	   recorder.startRecording("teleop"+matchCount+".csv");
     }
     
     public void teleopPeriodic() {
@@ -91,10 +91,10 @@ public class Robot extends IterativeRobot {
     private int incrementCount() {
     	try {
     		   Scanner sca;
-    		   sca = new Scanner(new File("//c/Logs//Count.txt"));
+    		   sca = new Scanner(new File("/c/Logs/Count.txt"));
     		   int x = sca.nextInt();
     		   Formatter count;
-    		   count = new Formatter("//c/Logs//Count.txt");
+    		   count = new Formatter("/c/Logs/Count.txt");
     		   count.format("%d", x+1);
     		   count.close();
     		   sca.close();
