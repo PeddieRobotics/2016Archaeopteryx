@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.Formatter;
 import java.util.FormatterClosedException;
 
+import org.usfirst.frc.team5895.robot.framework.Waiter;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
@@ -33,6 +35,8 @@ public class Intake {
 	public void shoot(){
 		if (Sensor.get() == true){
 			shoot = true;
+			Waiter.waitFor(1000);
+			shoot = false;
 		}
 	}
 	
