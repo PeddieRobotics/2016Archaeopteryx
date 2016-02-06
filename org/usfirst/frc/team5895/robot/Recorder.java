@@ -34,7 +34,7 @@ public class Recorder {
     		}
     	} catch (FileNotFoundException e) {
     		DriverStation.reportError(
-    				"File not Found Exception in Recorder::startRecording\n", false);
+    				"FileNotFoundException \n", true);
 	 }
     }
     
@@ -46,7 +46,7 @@ public class Recorder {
     		}
     	} catch (FormatterClosedException e) {
     		DriverStation.reportError(
-    				"Formatter Closed Exception in Recorder::stopRecording\n", false);
+    				"FormatterClosedException\n", true);
     	}
     }
     

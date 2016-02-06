@@ -9,6 +9,7 @@ import java.util.Scanner;
 import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.Drive;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 
@@ -96,9 +97,10 @@ public class Robot extends IterativeRobot {
     		   count = new Formatter("//c/Logs//Count.txt");
     		   count.format("%d", x+1);
     		   count.close();
+    		   sca.close();
     		   return x;
     	} catch (FileNotFoundException e) {
-    		// TODO Auto-generated catch block
+    		DriverStation.reportError("FileNotFoundExeption\n", true);
     		return -1;
     	}
        }
