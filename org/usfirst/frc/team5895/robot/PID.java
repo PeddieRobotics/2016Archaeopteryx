@@ -85,9 +85,11 @@ public class PID{
 		double time = Timer.getFPGATimestamp() * 1000;
 		double dt = time - lastTime;
 		
-		if (!saturated) {  
+/*		if (!saturated) {  
 			errorSum += error * dt;   //only integrate error if output isn't saturated 
 		}
+*/
+		errorSum += error * dt; //always integrate error
 		
 		double dError = (error - lastError) / dt;  //should this be smoothed over
 		                                           //multiple measurements?
