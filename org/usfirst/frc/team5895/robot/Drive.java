@@ -1,13 +1,8 @@
 package org.usfirst.frc.team5895.robot;
-import java.io.FileNotFoundException;
-import java.util.Formatter;
-import java.util.FormatterClosedException;
-import java.util.Scanner;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class Drive {

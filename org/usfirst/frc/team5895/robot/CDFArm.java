@@ -1,12 +1,6 @@
 package org.usfirst.frc.team5895.robot;
 
-import java.io.FileNotFoundException;
-import java.util.Formatter;
-import java.util.FormatterClosedException;
-
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.Timer;
 
 public class CDFArm {
 
