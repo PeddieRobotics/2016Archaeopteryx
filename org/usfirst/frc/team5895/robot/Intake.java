@@ -5,6 +5,7 @@ import org.usfirst.frc.team5895.robot.framework.Waiter;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Spark;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Intake {
 	
@@ -14,6 +15,7 @@ public class Intake {
 	public boolean intaking;
 	public boolean upDown;
 	public boolean shoot;
+	private double shootTimeStamp;
 	
 	public Intake(){
 		intakeMotor = new Spark(0);
@@ -31,8 +33,7 @@ public class Intake {
 	public void shoot(){
 		if (Sensor.get() == true){
 			shoot = true;
-			Waiter.waitFor(1000);
-			shoot = false;
+			shootTimeStamp = Timer.getFPGATimestamp();
 		}
 	}
 	
@@ -47,6 +48,10 @@ public class Intake {
 		if (upDown == true){
 			upDownSolenoid.set(true);
 		} else upDownSolenoid.set(false);
+		
+		if (Timer.getFPGATimestamp() > (shootTimeStamp+1)){
+			shoot = false;
+		}
 	}
 	
 	public boolean getUpDown(){
