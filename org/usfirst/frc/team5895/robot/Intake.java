@@ -14,7 +14,6 @@ public class Intake {
 	DigitalInput Sensor; 
 	public boolean intaking;
 	public boolean upDown;
-	public boolean shoot;
 	private double shootTimeStamp;
 	
 	public Intake(){
@@ -32,7 +31,6 @@ public class Intake {
 	
 	public void shoot(){
 		if (Sensor.get() == true){
-			shoot = true;
 			shootTimeStamp = Timer.getFPGATimestamp();
 		}
 	}
@@ -42,16 +40,12 @@ public class Intake {
 			intakeMotor.set(0);
 			intaking = true;
 		}
-		if ((Sensor.get() == false) || (shoot == true)){
+		if ((Sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
 		}
 		if (upDown == true){
 			upDownSolenoid.set(true);
 		} else upDownSolenoid.set(false);
-		
-		if (Timer.getFPGATimestamp() > (shootTimeStamp+1)){
-			shoot = false;
-		}
 	}
 	
 	public boolean getUpDown(){
