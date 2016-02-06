@@ -29,6 +29,8 @@ public class Robot extends IterativeRobot {
 	Drive drive;
 	CDFArm arm;
 	Flywheel flywheel;
+	Turret turret;
+	Intake intake;
 	Looper updater;
 	Looper r;
 	
@@ -47,8 +49,10 @@ public class Robot extends IterativeRobot {
     	drive = new Drive();
     	arm = new CDFArm();
     	flywheel = new Flywheel();
+    	intake = new Intake();
+    	turret = new Turret();
     	
-     	recorder = new Recorder(drive,arm,flywheel);
+     	recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	
     	updater.start();
     	r.start();
@@ -80,6 +84,33 @@ public class Robot extends IterativeRobot {
     	//FLYWHEEL CONTROL SPEED
     	if(rightJoystick.getRawButton(3)){
     		flywheel.setSpeed(1.0);
+    	}
+    	
+    	//INTAKE UP OR DOWN
+    	if(rightJoystick.getRawButton(1)){
+    		intake.up();
+    	}
+    	else if(rightJoystick.getRawButton(2)){
+    		intake.down();
+    	}
+    	
+    	//SHOOTING
+    	if(rightJoystick.getTrigger()){
+    		intake.shoot();
+    	}
+    	
+    	//SET TURRET
+    	//STRAIGHT
+    	if(leftJoystick.getRawButton(3)){
+    		turret.set(0);
+    	}
+    	//CORNER
+    	if(leftJoystick.getRawButton(4)){
+    		turret.set(100);
+    	}
+    	//OTHER CORNER
+    	if(leftJoystick.getRawButton(5)){
+    		turret.set(-100);
     	}
     }
     
