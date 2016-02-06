@@ -4,25 +4,25 @@ import edu.wpi.first.wpilibj.Solenoid;
 
 public class CDFArm {
 
-	Solenoid myCylinder;
+	private Solenoid myCylinder;
 	
-	boolean getPosition;
+	private boolean getPosition;
 	
-	public CDFArm(){
+	public CDFArm() {
 		myCylinder = new Solenoid(0);
 	}
 	
-	public void up(){
+	public void up() {
 		myCylinder.set(true);
 		getPosition = true;
 	}
-	public void down(){
+	public void down() {
 		myCylinder.set(false);
 		getPosition = false;
 	}
 	
 	public boolean getArmPosition() {
-	return getPosition;
-			}
+		return getPosition;
+	}
 	
 }
