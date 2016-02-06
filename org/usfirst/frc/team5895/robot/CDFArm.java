@@ -12,19 +12,10 @@ public class CDFArm {
 		myCylinder = new Solenoid(0);
 	}
 	
-<<<<<<< HEAD
 	public void up(){
 		getPosition = true;
 	}
 	public void down(){
-=======
-	public void up() {
-		myCylinder.set(true);
-		getPosition = true;
-	}
-	public void down() {
-		myCylinder.set(false);
->>>>>>> origin/master
 		getPosition = false;
 	}
 	
