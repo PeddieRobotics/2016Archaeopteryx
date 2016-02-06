@@ -1,15 +1,9 @@
 
 package org.usfirst.frc.team5895.robot;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Formatter;
-import java.util.Scanner;
-
 import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.Drive;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 

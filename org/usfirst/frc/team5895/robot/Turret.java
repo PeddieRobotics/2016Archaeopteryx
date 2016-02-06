@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5895.robot;
 import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.TalonSRX;
 
 public class Turret {

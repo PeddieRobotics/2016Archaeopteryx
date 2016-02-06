@@ -13,12 +13,14 @@ public class CDFArm {
 	}
 	
 	public void up(){
-		myCylinder.set(true);
 		getPosition = true;
 	}
 	public void down(){
-		myCylinder.set(false);
 		getPosition = false;
+	}
+	
+	public void update(){
+		myCylinder.set(getPosition);
 	}
 	
 	public boolean getArmPosition() {
