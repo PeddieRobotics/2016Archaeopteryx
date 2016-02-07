@@ -17,7 +17,7 @@ public class Recorder {
 	private Turret turret;
 	
 	private boolean recordFile;
-	Formatter f = new Formatter();
+	private Formatter f;
 	
 	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in, Turret t ){
 		this.drive = d;
@@ -25,6 +25,7 @@ public class Recorder {
 		this.fly = fy;	
 		this.intake = in;
 		this.turret = t;
+		recordFile = false;
 	}
 	
 	public void startRecording(String filename) {
@@ -65,6 +66,7 @@ public class Recorder {
     				turret.getAngle());
     	}
     }
+    
     public int incrementCount() {
     	try {
     		   Scanner sca;
