@@ -30,69 +30,39 @@ public class Intake {
 	/**
 	 * Moves the arm down
 	 */
-	public void down(){
-=======
-	
-	public void up() {
->>>>>>> origin/master
-		upDown = false;
-	} 
 	public void down() {
-		upDown = true;
+		upDown = false;
 	}
-<<<<<<< HEAD
 	/**
 	 * Shoots the ball
 	 */
 	public void shoot(){
-=======
-	
-	public void shoot() {
->>>>>>> origin/master
 		if (Sensor.get() == true){
 			shootTimeStamp = Timer.getFPGATimestamp();
 		}
 	}
-	
+	/**
+	 * Gives the up or down value
+	 */
 	public boolean getUpDown() {
 		return upDown;
 	}
-	
+	/**
+	 *gives whether it has a ball
+	 */
 	public boolean getBall() {
 		return Sensor.get();
 	}
 	
 	public void update(){
-		/**
-		 * Gives the up or down value
-		 */
+	
 		if ((Sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
 		}
 		else {
 			intakeMotor.set(0);
 		}
-		
-		if (upDown == true){
-			upDownSolenoid.set(true);
-<<<<<<< HEAD
-		} else upDownSolenoid.set(false);
-	}
-	
-	public boolean getUpDown(){
-		return upDown;
-	}
-	/**
-	 * Gets ball
-	 * @return
-	 */
-	public boolean getBall(){
-		return Sensor.get();
-=======
-		} else {
-			upDownSolenoid.set(false);
-		}
->>>>>>> origin/master
+			upDownSolenoid.set(upDown);
 	}
 	
 }
