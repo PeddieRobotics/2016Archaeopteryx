@@ -7,17 +7,20 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Intake {
 	
-	TalonSRX intakeMotor;
-	Solenoid upDownSolenoid;
-	DigitalInput Sensor; 
-	public boolean upDown;
+	private TalonSRX intakeMotor;
+	private Solenoid upDownSolenoid;
+	private DigitalInput Sensor; 
+	private boolean upDown;
 	private double shootTimeStamp;
 	
 	public Intake(){
 		intakeMotor = new TalonSRX(0);
 		upDownSolenoid = new Solenoid(0);
 		Sensor = new DigitalInput(0);
+		upDown = false;
+		shootTimeStamp = Double.MIN_VALUE;
 	}
+<<<<<<< HEAD
 	/**
 	 * Moves the arm up
 	 */
@@ -28,15 +31,35 @@ public class Intake {
 	 * Moves the arm down
 	 */
 	public void down(){
+=======
+	
+	public void up() {
+>>>>>>> origin/master
 		upDown = false;
+	} 
+	public void down() {
+		upDown = true;
 	}
+<<<<<<< HEAD
 	/**
 	 * Shoots the ball
 	 */
 	public void shoot(){
+=======
+	
+	public void shoot() {
+>>>>>>> origin/master
 		if (Sensor.get() == true){
 			shootTimeStamp = Timer.getFPGATimestamp();
 		}
+	}
+	
+	public boolean getUpDown() {
+		return upDown;
+	}
+	
+	public boolean getBall() {
+		return Sensor.get();
 	}
 	
 	public void update(){
@@ -49,8 +72,10 @@ public class Intake {
 		else {
 			intakeMotor.set(0);
 		}
+		
 		if (upDown == true){
 			upDownSolenoid.set(true);
+<<<<<<< HEAD
 		} else upDownSolenoid.set(false);
 	}
 	
@@ -63,6 +88,11 @@ public class Intake {
 	 */
 	public boolean getBall(){
 		return Sensor.get();
+=======
+		} else {
+			upDownSolenoid.set(false);
+		}
+>>>>>>> origin/master
 	}
 	
 }

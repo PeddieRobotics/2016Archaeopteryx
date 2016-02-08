@@ -61,14 +61,30 @@ public class PID{
 		errorSum = 0;
 	}
 
+	/**
+	 * Changes the target point to be setpoint
+	 * 
+	 * @param setpoint Where the mechanism controlled my the PID should go to
+	 */
 	public void set(double setpoint) {
 		this.setpoint = setpoint;
 	}
 	
+	/**
+	 * Returns the target position
+	 * 
+	 * @return The setpoint
+	 */
 	public double getSetpoint() {
 		return setpoint;
 	}
 
+	/**
+	 * Returns the output for the mechanism (should be called periodically)
+	 * 
+	 * @param proccessVar The current location of the mechanism
+	 * @return The output to the motor controlling the mechanism
+	 */
 	public double getOutput(double proccessVar) {
 
 		double error = setpoint - proccessVar;
