@@ -12,7 +12,9 @@ public class Flywheel {
 	private double Ki;
 	private double Kd;
 	private double dV;
-	
+	/**
+	 * Creates a new Flywheel
+	 */
 	public Flywheel(){
 		myMotor = new TalonSRX(0);
 		myController = new PID(Kp, Ki, Kd, dV);
@@ -22,15 +24,23 @@ public class Flywheel {
 		c.setSamplesToAverage(2);
 		
 	}
-	
+	/**
+	 *Sets the speed at a certain speed
+	 * @param speed
+	 */
 	public void setSpeed(double speed){
 		myController.set(speed/60);
 	}
-	
+	/**
+	 * Gets the speed that the Flywheel is moving at
+	 * @return
+	 */
 	public double getSpeed() {
 		return c.getRate()*60;
 	}
-	
+	/**
+	 * Updates the reading at points throughout
+	 */
 	public void update() {
 		myMotor.set(myController.getOutput(c.getRate()));
 	}

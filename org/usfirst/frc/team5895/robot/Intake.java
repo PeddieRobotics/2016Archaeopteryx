@@ -18,14 +18,21 @@ public class Intake {
 		upDownSolenoid = new Solenoid(0);
 		Sensor = new DigitalInput(0);
 	}
-	
+	/**
+	 * Moves the arm up
+	 */
 	public void up(){
 		upDown = true;
-	} 
+	}
+	/**
+	 * Moves the arm down
+	 */
 	public void down(){
 		upDown = false;
 	}
-	
+	/**
+	 * Shoots the ball
+	 */
 	public void shoot(){
 		if (Sensor.get() == true){
 			shootTimeStamp = Timer.getFPGATimestamp();
@@ -33,7 +40,9 @@ public class Intake {
 	}
 	
 	public void update(){
-		
+		/**
+		 * Gives the up or down value
+		 */
 		if ((Sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
 		}
@@ -48,7 +57,10 @@ public class Intake {
 	public boolean getUpDown(){
 		return upDown;
 	}
-	
+	/**
+	 * Gets ball
+	 * @return
+	 */
 	public boolean getBall(){
 		return Sensor.get();
 	}
