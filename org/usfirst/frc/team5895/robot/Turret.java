@@ -29,6 +29,11 @@ public class Turret {
 		return e.getDistance();
 	}
 	
+	public boolean atAngle(){
+		if(Math.abs(e.getDistance()-myPID.getSetpoint())<0.25){
+			return true;
+	}else return false;
+	}
 	public void update(){
 		
 		myMotor.set(myPID.getOutput(e.getDistance()));

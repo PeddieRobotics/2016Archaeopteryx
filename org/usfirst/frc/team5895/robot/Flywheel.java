@@ -38,6 +38,12 @@ public class Flywheel {
 	public double getSpeed() {
 		return c.getRate()*60;
 	}
+	public boolean atSpeed(){
+		if(Math.abs(c.getRate()-myController.getSetpoint())<50){
+			return true;
+		}else return false;
+	}
+		
 	/**
 	 * Updates the reading at points throughout
 	 */
