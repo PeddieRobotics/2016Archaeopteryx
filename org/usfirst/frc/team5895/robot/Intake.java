@@ -9,22 +9,22 @@ public class Intake {
 	
 	private TalonSRX intakeMotor;
 	private Solenoid upDownSolenoid;
-	private DigitalInput Sensor; 
+	private DigitalInput sensor; 
 	private boolean upDown;
 	private double shootTimeStamp;
 	
-	public Intake(){
+	public Intake() {
 		intakeMotor = new TalonSRX(0);
 		upDownSolenoid = new Solenoid(0);
-		Sensor = new DigitalInput(0);
+		sensor = new DigitalInput(0);
 		upDown = false;
 		shootTimeStamp = Double.MIN_VALUE;
 	}
-<<<<<<< HEAD
+	
 	/**
 	 * Moves the arm up
 	 */
-	public void up(){
+	public void up() {
 		upDown = true;
 	}
 	/**
@@ -33,36 +33,43 @@ public class Intake {
 	public void down() {
 		upDown = false;
 	}
+	
 	/**
 	 * Shoots the ball
 	 */
-	public void shoot(){
-		if (Sensor.get() == true){
+	public void shoot() {
+		if (sensor.get() == true) {
 			shootTimeStamp = Timer.getFPGATimestamp();
 		}
 	}
 	/**
-	 * Gives the up or down value
+	 * Returns whether or not the intake is up
+	 * 
+	 * @return True if the intake is down, false otherwise
 	 */
-	public boolean getUpDown() {
+	public boolean isDown() {
 		return upDown;
 	}
+	
 	/**
-	 *gives whether it has a ball
+	 * Return whether or not the intake has a ball
+	 * 
+	 * @return True if there is a ball, false otherwise
 	 */
-	public boolean getBall() {
-		return Sensor.get();
+	public boolean hasBall() {
+		return sensor.get();
 	}
 	
-	public void update(){
+	public void update() {
 	
-		if ((Sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
+		if ((sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
 		}
 		else {
 			intakeMotor.set(0);
 		}
-			upDownSolenoid.set(upDown);
+		
+		upDownSolenoid.set(upDown);
 	}
 	
 }

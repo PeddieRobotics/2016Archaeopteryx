@@ -49,17 +49,19 @@ public class Drive {
     	ahrs.reset();
     }
     
-    
-    
     /**
-     * Gets the angle the of the robot
+     * Returns the angle the of the robot
      * 
-     * @return Returns the angle the robot is facing in degrees
+     * @return The angle the robot is facing in degrees
      */
     public double getAngle(){
     	return ahrs.getAngle();
     }
     
+    /**
+     * Returns the distance the robot has traveled
+     * @return The distance the robot has traveled, in inches
+     */
     public double getDistance(){
     	return enc.getDistance();
     }
@@ -112,7 +114,6 @@ public class Drive {
     
     }
     
-    
     /**
      * Returns true if the robot has driven the distance last specified by driveStaight
      * 
@@ -134,7 +135,7 @@ public class Drive {
     }
     
     public void update() {
-    		switch (mode)
+    	switch (mode)
     	{
     	case TELEOP:
             rightMotor.set(rightMotorSpeed);

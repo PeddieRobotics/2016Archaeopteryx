@@ -85,8 +85,8 @@ public class Recorder {
     				drive.getDistance(),
     				arm.getArmPosition(),
     				fly.getSpeed(),
-    				intake.getUpDown(),
-    				intake.getBall(),
+    				intake.isDown(),
+    				intake.hasBall(),
     				turret.getAngle());
     	}
     }
