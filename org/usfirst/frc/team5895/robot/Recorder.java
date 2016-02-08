@@ -1,3 +1,9 @@
+/*
+ * This class records all the data in one Exel document
+ * Also, it creates a new document with a new name everytime we run a Robot
+ */
+
+
 package org.usfirst.frc.team5895.robot;
 
 import java.io.File;
@@ -9,6 +15,7 @@ import java.util.Scanner;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
+
 public class Recorder {	
 	private Drive drive;
 	private CDFArm arm;
@@ -19,6 +26,10 @@ public class Recorder {
 	private boolean recordFile;
 	private Formatter f;
 	
+	/*
+	 * Constructor, gets the drive, the arm, flywheel and the turret as parameters
+	 */
+	
 	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in, Turret t ){
 		this.drive = d;
 		this.arm = a;
@@ -27,6 +38,11 @@ public class Recorder {
 		this.turret = t;
 		recordFile = false;
 	}
+	
+	/*
+	 * This method creates a file with a new name and creates
+	 * columns for data
+	 */
 	
 	public void startRecording(String filename) {
     	try {
@@ -41,6 +57,10 @@ public class Recorder {
 	 }
     }
     
+	/*
+	 * Closes the file 
+	 */
+	
     public void stopRecording(){
     	try {
     		if (recordFile==true){
@@ -52,6 +72,10 @@ public class Recorder {
     				"FormatterClosedException\n", true);
     	}
     }
+    
+    /*
+     * This method writes the data into the created file
+     */
     
     public void record() {
     	if (recordFile==true) {
@@ -66,6 +90,11 @@ public class Recorder {
     				turret.getAngle());
     	}
     }
+    
+    /*
+     * Reads a total number of files from another file, then
+     * increments the number after every run
+     */
     
     public int incrementCount() {
     	try {
