@@ -1,9 +1,3 @@
-/*
- * This class records all the data in one Exel document
- * Also, it creates a new document with a new name everytime we run a Robot
- */
-
-
 package org.usfirst.frc.team5895.robot;
 
 import java.io.File;
@@ -26,10 +20,14 @@ public class Recorder {
 	private boolean recordFile;
 	private Formatter f;
 	
-	/*
-	 * Constructor, gets the drive, the arm, flywheel and the turret as parameters
+	/**
+	 * Makes a new Recorder
+	 * @param d the drivetrain 
+	 * @param a the arm 
+	 * @param fy the Flywheel 
+	 * @param in has the ball in or not
+	 * @param t the turret
 	 */
-	
 	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in, Turret t ){
 		this.drive = d;
 		this.arm = a;
@@ -39,11 +37,12 @@ public class Recorder {
 		recordFile = false;
 	}
 	
-	/*
-	 * This method creates a file with a new name and creates
-	 * columns for data
+	/**
+	 * Creates a file for saving data and makes separate columns for everything
+	 * @param filename it's a string passed from the Robot
+	 * 				   in autonomous it's "auto + # of a file + .csv" 
+	 * 				   in teleop it's "teleop + # of a file + .csv" 
 	 */
-	
 	public void startRecording(String filename) {
     	try {
     		if (recordFile==false) {
@@ -57,10 +56,9 @@ public class Recorder {
 	 }
     }
     
-	/*
-	 * Closes the file 
+	/**
+	 * stops recording and closes the file
 	 */
-	
     public void stopRecording(){
     	try {
     		if (recordFile==true){
@@ -73,10 +71,9 @@ public class Recorder {
     	}
     }
     
-    /*
-     * This method writes the data into the created file
+    /**
+     * Writes the data into assigned columns 
      */
-    
     public void record() {
     	if (recordFile==true) {
     		f.format("%f,%f,%f,%b,%f,%b,%b,%f\r\n",
@@ -91,11 +88,10 @@ public class Recorder {
     	}
     }
     
-    /*
-     * Reads a total number of files from another file, then
-     * increments the number after every run
+    /**
+     * Reads the number of files from another file, then increments it
+     * @return the number of the file
      */
-    
     public int incrementCount() {
     	try {
     		   Scanner sca;
