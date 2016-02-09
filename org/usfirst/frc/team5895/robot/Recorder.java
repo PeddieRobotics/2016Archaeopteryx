@@ -24,8 +24,8 @@ public class Recorder {
 	 * Makes a new Recorder
 	 * @param d the drivetrain 
 	 * @param a the arm 
-	 * @param fy the Flywheel 
-	 * @param in has the ball in or not
+	 * @param fy the flywheel 
+	 * @param in the intake
 	 * @param t the turret
 	 */
 	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in, Turret t ){
@@ -39,9 +39,8 @@ public class Recorder {
 	
 	/**
 	 * Creates a file for saving data and makes separate columns for everything
-	 * @param filename it's a string passed from the Robot
-	 * 				   in autonomous it's "auto + # of a file + .csv" 
-	 * 				   in teleop it's "teleop + # of a file + .csv" 
+	 * @param filename The name of the log file to create, overwrites this file
+	 * 			if it already exists
 	 */
 	public void startRecording(String filename) {
     	try {
@@ -57,7 +56,7 @@ public class Recorder {
     }
     
 	/**
-	 * stops recording and closes the file
+	 * Stops recording and closes the file
 	 */
     public void stopRecording(){
     	try {
