@@ -11,7 +11,7 @@ public class CDFArm {
 	 * Constructs a new CDFArm object
 	 */
 	public CDFArm() {
-		myCylinder = new Solenoid(0);
+		myCylinder = new Solenoid(ElectricalLayout.ARM_SOLENOID);
 		getPosition = false;
 	}
 	

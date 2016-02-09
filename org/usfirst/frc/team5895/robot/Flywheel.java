@@ -17,7 +17,7 @@ public class Flywheel {
 	 * Creates a new Flywheel
 	 */
 	public Flywheel() {
-		myMotor = new TalonSRX(0);
+		myMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
 		myController = new PID(Kp, Ki, Kd, dV);
 		
 		c = new Counter(8);

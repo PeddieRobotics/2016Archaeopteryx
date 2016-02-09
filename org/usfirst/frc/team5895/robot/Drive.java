@@ -35,8 +35,8 @@ public class Drive {
     
     public Drive()
     {
-    	rightMotor = new TalonSRX(2);
-    	leftMotor = new TalonSRX(1);
+    	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
+    	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
     	ahrs = new NavX();
     	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05);
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
