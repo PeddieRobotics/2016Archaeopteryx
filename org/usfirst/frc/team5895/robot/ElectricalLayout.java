@@ -10,6 +10,4 @@ public class ElectricalLayout {
 	public static final int ARM_SOLENOID = 5;
 	public static final int INTAKE_SOLENOID = 6;
 	
-			
-
 }
