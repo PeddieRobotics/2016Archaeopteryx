@@ -25,7 +25,7 @@ public class Robot extends IterativeRobot {
 	Flywheel flywheel;
 	Turret turret;
 	Intake intake;
-	Looper updater;
+	Looper u;
 	Looper r;
 	
 	Recorder recorder;
@@ -37,7 +37,7 @@ public class Robot extends IterativeRobot {
     	leftJoystick = new Joystick(0);
         rightJoystick = new Joystick(1);
     	
-    	updater = new Looper(10);
+    	u = new Looper(10);
     	r = new Looper(250);
     	
     	drive = new Drive();
@@ -47,10 +47,12 @@ public class Robot extends IterativeRobot {
     	turret = new Turret();
     	
      	recorder = new Recorder(drive,arm,flywheel,intake,turret);
-    	
-    	updater.start();
-    	r.start();
     	matchCount = recorder.incrementCount();
+     	
+    	u.add(drive::update);
+     	
+    	u.start();
+    	r.start();
     }
     
     public void autonomousInit() {
@@ -67,6 +69,7 @@ public class Robot extends IterativeRobot {
     	//DRIVE
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
     	
+    	/*
     	//CDF ARM UP OR DOWN
     	if(leftJoystick.getRawButton(1)){
     		arm.up();
@@ -106,6 +109,7 @@ public class Robot extends IterativeRobot {
     	if(leftJoystick.getRawButton(5)){
     		turret.set(-100);
     	}
+    	*/
     }
     
     public void disabledInit() {
