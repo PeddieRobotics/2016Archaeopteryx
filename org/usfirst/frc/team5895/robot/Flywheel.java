@@ -20,7 +20,7 @@ public class Flywheel {
 		myMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
 		myController = new PID(Kp, Ki, Kd, dV);
 		
-		c = new Counter(8);
+		c = new Counter(ElectricalLayout.FLYWHEEL_DIGITALIO);
 		c.setDistancePerPulse(1);
 		c.setSamplesToAverage(2);
 		
