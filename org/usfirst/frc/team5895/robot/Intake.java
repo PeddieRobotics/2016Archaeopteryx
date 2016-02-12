@@ -16,7 +16,7 @@ public class Intake {
 	public Intake() {
 		intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
 		upDownSolenoid = new Solenoid(ElectricalLayout.INTAKE_SOLENOID);
-		sensor = new DigitalInput(ElectricalLayout.INTAKE_DIGITALIO);
+		sensor = new DigitalInput(ElectricalLayout.INTAKE_SENSOR);
 		upDown = false;
 		shootTimeStamp = Double.MIN_VALUE;
 	}

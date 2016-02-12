@@ -16,10 +16,10 @@ public class ElectricalLayout {
 	
 	
 	//Digital Inputs
-	public static final int DRIVE_DIGITALIO = 0;
-	public static final int DRIVE_DIGITALIO2 = 1;
-	public static final int FLYWHEEL_DIGITALIO = 2;
-	public static final int INTAKE_DIGITALIO = 3;
-	public static final int TURRET_DIGITALIO = 4;
-	public static final int TURRET_DIGITALIO2 = 5;	
+	public static final int DRIVE_ENCODER = 0;
+	public static final int DRIVE_ENCODER2 = 1;
+	public static final int FLYWHEEL_COUNTER = 2;
+	public static final int INTAKE_SENSOR = 3;
+	public static final int TURRET_ENCODER = 4;
+	public static final int TURRET_ENCODER2 = 5;	
 }

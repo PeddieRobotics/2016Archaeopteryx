@@ -17,7 +17,7 @@ public class Turret {
 		
 		myMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
 		myPID = new PID(Kp, Ki, Kd, dV);
-		e = new Encoder(ElectricalLayout.TURRET_DIGITALIO,ElectricalLayout.TURRET_DIGITALIO2);
+		e = new Encoder(ElectricalLayout.TURRET_ENCODER,ElectricalLayout.TURRET_ENCODER2);
 		e.setDistancePerPulse(degreesPerPulse);
 	}
 	
