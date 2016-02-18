@@ -5,8 +5,8 @@ public class ElectricalLayout {
 	//Motors
 	public static final int DRIVE_LEFTMOTOR = 0;
 	public static final int DRIVE_RIGHTMOTOR = 1;
-	public static final int FLYWHEEL_MOTOR = 2;
-	public static final int FLYWHEEL_MOTOR2 = 3;
+	public static final int FLYWHEEL_TOPMOTOR = 2;
+	public static final int FLYWHEEL_BOTTOMMOTOR = 3;
 	public static final int INTAKE_MOTOR = 4;
 	public static final int TURRET_MOTOR = 5;
 
@@ -19,8 +19,8 @@ public class ElectricalLayout {
 	//Digital Inputs
 	public static final int DRIVE_ENCODER = 0;
 	public static final int DRIVE_ENCODER2 = 1;
-	public static final int FLYWHEEL_COUNTER = 2;
-	public static final int FLYWHEEL_COUNTER2 = 3;
+	public static final int FLYWHEEL_TOPCOUNTER = 2;
+	public static final int FLYWHEEL_BOTTOMCOUNTER = 3;
 	public static final int INTAKE_SENSOR = 4;
 	public static final int TURRET_ENCODER = 5;
 	public static final int TURRET_ENCODER2 = 6;	

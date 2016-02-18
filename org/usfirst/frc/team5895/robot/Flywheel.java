@@ -22,16 +22,16 @@ public class Flywheel {
 	 * Creates a new Flywheel
 	 */
 	public Flywheel() {
-		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
-		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR2);
+		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_TOPMOTOR);
+		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		topController = new PID(Kp, Ki, Kd, dV);
 		bottomController = new PID(Kp, Ki,Kd, dV);
 		
-		topCounter = new Counter(ElectricalLayout.FLYWHEEL_COUNTER);
+		topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		topCounter.setDistancePerPulse(1);
 		topCounter.setSamplesToAverage(2);
-		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_COUNTER2);
+		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 		bottomCounter.setDistancePerPulse(1);
 		bottomCounter.setSamplesToAverage(2);
 		
