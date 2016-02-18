@@ -9,7 +9,8 @@ public class Flywheel {
 	private TalonSRX topMotor;
 	private TalonSRX bottomMotor;
 	private Solenoid mySolenoid;
-	private PID myController;
+	private PID topController;
+	private PID bottomController;
 	private Counter topCounter;
 	private Counter bottomCounter;
 	private double Kp;
@@ -24,7 +25,8 @@ public class Flywheel {
 		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR2);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
-		myController = new PID(Kp, Ki, Kd, dV);
+		topController = new PID(Kp, Ki, Kd, dV);
+		bottomController = new PID(Kp, Ki,Kd, dV);
 		
 		topCounter = new Counter(ElectricalLayout.FLYWHEEL_COUNTER);
 		topCounter.setDistancePerPulse(1);
@@ -40,7 +42,8 @@ public class Flywheel {
 	 * @param speed The desired speed of the flywheel, in rpm
 	 */
 	public void setSpeed(double speed) {
-		myController.set(speed/60);
+		topController.set(speed/60);
+		bottomController.set(speed/60);
 	}
 	
 	/**
@@ -56,7 +59,7 @@ public class Flywheel {
 	 * @return True if the flywheel is within 50 rpm of the setpoint
 	 */
 	public boolean atSpeed(){
-		if(Math.abs(topCounter.getRate()-myController.getSetpoint())<(50*60)){
+		if((Math.abs(topCounter.getRate()-topController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-topController.getSetpoint())<(50*60))){
 			return true;
 		} else
 			return false;
@@ -75,8 +78,8 @@ public class Flywheel {
 	}
 	
 	public void update() {
-		topMotor.set(myController.getOutput(topCounter.getRate()));
-		bottomMotor.set(myController.getOutput(bottomCounter.getRate()));
+		topMotor.set(topController.getOutput(topCounter.getRate()));
+		bottomMotor.set(bottomController.getOutput(bottomCounter.getRate()));
 		mySolenoid.set(upDown);
 	}
 }
