@@ -1,28 +1,37 @@
 package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 
 public class Flywheel {
 
-	private TalonSRX myMotor;
+	private TalonSRX topMotor;
+	private TalonSRX bottomMotor;
+	private Solenoid mySolenoid;
 	private PID myController;
-	private Counter c;
+	private Counter topCounter;
+	private Counter bottomCounter;
 	private double Kp;
 	private double Ki;
 	private double Kd;
 	private double dV;
-	
+	private boolean upDown;
 	/**
 	 * Creates a new Flywheel
 	 */
 	public Flywheel() {
-		myMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
+		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR);
+		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_MOTOR2);
+		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		myController = new PID(Kp, Ki, Kd, dV);
 		
-		c = new Counter(ElectricalLayout.FLYWHEEL_COUNTER);
-		c.setDistancePerPulse(1);
-		c.setSamplesToAverage(2);
+		topCounter = new Counter(ElectricalLayout.FLYWHEEL_COUNTER);
+		topCounter.setDistancePerPulse(1);
+		topCounter.setSamplesToAverage(2);
+		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_COUNTER2);
+		bottomCounter.setDistancePerPulse(1);
+		bottomCounter.setSamplesToAverage(2);
 		
 	}
 	
@@ -39,7 +48,7 @@ public class Flywheel {
 	 * @return The speed of the flywhell, in rpm
 	 */
 	public double getSpeed() {
-		return c.getRate()*60;
+		return topCounter.getRate()*60;
 	}
 	
 	/**
@@ -47,13 +56,27 @@ public class Flywheel {
 	 * @return True if the flywheel is within 50 rpm of the setpoint
 	 */
 	public boolean atSpeed(){
-		if(Math.abs(c.getRate()-myController.getSetpoint())<(50*60)) {
+		if(Math.abs(topCounter.getRate()-myController.getSetpoint())<(50*60)){
 			return true;
 		} else
 			return false;
 	}
 		
+	public void up(){
+		upDown = true;
+	}
+	
+	public void down(){
+		upDown = false;
+	}
+	
+	public boolean getUpDown(){
+		return upDown;
+	}
+	
 	public void update() {
-		myMotor.set(myController.getOutput(c.getRate()));
+		topMotor.set(myController.getOutput(topCounter.getRate()));
+		bottomMotor.set(myController.getOutput(bottomCounter.getRate()));
+		mySolenoid.set(upDown);
 	}
 }
