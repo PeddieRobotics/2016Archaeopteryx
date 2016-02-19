@@ -1,5 +1,7 @@
 package org.usfirst.frc.team5895.robot;
 
+import org.usfirst.frc.team5895.robot.framework.Waiter;
+
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -66,6 +68,8 @@ public class Intake {
 			intakeMotor.set(1);
 		}
 		else {
+			intakeMotor.set(-1);
+			Waiter.waitFor(50);
 			intakeMotor.set(0);
 		}
 		
