@@ -11,9 +11,9 @@ public class ElectricalLayout {
 	public static final int TURRET_MOTOR = 5;
 
 	//Solenoids
-	public static final int ARM_SOLENOID = 0;
+	public static final int ARM_SOLENOID = 3; //Cheval de Frise
 	public static final int INTAKE_SOLENOID = 1;
-	public static final int FLYWHEEL_SOLENOID = 2;
+	public static final int FLYWHEEL_SOLENOID = 2; //Shooter Hood
 	
 	
 	//Digital Inputs
