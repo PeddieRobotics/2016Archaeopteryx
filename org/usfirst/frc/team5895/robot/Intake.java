@@ -16,6 +16,8 @@ public class Intake {
 	private double shootTimeStamp;
 	private double ballTimeStamp;
 	private boolean lastHasBall;
+	private enum Mode_Type {INTAKING, HAS_BALL, SHOOTING};
+	private Mode_Type mode = Mode_Type.INTAKING;
 	
 	public Intake() {
 		intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
@@ -47,6 +49,7 @@ public class Intake {
 		if (sensor.get() == true) {
 			shootTimeStamp = Timer.getFPGATimestamp();
 		}
+		mode = Mode_Type.SHOOTING;
 	}
 	/**
 	 * Returns whether or not the intake is up
@@ -67,19 +70,29 @@ public class Intake {
 	}
 	
 	public void update() {
-	
-		if((lastHasBall == false) && sensor.get()){
-			ballTimeStamp = Timer.getFPGATimestamp();
-		}
+		switch (mode) {
 		
-		if ((sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
+		case INTAKING:
 			intakeMotor.set(1);
-		}
-		else {
-			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.25){
-				intakeMotor.set(-0.5);	
+			if((lastHasBall == false) && sensor.get()){
+				ballTimeStamp = Timer.getFPGATimestamp();
+				mode = Mode_Type.HAS_BALL;
+			}
+		break;
+		
+		case HAS_BALL:
+			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.2) {
+				intakeMotor.set(-0.5);
 			}
 			else intakeMotor.set(0);
+		break;
+		
+		case SHOOTING:
+			if(Timer.getFPGATimestamp()-shootTimeStamp < 1){
+				intakeMotor.set(1);
+			}
+			else mode = Mode_Type.INTAKING;
+		break;
 		}
 		
 		upDownSolenoid.set(upDown);
