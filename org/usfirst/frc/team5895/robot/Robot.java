@@ -6,6 +6,7 @@ import org.usfirst.frc.team5895.robot.Drive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 
 
@@ -35,6 +36,8 @@ public class Robot extends IterativeRobot {
 	
 	TalonSRX topFlywheelMotor;
 	TalonSRX bottomFlywheelMotor;
+	Solenoid flywheelSolenoid;
+	
     public void robotInit() {
     	
     	leftJoystick = new Joystick(0);
@@ -57,6 +60,7 @@ public class Robot extends IterativeRobot {
     	
     	topFlywheelMotor = new TalonSRX(5);
     	bottomFlywheelMotor = new TalonSRX(4);
+    	flywheelSolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
      	
     	u.start();
     	r.start();
@@ -74,8 +78,9 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	
-    	topFlywheelMotor.set(0.7);
-    	bottomFlywheelMotor.set(0.7);
+    	topFlywheelMotor.set(leftJoystick.getRawAxis(3));
+    	bottomFlywheelMotor.set(leftJoystick.getRawAxis(3));
+    	flywheelSolenoid.set(leftJoystick.getRawButton(1));
     	
     	
     	//DRIVE
