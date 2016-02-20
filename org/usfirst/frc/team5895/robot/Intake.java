@@ -14,6 +14,8 @@ public class Intake {
 	private DigitalInput sensor; 
 	private boolean upDown;
 	private double shootTimeStamp;
+	private double ballTimeStamp;
+	private boolean lastHasBall;
 	
 	public Intake() {
 		intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
@@ -21,6 +23,8 @@ public class Intake {
 		sensor = new DigitalInput(ElectricalLayout.INTAKE_SENSOR);
 		upDown = false;
 		shootTimeStamp = Double.MIN_VALUE;
+		ballTimeStamp = Double.MIN_VALUE;
+		lastHasBall = false;
 	}
 	
 	/**
@@ -64,16 +68,22 @@ public class Intake {
 	
 	public void update() {
 	
+		if((lastHasBall == false) && sensor.get()){
+			ballTimeStamp = Timer.getFPGATimestamp();
+		}
+		
 		if ((sensor.get() == false) || (Timer.getFPGATimestamp() < (shootTimeStamp+1))){
 			intakeMotor.set(1);
 		}
 		else {
-			intakeMotor.set(-1);
-			Waiter.waitFor(50);
-			intakeMotor.set(0);
+			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.25){
+				intakeMotor.set(-0.5);	
+			}
+			else intakeMotor.set(0);
 		}
 		
 		upDownSolenoid.set(upDown);
+		lastHasBall = sensor.get();
 	}
 
 	
