@@ -53,6 +53,7 @@ public class Robot extends IterativeRobot {
     	//matchCount = recorder.incrementCount();
      	
     	u.add(intake::update);
+    	u.add(drive::update);
     	
     	topFlywheelMotor = new TalonSRX(5);
     	bottomFlywheelMotor = new TalonSRX(4);
@@ -76,10 +77,10 @@ public class Robot extends IterativeRobot {
     	topFlywheelMotor.set(0.7);
     	bottomFlywheelMotor.set(0.7);
     	
-    	/*
+    	
     	//DRIVE
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
-    	*/
+    	
     	/*
     	//CDF ARM UP OR DOWN
     	if(leftJoystick.getRawButton(1)){
