@@ -49,7 +49,7 @@ public class Robot extends IterativeRobot {
      	recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	matchCount = recorder.incrementCount();
      	
-    	u.add(drive::update);
+    	u.add(intake::update);
      	
     	u.start();
     	r.start();
@@ -66,9 +66,11 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopPeriodic() {
+    	
+    	/*
     	//DRIVE
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
-    	
+    	*/
     	/*
     	//CDF ARM UP OR DOWN
     	if(leftJoystick.getRawButton(1)){
@@ -82,7 +84,7 @@ public class Robot extends IterativeRobot {
     	if(rightJoystick.getRawButton(3)){
     		flywheel.setSpeed(1.0);
     	}
-    	
+    	*/
     	//INTAKE UP OR DOWN
     	if(rightJoystick.getRawButton(1)){
     		intake.up();
@@ -90,7 +92,7 @@ public class Robot extends IterativeRobot {
     	else if(rightJoystick.getRawButton(2)){
     		intake.down();
     	}
-    	
+    	/*
     	//SHOOTING
     	if(rightJoystick.getTrigger()){
     		intake.shoot();
