@@ -3,8 +3,8 @@ package org.usfirst.frc.team5895.robot;
 public class ElectricalLayout {
 	
 	//Motors
-	public static final int DRIVE_LEFTMOTOR = 0;
-	public static final int DRIVE_RIGHTMOTOR = 1;
+	public static final int DRIVE_LEFTMOTOR = 1;
+	public static final int DRIVE_RIGHTMOTOR = 0;
 	public static final int FLYWHEEL_TOPMOTOR = 5;
 	public static final int FLYWHEEL_BOTTOMMOTOR = 4;
 	public static final int INTAKE_MOTOR = 2;
