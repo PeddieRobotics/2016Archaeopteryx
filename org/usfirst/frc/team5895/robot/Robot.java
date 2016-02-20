@@ -45,12 +45,12 @@ public class Robot extends IterativeRobot {
     	
     	drive = new Drive();
     	arm = new CDFArm();
-    	flywheel = new Flywheel();
+    	//flywheel = new Flywheel();
     	intake = new Intake();
     	turret = new Turret();
     	
-     	recorder = new Recorder(drive,arm,flywheel,intake,turret);
-    	matchCount = recorder.incrementCount();
+     	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
+    	//matchCount = recorder.incrementCount();
      	
     	u.add(intake::update);
     	
@@ -62,13 +62,13 @@ public class Robot extends IterativeRobot {
     }
     
     public void autonomousInit() {
-    	recorder.startRecording("auto"+matchCount+".csv");
-    	drive.turnTo(180);
-    	recorder.stopRecording();
+    	//recorder.startRecording("auto"+matchCount+".csv");
+    	//drive.turnTo(180);
+    	//recorder.stopRecording();
     }
 
     public void teleopInit() {
- 	   recorder.startRecording("teleop"+matchCount+".csv");
+ 	  // recorder.startRecording("teleop"+matchCount+".csv");
     }
     
     public void teleopPeriodic() {
@@ -124,6 +124,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit() {
-    	recorder.stopRecording();  
+    	//recorder.stopRecording();  
     }  
 }
