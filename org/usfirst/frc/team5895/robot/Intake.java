@@ -66,7 +66,7 @@ public class Intake {
 	 * @return True if there is a ball, false otherwise
 	 */
 	public boolean hasBall() {
-		return sensor.get();
+		return (mode == Mode_Type.HAS_BALL);
 	}
 	
 	public void update() {
