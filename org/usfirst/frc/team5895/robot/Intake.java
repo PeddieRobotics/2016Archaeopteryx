@@ -46,9 +46,7 @@ public class Intake {
 	 * Shoots the ball
 	 */
 	public void shoot() {
-		if (sensor.get() == true) {
 			shootTimeStamp = Timer.getFPGATimestamp();
-		}
 		mode = Mode_Type.SHOOTING;
 	}
 	/**
@@ -74,7 +72,7 @@ public class Intake {
 		
 		case INTAKING:
 			intakeMotor.set(1);
-			if((lastHasBall == false) && sensor.get()){
+			if((lastHasBall == false) && (sensor.get() == false)){
 				ballTimeStamp = Timer.getFPGATimestamp();
 				mode = Mode_Type.HAS_BALL;
 			}
@@ -96,7 +94,7 @@ public class Intake {
 		}
 		
 		upDownSolenoid.set(upDown);
-		lastHasBall = sensor.get();
+		lastHasBall = !sensor.get();
 	}
 
 	

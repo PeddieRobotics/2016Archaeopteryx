@@ -6,6 +6,7 @@ import org.usfirst.frc.team5895.robot.Drive;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.TalonSRX;
 
 
 /**
@@ -32,6 +33,8 @@ public class Robot extends IterativeRobot {
 	
 	int matchCount;
 	
+	TalonSRX topFlywheelMotor;
+	TalonSRX bottomFlywheelMotor;
     public void robotInit() {
     	
     	leftJoystick = new Joystick(0);
@@ -50,6 +53,9 @@ public class Robot extends IterativeRobot {
     	matchCount = recorder.incrementCount();
      	
     	u.add(intake::update);
+    	
+    	topFlywheelMotor = new TalonSRX(5);
+    	bottomFlywheelMotor = new TalonSRX(4);
      	
     	u.start();
     	r.start();
@@ -66,6 +72,9 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopPeriodic() {
+    	
+    	topFlywheelMotor.set(0.7);
+    	bottomFlywheelMotor.set(0.7);
     	
     	/*
     	//DRIVE
@@ -86,18 +95,18 @@ public class Robot extends IterativeRobot {
     	}
     	*/
     	//INTAKE UP OR DOWN
-    	if(rightJoystick.getRawButton(1)){
+    	if(leftJoystick.getRawButton(1)){
     		intake.up();
     	}
-    	else if(rightJoystick.getRawButton(2)){
+    	else if(leftJoystick.getRawButton(2)){
     		intake.down();
     	}
-    	/*
+    	
     	//SHOOTING
-    	if(rightJoystick.getTrigger()){
+    	if(rightJoystick.getRawButton(1)){
     		intake.shoot();
     	}
-    	
+    	/*
     	//SET TURRET
     	//STRAIGHT
     	if(leftJoystick.getRawButton(3)){
