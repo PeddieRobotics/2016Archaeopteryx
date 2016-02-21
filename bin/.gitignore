@@ -16,3 +16,6 @@ hs_err_pid*
 *.classpath
 *.settings
 *.prefs 
+/build/
+/org/
+/org/

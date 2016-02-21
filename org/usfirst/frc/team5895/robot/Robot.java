@@ -80,7 +80,7 @@ public class Robot extends IterativeRobot {
     	
     	topFlywheelMotor.set(leftJoystick.getRawAxis(3));
     	bottomFlywheelMotor.set(leftJoystick.getRawAxis(3));
-    	flywheelSolenoid.set(leftJoystick.getRawButton(1));
+    	flywheelSolenoid.set(leftJoystick.getRawButton(3));
     	
     	
     	//DRIVE

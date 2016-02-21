@@ -33,13 +33,13 @@ public class Intake {
 	 * Moves the arm up
 	 */
 	public void up() {
-		upDown = true;
+		upDown = false;
 	}
 	/**
 	 * Moves the arm down
 	 */
 	public void down() {
-		upDown = false;
+		upDown = true;
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class Intake {
 		mode = Mode_Type.SHOOTING;
 	}
 	/**
-	 * Returns whether or not the intake is up
+	 * Returns whether or not the intake is down
 	 * 
 	 * @return True if the intake is down, false otherwise
 	 */
