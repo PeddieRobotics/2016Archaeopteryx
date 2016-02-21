@@ -34,6 +34,10 @@ public class Robot extends IterativeRobot {
 	
 	int matchCount;
 	
+	TalonSRX intakeMotor;
+	Solenoid intakeSol;
+	TalonSRX turMotor;
+	
 	TalonSRX topFlywheelMotor;
 	TalonSRX bottomFlywheelMotor;
 	Solenoid flywheelSolenoid;
@@ -49,14 +53,18 @@ public class Robot extends IterativeRobot {
     	drive = new Drive();
     	arm = new CDFArm();
     	//flywheel = new Flywheel();
-    	intake = new Intake();
+    	//intake = new Intake();
     	turret = new Turret();
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
      	
-    	u.add(intake::update);
+    	//u.add(intake::update);
     	u.add(drive::update);
+    	
+    	intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
+    	intakeSol = new Solenoid(ElectricalLayout.INTAKE_SOLENOID);
+    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
     	
     	topFlywheelMotor = new TalonSRX(5);
     	bottomFlywheelMotor = new TalonSRX(4);
@@ -87,6 +95,32 @@ public class Robot extends IterativeRobot {
     	}
     	
     	
+    	if (rightJoystick.getRawButton(3)) {
+    		intakeMotor.set(0.5);
+    	} else { 
+    		intakeMotor.set(0);
+    		}
+    	
+    	if(leftJoystick.getRawButton(1)){
+    		intakeSol.set(true);
+    	}
+    	else if(leftJoystick.getRawButton(2)){
+    		intakeSol.set(false);
+    	}
+    	
+    	if(rightJoystick.getRawButton(1)){
+    		turMotor.set(0.1);
+    	}
+    	else if(rightJoystick.getRawButton(2)){
+    		turMotor.set(-0.1);
+    	}
+    	else {turMotor.set(0);}
+    	
+    	
+    	
+    	
+    	
+    	
     	//DRIVE
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
     	
@@ -105,6 +139,7 @@ public class Robot extends IterativeRobot {
     	}
     	*/
     	//INTAKE UP OR DOWN
+    	/*
     	if(leftJoystick.getRawButton(1)){
     		intake.up();
     	}
@@ -112,10 +147,13 @@ public class Robot extends IterativeRobot {
     		intake.down();
     	}
     	
+    	
     	//SHOOTING
     	if(rightJoystick.getRawButton(1)){
     		intake.shoot();
     	}
+    	*/
+    	
     	/*
     	//SET TURRET
     	//STRAIGHT
