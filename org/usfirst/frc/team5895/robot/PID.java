@@ -64,7 +64,7 @@ public class PID{
 	/**
 	 * Changes the target point to be setpoint
 	 * 
-	 * @param setpoint Where the mechanism controlled my the PID should go to
+	 * @param setpoint Where the mechanism controlled should go to
 	 */
 	public void set(double setpoint) {
 		this.setpoint = setpoint;
@@ -93,6 +93,7 @@ public class PID{
 		if (setpoint != lastSetpoint) {
 			errorSum = 0;
 			lastError = error;
+			lastTime = Timer.getFPGATimestamp() * 1000;
 		}
 		else if (RESET_ZERO_CROSS && (lastError * error < 0)) {
 			errorSum = 0;  //reset if lastError and error have different signs
