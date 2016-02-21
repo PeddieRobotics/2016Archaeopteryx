@@ -1,7 +1,5 @@
 package org.usfirst.frc.team5895.robot;
 
-import org.usfirst.frc.team5895.robot.framework.Waiter;
-
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
@@ -71,7 +69,7 @@ public class Intake {
 		switch (mode) {
 		
 		case INTAKING:
-			intakeMotor.set(1);
+			intakeMotor.set(0.7);
 			if((lastHasBall == false) && (sensor.get() == false)){
 				ballTimeStamp = Timer.getFPGATimestamp();
 				mode = Mode_Type.HAS_BALL;
@@ -79,15 +77,15 @@ public class Intake {
 		break;
 		
 		case HAS_BALL:
-			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.2) {
-				intakeMotor.set(-0.5);
+			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.1) {
+				intakeMotor.set(-0.4);
 			}
 			else intakeMotor.set(0);
 		break;
 		
 		case SHOOTING:
 			if(Timer.getFPGATimestamp()-shootTimeStamp < 1){
-				intakeMotor.set(1);
+				intakeMotor.set(0.75);
 			}
 			else mode = Mode_Type.INTAKING;
 		break;

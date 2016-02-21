@@ -78,9 +78,13 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	
-    	topFlywheelMotor.set(leftJoystick.getRawAxis(3));
-    	bottomFlywheelMotor.set(leftJoystick.getRawAxis(3));
-    	flywheelSolenoid.set(leftJoystick.getRawButton(3));
+    	topFlywheelMotor.set(-leftJoystick.getRawAxis(3));
+    	bottomFlywheelMotor.set(-leftJoystick.getRawAxis(3));
+    	if (leftJoystick.getRawButton(3)) {
+    		flywheelSolenoid.set(true);
+    	} else if (leftJoystick.getRawButton(4)) {
+    		flywheelSolenoid.set(false);
+    	}
     	
     	
     	//DRIVE

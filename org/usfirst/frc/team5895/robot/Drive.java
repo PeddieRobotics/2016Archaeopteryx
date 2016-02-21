@@ -67,8 +67,8 @@ public class Drive {
     }
     
     public void haloDrive(double throttle, double turn) {
-        rightMotorSpeed = -1*(throttle+turn);
-        leftMotorSpeed = throttle-turn;
+        rightMotorSpeed = (throttle+turn);
+        leftMotorSpeed = -1*(throttle-turn);
         mode = Mode_Type.TELEOP;
     }
 
