@@ -11,12 +11,17 @@ public class TakeBackHalf {
 	private double G;
 	private double h0;
 	
+	/**
+	 * Creates a new TakeBackHalf controller
+	 * 
+	 * @param gain The amount of motor output to increase per millisecond per error
+	 */
 	public TakeBackHalf(double gain) {
 		G = gain;
 		h0 = 0;
 		lastError = 0;
 		lastTime = 0;
-		h_last = 0;
+		h_last = 1;
 		setpoint = 0;
 	}
 	
@@ -24,8 +29,17 @@ public class TakeBackHalf {
 	 * Changes the target point to be setpoint
 	 * 
 	 * @param setpoint Where the mechanism should go to
+	 * @param steady The approximate motor output to hold at constant speed
 	 */
-	public void set(double setpoint) {
+	public void set(double setpoint, double steady) {
+		if (setpoint < this.setpoint) {
+			h_last = 0;
+			h0 = 0;
+		} else {
+			h0 = 2*steady - 1;
+			h_last = 1;
+		}
+		
 		this.setpoint = setpoint;
 	}
 	
@@ -45,11 +59,6 @@ public class TakeBackHalf {
 	 * @return The output to the motor controlling the mechanism
 	 */
 	public double getOutput(double proccessVar) {
-		if (setpoint == 0) {
-			h_last = 0;
-			lastTime = Timer.getFPGATimestamp() * 1000;
-			return 0;
-		}
 				
 		double error = setpoint - proccessVar;
 		
@@ -65,8 +74,12 @@ public class TakeBackHalf {
 			h_last = h0 = 0.5 * (h_last+h0);
 		}
 		
-		
 		lastError = error;
-		return h_last;
+		
+		if (setpoint == 0) {
+			return 0;
+		} else {
+			return h_last;
+		}
 	}
 }
