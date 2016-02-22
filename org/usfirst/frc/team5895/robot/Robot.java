@@ -65,7 +65,7 @@ public class Robot extends IterativeRobot {
     	
     	intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
     	intakeSol = new Solenoid(ElectricalLayout.INTAKE_SOLENOID);
-//    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
+    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
     	
     	topFlywheelMotor = new TalonSRX(5);
     	bottomFlywheelMotor = new TalonSRX(4);
@@ -86,8 +86,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopPeriodic() {
-
-//    	DriverStation.reportError("Flywheel speed is: \n" + flywheel.getSpeed() + "\n", false);
     	
     	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() +"\n", false);
     	

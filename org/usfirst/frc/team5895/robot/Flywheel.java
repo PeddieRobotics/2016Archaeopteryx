@@ -18,12 +18,15 @@ public class Flywheel {
 
 	private boolean upDown;
 	/**
-	 * Creates a new Flywheel
+	 * Creates a new flywheel
 	 */
 	public Flywheel() {
 		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_TOPMOTOR);
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
+		
+		topController = new TakeBackHalf(0.00001);
+		bottomController = new TakeBackHalf(0.00001);
 		
 		topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		topCounter.setDistancePerPulse(1);
