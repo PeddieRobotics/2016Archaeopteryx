@@ -4,6 +4,7 @@ package org.usfirst.frc.team5895.robot;
 import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.Drive;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -52,7 +53,7 @@ public class Robot extends IterativeRobot {
     	
     	drive = new Drive();
     	arm = new CDFArm();
-    	//flywheel = new Flywheel();
+    	flywheel = new Flywheel();
     	//intake = new Intake();
     	turret = new Turret();
     	
@@ -86,12 +87,20 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	
-    	topFlywheelMotor.set(-leftJoystick.getRawAxis(3));
-    	bottomFlywheelMotor.set(-leftJoystick.getRawAxis(3));
+    	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() +"\n", false);
+    	
     	if (leftJoystick.getRawButton(3)) {
-    		flywheelSolenoid.set(true);
+    		flywheel.down();
     	} else if (leftJoystick.getRawButton(4)) {
-    		flywheelSolenoid.set(false);
+    		flywheel.up();
+    	}
+    	
+    	if(leftJoystick.getRawButton(11)){
+    		flywheel.setSpeed(100);
+    	} else if(leftJoystick.getRawButton(12)){
+    		flywheel.setSpeed(1000);
+    	} else if(leftJoystick.getRawButton(13)) {
+    		flywheel.setSpeed(0);
     	}
     	
     	

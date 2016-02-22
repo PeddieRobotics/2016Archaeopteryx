@@ -9,14 +9,13 @@ public class Flywheel {
 	private TalonSRX topMotor;
 	private TalonSRX bottomMotor;
 	private Solenoid mySolenoid;
-	private PID topController;
-	private PID bottomController;
+	
 	private Counter topCounter;
 	private Counter bottomCounter;
-	private double Kp;
-	private double Ki;
-	private double Kd;
-	private double dV;
+	
+	private TakeBackHalf topController;
+	private TakeBackHalf bottomController;
+
 	private boolean upDown;
 	/**
 	 * Creates a new Flywheel
@@ -25,8 +24,6 @@ public class Flywheel {
 		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_TOPMOTOR);
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
-		topController = new PID(Kp, Ki, Kd, dV);
-		bottomController = new PID(Kp, Ki,Kd, dV);
 		
 		topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		topCounter.setDistancePerPulse(1);
@@ -34,7 +31,6 @@ public class Flywheel {
 		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 		bottomCounter.setDistancePerPulse(1);
 		bottomCounter.setSamplesToAverage(2);
-		
 	}
 	
 	/**
@@ -42,8 +38,8 @@ public class Flywheel {
 	 * @param speed The desired speed of the flywheel, in rpm
 	 */
 	public void setSpeed(double speed) {
-		topController.set(speed/60);
-		bottomController.set(speed/60);
+		topController.set(speed/60, 0.5);
+		topController.set(speed/60, 0.5);
 	}
 	
 	/**
