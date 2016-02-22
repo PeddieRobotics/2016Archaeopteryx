@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class TakeBackHalf {
 
 	private double setpoint;
-	private double h_last;
+	private double h;
 	private double lastTime;
 	private double lastError;
 	private double G;
@@ -21,7 +21,7 @@ public class TakeBackHalf {
 		h0 = 0;
 		lastError = 0;
 		lastTime = 0;
-		h_last = 1;
+		h = 1;
 		setpoint = 0;
 	}
 	
@@ -33,11 +33,11 @@ public class TakeBackHalf {
 	 */
 	public void set(double setpoint, double steady) {
 		if (setpoint < this.setpoint) {
-			h_last = 0;
+			h = 0;
 			h0 = 0;
 		} else {
 			h0 = 2*steady - 1;
-			h_last = 1;
+			h = 1;
 		}
 		
 		this.setpoint = setpoint;
@@ -65,13 +65,13 @@ public class TakeBackHalf {
 		double time = Timer.getFPGATimestamp() * 1000;
 		double dt = time - lastTime;
 		
-		h_last += G*error*dt;
+		h += G*error*dt;
 		
-		if (h_last > 1) h_last = 1;
-		else if (h_last < 0) h_last = 0;
+		if (h > 1) h = 1;
+		else if (h < 0) h = 0;
 		
 		if ((lastError*error) < 0) { //different signs
-			h_last = h0 = 0.5 * (h_last+h0);
+			h = h0 = 0.5 * (h+h0);
 		}
 		
 		lastError = error;
@@ -79,7 +79,7 @@ public class TakeBackHalf {
 		if (setpoint == 0) {
 			return 0;
 		} else {
-			return h_last;
+			return h;
 		}
 	}
 }
