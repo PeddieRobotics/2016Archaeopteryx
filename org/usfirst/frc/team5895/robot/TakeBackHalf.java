@@ -9,6 +9,7 @@ public class TakeBackHalf {
 	private double lastTime;
 	private double lastError;
 	private double G;
+	private double tSpeed;
 	private double h0;
 	
 	/**
@@ -16,8 +17,9 @@ public class TakeBackHalf {
 	 * 
 	 * @param gain The amount of motor output to increase per millisecond per error
 	 */
-	public TakeBackHalf(double gain) {
+	public TakeBackHalf(double gain, double topSpeed) {
 		G = gain;
+		tSpeed = topSpeed;
 		h0 = 0;
 		lastError = 0;
 		lastTime = 0;
@@ -31,13 +33,14 @@ public class TakeBackHalf {
 	 * @param setpoint Where the mechanism should go to
 	 * @param steady The approximate motor output to hold at constant speed
 	 */
-	public void set(double setpoint, double steady) {
+	public void set(double setpoint) {
+		double steady = setpoint/tSpeed;
 		if (setpoint < this.setpoint) {
 			h = 0;
 			h0 = 0;
 		} else {
-			h0 = 2*steady - 1;
-			h = 1;
+			h0 = 2*steady - 1.0;
+			h = 1.0;
 		}
 		
 		this.setpoint = setpoint;
