@@ -31,7 +31,7 @@ public class Drive {
     private double leftMotorSpeed = 0;
 
     private NavX ahrs;
-    private Encoder enc;
+    private DriveEncoder enc;
     
     public Drive()
     {
@@ -42,8 +42,7 @@ public class Drive {
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
     	straightTurnPID= new PID(DRIVE_TURN_KP, DRIVE_TURN_KI, 0, 0.05);
     	
-    	enc= new Encoder(ElectricalLayout.DRIVE_ENCODER, ElectricalLayout.DRIVE_ENCODER2, false, EncodingType.k4X);
-    	enc.setDistancePerPulse((4*Math.PI)/360);
+    	enc= new DriveEncoder();
     	
     	enc.reset();
     	ahrs.reset();
