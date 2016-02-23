@@ -11,13 +11,15 @@ public class TakeBackHalf {
 	private double G;
 	private double tSpeed;
 	private double h0;
+	private double dV;
+	private double lastOutput =0;
 	
 	/**
 	 * Creates a new TakeBackHalf controller
 	 * 
 	 * @param gain The amount of motor output to increase per millisecond per error
 	 */
-	public TakeBackHalf(double gain, double topSpeed) {
+	public TakeBackHalf(double gain, double topSpeed, double dVoltage) {
 		G = gain;
 		tSpeed = topSpeed;
 		h0 = 0;
@@ -25,6 +27,7 @@ public class TakeBackHalf {
 		lastTime = 0;
 		h = 1;
 		setpoint = 0;
+		dV = dVoltage;
 	}
 	
 	/**
@@ -64,7 +67,6 @@ public class TakeBackHalf {
 	public double getOutput(double proccessVar) {
 				
 		double error = setpoint - proccessVar;
-		
 		double time = Timer.getFPGATimestamp() * 1000;
 		double dt = time - lastTime;
 		
@@ -82,7 +84,15 @@ public class TakeBackHalf {
 		if (setpoint == 0) {
 			return 0;
 		} else {
+			if (h - lastOutput > (dt * dV)) {
+				h = lastOutput + (dt * dV);
+			}
+			if (h - lastOutput < -(dt * dV)) {
+				h = lastOutput - (dt * dV);
+			}
+			
+			lastOutput = h;
 			return h;
-		}
+		}	
 	}
 }
