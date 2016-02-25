@@ -35,13 +35,9 @@ public class Robot extends IterativeRobot {
 	
 	int matchCount;
 	
-	TalonSRX intakeMotor;
-	Solenoid intakeSol;
+
 	TalonSRX turMotor;
 	
-	TalonSRX topFlywheelMotor;
-	TalonSRX bottomFlywheelMotor;
-	Solenoid flywheelSolenoid;
 	
     public void robotInit() {
     	
@@ -62,14 +58,10 @@ public class Robot extends IterativeRobot {
      	
     	u.add(intake::update);
     	u.add(drive::update);
+    	u.add(flywheel::update);
     	
-    	intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
-    	intakeSol = new Solenoid(ElectricalLayout.INTAKE_SOLENOID);
     	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
     	
-    	topFlywheelMotor = new TalonSRX(5);
-    	bottomFlywheelMotor = new TalonSRX(4);
-    	flywheelSolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
      	
     	u.start();
     	r.start();
@@ -95,29 +87,8 @@ public class Robot extends IterativeRobot {
     		flywheel.up();
     	}
     	
-    	if(leftJoystick.getRawButton(11)){
-    		flywheel.setSpeed(4000);
-    	} else if(leftJoystick.getRawButton(12)){
-    		flywheel.setSpeed(2000);
-    	} else if(leftJoystick.getRawButton(13)) {
-    		flywheel.setSpeed(0);
-    	}
     	
-    	
-    	if (rightJoystick.getRawButton(3)) {
-    		intakeMotor.set(0.5);
-    	} else { 
-    		intakeMotor.set(0);
-    		}
-    	
-    	if(leftJoystick.getRawButton(1)){
-    		intakeSol.set(true);
-    	}
-    	else if(leftJoystick.getRawButton(2)){
-    		intakeSol.set(false);
-    	}
-    	
-    	if(rightJoystick.getRawButton(1)){
+/*    	if(rightJoystick.getRawButton(1)){
     		turMotor.set(0.1);
     	}
     	else if(rightJoystick.getRawButton(2)){
@@ -126,7 +97,7 @@ public class Robot extends IterativeRobot {
     	else {turMotor.set(0);}
     	
     	
-    	
+    	*/
     	
     	
     	
@@ -141,18 +112,21 @@ public class Robot extends IterativeRobot {
     	else if(leftJoystick.getRawButton(2)){
     		arm.down();
     	}
-    	
-    	//FLYWHEEL CONTROL SPEED
-    	if(rightJoystick.getRawButton(3)){
-    		flywheel.setSpeed(1.0);
-    	}
     	*/
+    	//FLYWHEEL CONTROL SPEED
+    	if(rightJoystick.getRawButton(4)){
+    		flywheel.setSpeed(3000);
+    	}
+    	else if(rightJoystick.getRawButton(3)){
+    		flywheel.setSpeed(0);
+    	}
+    	
     	//INTAKE UP OR DOWN
-    	/*
-    	if(leftJoystick.getRawButton(1)){
+    	
+    	if(leftJoystick.getRawButton(2)){
     		intake.up();
     	}
-    	else if(leftJoystick.getRawButton(2)){
+    	else if(leftJoystick.getRawButton(1)){
     		intake.down();
     	}
     	
@@ -161,7 +135,6 @@ public class Robot extends IterativeRobot {
     	if(rightJoystick.getRawButton(1)){
     		intake.shoot();
     	}
-    	*/
     	
     	/*
     	//SET TURRET
