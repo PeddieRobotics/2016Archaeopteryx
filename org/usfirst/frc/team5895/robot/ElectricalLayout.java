@@ -17,13 +17,13 @@ public class ElectricalLayout {
 	
 	
 	//Digital Inputs
-	public static final int LEFTDRIVE_ENCODER = 0;
-	public static final int LEFTDRIVE_ENCODER2 = 1;
-	public static final int RIGHTDRIVE_ENCODER = 2;
-	public static final int RIGHTDRIVE_ENCODER2 = 3;
-	public static final int FLYWHEEL_TOPCOUNTER = 4;
-	public static final int FLYWHEEL_BOTTOMCOUNTER = 5;
+	public static final int LEFTDRIVE_ENCODER = 2;
+	public static final int LEFTDRIVE_ENCODER2 = 3;
+	public static final int RIGHTDRIVE_ENCODER = 0;
+	public static final int RIGHTDRIVE_ENCODER2 = 1;
+	public static final int FLYWHEEL_TOPCOUNTER = 8;
+	public static final int FLYWHEEL_BOTTOMCOUNTER = 7;
 	public static final int INTAKE_SENSOR = 6;
-	public static final int TURRET_ENCODER = 7;
-	public static final int TURRET_ENCODER2 = 8;	
+	public static final int TURRET_ENCODER = 4;
+	public static final int TURRET_ENCODER2 = 5;	
 }
