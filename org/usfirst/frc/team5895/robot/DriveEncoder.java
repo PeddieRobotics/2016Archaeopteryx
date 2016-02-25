@@ -9,7 +9,7 @@ public class DriveEncoder {
 	
 	public DriveEncoder() {
 		leftEncoder = new Encoder(ElectricalLayout.LEFTDRIVE_ENCODER, ElectricalLayout.LEFTDRIVE_ENCODER2, false, EncodingType.k4X);
-		rightEncoder = new Encoder(ElectricalLayout.RIGHTDRIVE_ENCODER, ElectricalLayout.RIGHTDRIVE_ENCODER, false, EncodingType.k4X);
+		rightEncoder = new Encoder(ElectricalLayout.RIGHTDRIVE_ENCODER, ElectricalLayout.RIGHTDRIVE_ENCODER2, false, EncodingType.k4X);
 		
 		leftEncoder.setDistancePerPulse(4*Math.PI/360);
 		rightEncoder.setDistancePerPulse(4*Math.PI/360);

@@ -54,13 +54,13 @@ public class Robot extends IterativeRobot {
     	drive = new Drive();
     	arm = new CDFArm();
     	flywheel = new Flywheel();
-    	//intake = new Intake();
+    	intake = new Intake();
     	turret = new Turret();
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
      	
-    	//u.add(intake::update);
+    	u.add(intake::update);
     	u.add(drive::update);
     	
     	intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
@@ -96,9 +96,9 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if(leftJoystick.getRawButton(11)){
-    		flywheel.setSpeed(100);
+    		flywheel.setSpeed(4000);
     	} else if(leftJoystick.getRawButton(12)){
-    		flywheel.setSpeed(1000);
+    		flywheel.setSpeed(2000);
     	} else if(leftJoystick.getRawButton(13)) {
     		flywheel.setSpeed(0);
     	}

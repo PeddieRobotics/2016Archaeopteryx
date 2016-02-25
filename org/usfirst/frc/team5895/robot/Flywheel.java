@@ -10,10 +10,10 @@ public class Flywheel {
 	private TalonSRX bottomMotor;
 	private Solenoid mySolenoid;
 	
-	private Counter topCounter;
+	//private Counter topCounter;
 	private Counter bottomCounter;
 	
-	private TakeBackHalf topController;
+	//private TakeBackHalf topController;
 	private TakeBackHalf bottomController;
 
 	private boolean upDown;
@@ -25,15 +25,15 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-		topController = new TakeBackHalf(0.00001);
-		bottomController = new TakeBackHalf(0.00001);
+		//topController = new TakeBackHalf(0.00001);
+		bottomController = new TakeBackHalf(0.0000004,120,1.0/150);
 		
-		topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
-		topCounter.setDistancePerPulse(1);
-		topCounter.setSamplesToAverage(2);
+		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
+		//topCounter.setDistancePerPulse(1);
+		//topCounter.setSamplesToAverage(2);
 		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 		bottomCounter.setDistancePerPulse(1);
-		bottomCounter.setSamplesToAverage(2);
+		bottomCounter.setSamplesToAverage(5);
 	}
 	
 	/**
@@ -41,8 +41,8 @@ public class Flywheel {
 	 * @param speed The desired speed of the flywheel, in rpm
 	 */
 	public void setSpeed(double speed) {
-		topController.set(speed/60, 0.5);
-		topController.set(speed/60, 0.5);
+		bottomController.set(speed/60);
+		bottomController.set(speed/60);
 	}
 	
 	/**
@@ -50,7 +50,7 @@ public class Flywheel {
 	 * @return The speed of the flywhell, in rpm
 	 */
 	public double getSpeed() {
-		return topCounter.getRate()*60;
+		return bottomCounter.getRate()*60;
 	}
 	
 	/**
@@ -58,7 +58,7 @@ public class Flywheel {
 	 * @return True if the flywheel is within 50 rpm of the setpoint
 	 */
 	public boolean atSpeed(){
-		if((Math.abs(topCounter.getRate()-topController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-topController.getSetpoint())<(50*60))){
+		if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
 			return true;
 		} else
 			return false;
@@ -77,7 +77,7 @@ public class Flywheel {
 	}
 	
 	public void update() {
-		topMotor.set(topController.getOutput(topCounter.getRate()));
+		topMotor.set(bottomController.getOutput(bottomCounter.getRate()));
 		bottomMotor.set(bottomController.getOutput(bottomCounter.getRate()));
 		mySolenoid.set(upDown);
 	}
