@@ -1,5 +1,6 @@
 package org.usfirst.frc.team5895.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class TakeBackHalf {
@@ -77,6 +78,7 @@ public class TakeBackHalf {
 		
 		if ((lastError*error) < 0) { //different signs
 			h = h0 = 0.5 * (h+h0);
+//			DriverStation.reportError(h + "\n", false);
 		}
 		
 		lastError = error;

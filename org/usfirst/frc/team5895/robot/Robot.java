@@ -7,7 +7,6 @@ import org.usfirst.frc.team5895.robot.Drive;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 
 
@@ -36,7 +35,7 @@ public class Robot extends IterativeRobot {
 	int matchCount;
 	
 
-	TalonSRX turMotor;
+//	TalonSRX turMotor;
 	
 	
     public void robotInit() {
@@ -48,7 +47,7 @@ public class Robot extends IterativeRobot {
     	r = new Looper(250);
     	
     	drive = new Drive();
-    	arm = new CDFArm();
+//    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
     	turret = new Turret();
@@ -59,8 +58,9 @@ public class Robot extends IterativeRobot {
     	u.add(intake::update);
     	u.add(drive::update);
     	u.add(flywheel::update);
+    	u.add(turret::update);
     	
-    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
+//    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
     	
      	
     	u.start();
@@ -81,23 +81,25 @@ public class Robot extends IterativeRobot {
     	
     	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() +"\n", false);
     	
-    	if (leftJoystick.getRawButton(3)) {
-    		flywheel.down();
-    	} else if (leftJoystick.getRawButton(4)) {
-    		flywheel.up();
+//    	if (leftJoystick.getRawButton(3)) {
+//    		flywheel.down();
+//    	} else if (leftJoystick.getRawButton(4)) {
+//    		flywheel.up();
+//    	}
+    	
+    	
+    	if(leftJoystick.getRawButton(3)){
+    		turret.set(-10);
+    	}
+    	else if(leftJoystick.getRawButton(4)){
+    		turret.set(10);
+    	}
+    	else if(leftJoystick.getRawButton(2)){
+    		turret.set(0);
     	}
     	
     	
-/*    	if(rightJoystick.getRawButton(1)){
-    		turMotor.set(0.1);
-    	}
-    	else if(rightJoystick.getRawButton(2)){
-    		turMotor.set(-0.1);
-    	}
-    	else {turMotor.set(0);}
-    	
-    	
-    	*/
+
     	
     	
     	
@@ -115,7 +117,7 @@ public class Robot extends IterativeRobot {
     	*/
     	//FLYWHEEL CONTROL SPEED
     	if(rightJoystick.getRawButton(4)){
-    		flywheel.setSpeed(3000);
+    		flywheel.setSpeed(5000);
     	}
     	else if(rightJoystick.getRawButton(3)){
     		flywheel.setSpeed(0);

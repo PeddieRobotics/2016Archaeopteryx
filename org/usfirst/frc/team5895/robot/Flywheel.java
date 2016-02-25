@@ -26,7 +26,7 @@ public class Flywheel {
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
 		//topController = new TakeBackHalf(0.00001);
-		bottomController = new TakeBackHalf(0.0000004,120,1.0/150);
+		bottomController = new TakeBackHalf(0.00000001,120,1.0/150);
 		
 		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		//topCounter.setDistancePerPulse(1);
@@ -47,7 +47,7 @@ public class Flywheel {
 	
 	/**
 	 * Returns the speed that the flywheel is moving at
-	 * @return The speed of the flywhell, in rpm
+	 * @return The speed of the flywheel, in rpm
 	 */
 	public double getSpeed() {
 		return bottomCounter.getRate()*60;
@@ -78,7 +78,7 @@ public class Flywheel {
 	
 	public void update() {
 		topMotor.set(bottomController.getOutput(bottomCounter.getRate()));
-		bottomMotor.set(bottomController.getOutput(bottomCounter.getRate()));
+		bottomMotor.set(-1* bottomController.getOutput(bottomCounter.getRate()));
 		mySolenoid.set(upDown);
 	}
 }

@@ -14,6 +14,11 @@ public class Turret {
 	private double degreesPerPulse;
 	
 	public Turret() {
+		Kp=0.1;
+		Ki=0;
+		Kd=0;
+		dV=1/100;
+		degreesPerPulse=0;
 		
 		myMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
 		myPID = new PID(Kp, Ki, Kd, dV);
@@ -37,6 +42,6 @@ public class Turret {
 	}
 	
 	public void update() {
-		myMotor.set(myPID.getOutput(e.getDistance()));
+//		myMotor.set(myPID.getOutput(e.getDistance()));
 	}
 }
