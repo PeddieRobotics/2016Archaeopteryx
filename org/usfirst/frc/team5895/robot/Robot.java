@@ -7,7 +7,6 @@ import org.usfirst.frc.team5895.robot.Drive;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.TalonSRX;
 
 
 /**
@@ -117,7 +116,7 @@ public class Robot extends IterativeRobot {
     	*/
     	//FLYWHEEL CONTROL SPEED
     	if(rightJoystick.getRawButton(4)){
-    		flywheel.setSpeed(5000);
+    		flywheel.setSpeed(3000);
     	}
     	else if(rightJoystick.getRawButton(3)){
     		flywheel.setSpeed(0);
@@ -156,6 +155,8 @@ public class Robot extends IterativeRobot {
     }
     
     public void disabledInit() {
-    	//recorder.stopRecording();  
+    	//recorder.stopRecording(); 
+    	intake.up();
+    	flywheel.setSpeed(0);
     }  
 }

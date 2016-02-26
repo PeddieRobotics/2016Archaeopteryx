@@ -11,7 +11,7 @@ public class Flywheel {
 	private Solenoid mySolenoid;
 	
 	//private Counter topCounter;
-	private Counter bottomCounter;
+	private FlywheelCounter bottomCounter;
 	
 	//private TakeBackHalf topController;
 	private TakeBackHalf bottomController;
@@ -29,11 +29,9 @@ public class Flywheel {
 		bottomController = new TakeBackHalf(0.00000001,120,1.0/150);
 		
 		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
-		//topCounter.setDistancePerPulse(1);
-		//topCounter.setSamplesToAverage(2);
-		bottomCounter = new Counter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
-		bottomCounter.setDistancePerPulse(1);
-		bottomCounter.setSamplesToAverage(5);
+//		topCounter.setDistancePerPulse(1);
+//		topCounter.setSamplesToAverage(2);
+		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 	}
 	
 	/**
@@ -77,8 +75,9 @@ public class Flywheel {
 	}
 	
 	public void update() {
-		topMotor.set(bottomController.getOutput(bottomCounter.getRate()));
-		bottomMotor.set(-1* bottomController.getOutput(bottomCounter.getRate()));
+		double output = bottomController.getOutput(bottomCounter.getRate());
+		topMotor.set(-1*output);
+		bottomMotor.set(output);
 		mySolenoid.set(upDown);
 	}
 }

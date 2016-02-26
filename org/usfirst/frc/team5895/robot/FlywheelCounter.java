@@ -17,7 +17,7 @@ public class FlywheelCounter {
 	public double getRate() {
 		double speed = c.getRate();
 		
-		if (speed > 1000 && speed > 1.5*lastSpeed) {
+		if (speed > 20000/60) {
 			return lastSpeed;
 		} else {
 			lastSpeed = speed;
