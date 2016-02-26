@@ -79,7 +79,7 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	
-    	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() +"\n", false);
+    	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() + "NavX Angle" + drive.getAngle() +"\n", false);
     	
 //    	if (leftJoystick.getRawButton(3)) {
 //    		flywheel.down();
