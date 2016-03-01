@@ -17,7 +17,7 @@ public class Drive {
 	private static final double DRIVE_TURN_KP = 0.1;
 	private static final double DRIVE_TURN_KI = 0;
 	
-	private enum Mode_Type {TELEOP, AUTO_TURN, AUTO_STRAIGHT};
+	private enum Mode_Type {TELEOP, AUTO_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
 	
 	private Mode_Type mode = Mode_Type.TELEOP;
 	private PID turnPID;
@@ -29,6 +29,7 @@ public class Drive {
     
     private double rightMotorSpeed = 0;
     private double leftMotorSpeed = 0;
+    private double spd = 0;
 
     private NavX ahrs;
     private DriveEncoder enc;
@@ -106,11 +107,23 @@ public class Drive {
      */
     public void driveStraight(double distance, double angle)
     {
-    	mode = Mode_Type.AUTO_STRAIGHT;
+    	mode = Mode_Type.AUTO_STRAIGHT_DISTANCE;
     	enc.reset();
     	straightPID.set(distance);
     	straightTurnPID.set(angle);
     
+    }
+    
+    /**
+     * Drives the robot at a constant voltage and keeps the same angle
+     * 
+     * @param voltage The voltage for the wheels to be kept at
+     * @param angle The absolute angle to face in degrees
+     */
+    public void driveVoltage (double voltage, double angle) {
+    	mode = Mode_Type.AUTO_STRAIGHT_VOLTAGE;
+    	straightTurnPID.set(angle);
+    	spd = voltage;
     }
     
     /**
@@ -165,7 +178,7 @@ public class Drive {
     		rightMotor.set(-speed);
     		break;
     		
-    	case AUTO_STRAIGHT:
+    	case AUTO_STRAIGHT_DISTANCE:
     		double sped = straightPID.getOutput(enc.getDistance());
     		
     		if(sped>0.5) {
@@ -180,6 +193,11 @@ public class Drive {
     		leftMotor.set(-sped);
     		rightMotor.set(sped);
     		break;
+    	case AUTO_STRAIGHT_VOLTAGE:
+    		 rightMotorSpeed = (spd+straightTurnPID.getOutput(ahrs.getAngle()));
+    	        leftMotorSpeed = -1*(spd-straightTurnPID.getOutput(ahrs.getAngle()));
+    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
+    		DriverStation.reportError("the voltage is " + spd, false);
     	}
      
     }
