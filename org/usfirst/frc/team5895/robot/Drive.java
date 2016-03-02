@@ -198,6 +198,7 @@ public class Drive {
     	        leftMotorSpeed = -1*(spd-straightTurnPID.getOutput(ahrs.getAngle()));
     		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
     		DriverStation.reportError("the voltage is " + spd, false);
+    		break;
     	}
      
     }
