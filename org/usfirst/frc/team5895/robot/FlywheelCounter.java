@@ -11,19 +11,29 @@ public class FlywheelCounter {
 	public FlywheelCounter(int port) {
 		c = new Counter(port);
 		c.setDistancePerPulse(1);
-		
 		lastSpeed = 0;
 	}
 	
-	public double getRate() {
+	public double getRate() throws BadFlywheelException {
 		double speed = c.getRate();
 		
 		if (speed > 20000/60) {
-			DriverStation.reportError("Bad flywheel reading\n", false);
-			return lastSpeed;
+			throw new BadFlywheelException(lastSpeed);
 		} else {
 			lastSpeed = speed;
 			return speed;
+		}
+	}
+	
+	@SuppressWarnings("serial")
+	public class BadFlywheelException extends Exception {
+		private double lastSpeed;
+		public BadFlywheelException(double lastSpeed) {
+			this.lastSpeed = lastSpeed;
+		}
+		
+		public double getLastSpeed() {
+			return lastSpeed;
 		}
 	}
 }

@@ -1,6 +1,8 @@
 package org.usfirst.frc.team5895.robot;
 
-import edu.wpi.first.wpilibj.Counter;
+import org.usfirst.frc.team5895.robot.FlywheelCounter.BadFlywheelException;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 
@@ -26,7 +28,7 @@ public class Flywheel {
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
 		//topController = new TakeBackHalf(0.00001);
-		bottomController = new TakeBackHalf(0.00000001,120,1.0/150);
+		bottomController = new TakeBackHalf(0.00000002,120,1.0/150);
 		
 		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 //		topCounter.setDistancePerPulse(1);
@@ -48,7 +50,12 @@ public class Flywheel {
 	 * @return The speed of the flywheel, in rpm
 	 */
 	public double getSpeed() {
-		return bottomCounter.getRate()*60;
+		try {
+			return bottomCounter.getRate()*60;
+		}
+		catch (BadFlywheelException e){
+			return e.getLastSpeed();
+		}
 	}
 	
 	/**
@@ -56,10 +63,14 @@ public class Flywheel {
 	 * @return True if the flywheel is within 50 rpm of the setpoint
 	 */
 	public boolean atSpeed(){
-		if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
-			return true;
-		} else
+		try {
+			if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
+				return true;
+			} else
+				return false;
+		} catch (BadFlywheelException e) {
 			return false;
+		}
 	}
 		
 	public void up(){
@@ -75,9 +86,15 @@ public class Flywheel {
 	}
 	
 	public void update() {
-		double output = bottomController.getOutput(bottomCounter.getRate());
-		topMotor.set(-1*output);
-		bottomMotor.set(output);
+		double output;
+		double speed;
+		try {
+			speed = bottomCounter.getRate();
+			output = bottomController.getOutput(speed);
+			bottomMotor.set(output);
+			topMotor.set(-1*output);
+		} catch (BadFlywheelException e) {
+		}
 		mySolenoid.set(upDown);
 	}
 }
