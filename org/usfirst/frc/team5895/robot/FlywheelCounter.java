@@ -1,6 +1,7 @@
 package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Counter;
+import edu.wpi.first.wpilibj.DriverStation;
 
 public class FlywheelCounter {
 
@@ -20,6 +21,7 @@ public class FlywheelCounter {
 		if (speed > 20000/60) {
 			return lastSpeed;
 		} else {
+			DriverStation.reportError("Bad flywheel reading\n", false);
 			lastSpeed = speed;
 			return speed;
 		}

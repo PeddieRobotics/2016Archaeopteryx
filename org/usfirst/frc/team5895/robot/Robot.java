@@ -4,9 +4,11 @@ package org.usfirst.frc.team5895.robot;
 import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.Drive;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.vision.USBCamera;
 
 
 /**
@@ -50,6 +52,13 @@ public class Robot extends IterativeRobot {
     	flywheel = new Flywheel();
     	intake = new Intake();
     	turret = new Turret();
+    	
+
+        USBCamera c = new USBCamera("cam1");
+        c.setBrightness(0);
+        c.setExposureManual(-8);
+        CameraServer server = CameraServer.getInstance();
+        server.startAutomaticCapture(c);
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
