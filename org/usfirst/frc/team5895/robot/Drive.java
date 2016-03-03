@@ -3,6 +3,7 @@ package org.usfirst.frc.team5895.robot;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class Drive {
@@ -11,16 +12,21 @@ public class Drive {
 	private static final double TURN_KP = 0.02;
 	private static final double TURN_KI = 0.00000001;
 	
+	//for visionTurn()
+	private static final double VISION_TURN_KP = 0.02;
+	private static final double VISION_TURN_KI = 0.00000001;
+	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
 	private static final double DRIVE_KI = 0.0000001;
 	private static final double DRIVE_TURN_KP = 0.1;
 	private static final double DRIVE_TURN_KI = 0;
 	
-	private enum Mode_Type {TELEOP, AUTO_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
+	private enum Mode_Type {TELEOP, AUTO_TURN, VISION_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
 	
 	private Mode_Type mode = Mode_Type.TELEOP;
 	private PID turnPID;
+	private PID visionTurnPID;
 	private PID straightPID;
 	private PID straightTurnPID;
 	
@@ -40,6 +46,7 @@ public class Drive {
     	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
     	ahrs = new NavX();
     	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05);
+    	visionTurnPID = new PID (VISION_TURN_KP, VISION_TURN_KI, 0, 0.05);
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
     	straightTurnPID= new PID(DRIVE_TURN_KP, DRIVE_TURN_KI, 0, 0.05);
     	
@@ -81,6 +88,14 @@ public class Drive {
     {
     	mode = Mode_Type.AUTO_TURN;
     	turnPID.set(angle);
+    }
+    
+    /**
+     * turns to face goal
+     */
+    public void visionTurn(){
+    	mode = Mode_Type.VISION_TURN;
+    	visionTurnPID.set(0);
     }
     
     /**
@@ -178,6 +193,23 @@ public class Drive {
     		rightMotor.set(-speed);
     		break;
     		
+    	case VISION_TURN:
+    		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
+    		// this is code for testing, remove it later
+    		if(speeed>0.6) {
+    			speeed = 0.6;
+    		}
+    		if(speeed<-0.6){
+    			speeed = -0.6;
+    		}
+//    		
+//    		// end testing code
+    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
+    		DriverStation.reportError("the output is " + speeed + "\n", false);
+    		leftMotor.set(-speeed);
+    		rightMotor.set(-speeed);
+    		break;
+    		
     	case AUTO_STRAIGHT_DISTANCE:
     		double sped = straightPID.getOutput(enc.getDistance());
     		
@@ -193,6 +225,7 @@ public class Drive {
     		leftMotor.set(-sped);
     		rightMotor.set(sped);
     		break;
+    		
     	case AUTO_STRAIGHT_VOLTAGE:
     		 rightMotorSpeed = (spd+straightTurnPID.getOutput(ahrs.getAngle()));
     	        leftMotorSpeed = -1*(spd-straightTurnPID.getOutput(ahrs.getAngle()));
