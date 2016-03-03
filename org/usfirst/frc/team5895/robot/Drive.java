@@ -13,8 +13,8 @@ public class Drive {
 	private static final double TURN_KI = 0.00000001;
 	
 	//for visionTurn()
-	private static final double VISION_TURN_KP = 0.02;
-	private static final double VISION_TURN_KI = 0.00000001;
+	private static final double VISION_TURN_KP = 1.5;
+	private static final double VISION_TURN_KI = 0.000001;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
@@ -196,15 +196,15 @@ public class Drive {
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
     		// this is code for testing, remove it later
-    		if(speeed>0.6) {
-    			speeed = 0.6;
+    		if(speeed>0.5) {
+    			speeed = 0.5;
     		}
-    		if(speeed<-0.6){
-    			speeed = -0.6;
+    		if(speeed<-0.5) {
+    			speeed = -0.5;
     		}
 //    		
 //    		// end testing code
-    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
+//    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
     		DriverStation.reportError("the output is " + speeed + "\n", false);
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);

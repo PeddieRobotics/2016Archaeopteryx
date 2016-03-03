@@ -19,9 +19,9 @@ public class FlywheelCounter {
 		double speed = c.getRate();
 		
 		if (speed > 20000/60) {
+			DriverStation.reportError("Bad flywheel reading\n", false);
 			return lastSpeed;
 		} else {
-			DriverStation.reportError("Bad flywheel reading\n", false);
 			lastSpeed = speed;
 			return speed;
 		}
