@@ -28,7 +28,7 @@ public class Flywheel {
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
 		//topController = new TakeBackHalf(0.00001);
-		bottomController = new TakeBackHalf(0.00000002,120,1.0/150);
+		bottomController = new TakeBackHalf(0.00000002,6000/60,1.0/150);
 		
 		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 //		topCounter.setDistancePerPulse(1);
