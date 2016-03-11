@@ -34,6 +34,7 @@ public class Robot extends IterativeRobot {
 	Recorder recorder;
 	
 	int matchCount;
+	boolean shooting;
 	
 
 //	TalonSRX turMotor;
@@ -66,10 +67,9 @@ public class Robot extends IterativeRobot {
     	u.add(intake::update);
     	u.add(drive::update);
     	u.add(flywheel::update);
-    	u.add(turret::update);
+  //  	u.add(turret::update);
     	
 //    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
-    	
      	
     	u.start();
     	r.start();
@@ -87,7 +87,6 @@ public class Robot extends IterativeRobot {
     
     public void teleopPeriodic() {
     	
-    	DriverStation.reportError("flywheel RPM" + flywheel.getSpeed() + "NavX Angle" + drive.getAngle() +"\n", false);
     	
 //    	if (leftJoystick.getRawButton(3)) {
 //    		flywheel.down();
@@ -106,11 +105,6 @@ public class Robot extends IterativeRobot {
     		turret.set(0);
     	}
     	
-    	
-
-    	
-    	
-    	
     	//DRIVE
     	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
     	
@@ -125,7 +119,7 @@ public class Robot extends IterativeRobot {
     	*/
     	//FLYWHEEL CONTROL SPEED
     	if(rightJoystick.getRawButton(4)){
-    		flywheel.setSpeed(3000);
+    		flywheel.setSpeed(2900);
     	}
     	else if(rightJoystick.getRawButton(3)){
     		flywheel.setSpeed(0);
@@ -143,24 +137,10 @@ public class Robot extends IterativeRobot {
     	
     	//SHOOTING
     	if(rightJoystick.getRawButton(1)){
+   // 		drive.visionTurn();
     		intake.shoot();
     	}
     	
-    	/*
-    	//SET TURRET
-    	//STRAIGHT
-    	if(leftJoystick.getRawButton(3)){
-    		turret.set(0);
-    	}
-    	//CORNER
-    	if(leftJoystick.getRawButton(4)){
-    		turret.set(100);
-    	}
-    	//OTHER CORNER
-    	if(leftJoystick.getRawButton(5)){
-    		turret.set(-100);
-    	}
-    	*/
     }
     
     public void disabledInit() {

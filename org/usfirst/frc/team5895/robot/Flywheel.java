@@ -28,7 +28,7 @@ public class Flywheel {
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
 		//topController = new TakeBackHalf(0.00001);
-		bottomController = new TakeBackHalf(0.00000002,6000/60,1.0/150);
+		bottomController = new TakeBackHalf(0.00000002,6000/60,1.0/100);
 		
 		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 //		topCounter.setDistancePerPulse(1);
@@ -60,11 +60,11 @@ public class Flywheel {
 	
 	/**
 	 * Returns if the flywheel is at the desired speed
-	 * @return True if the flywheel is within 50 rpm of the setpoint
+	 * @return True if the flywheel is within 25 rpm of the setpoint
 	 */
 	public boolean atSpeed(){
 		try {
-			if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
+			if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(25*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
 				return true;
 			} else
 				return false;
@@ -93,6 +93,7 @@ public class Flywheel {
 			output = bottomController.getOutput(speed);
 			bottomMotor.set(output);
 			topMotor.set(-1*output);
+			DriverStation.reportError((speed*60) + "\n",false);
 		} catch (BadFlywheelException e) {
 		}
 		mySolenoid.set(upDown);

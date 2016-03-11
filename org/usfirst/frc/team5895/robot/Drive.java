@@ -13,8 +13,8 @@ public class Drive {
 	private static final double TURN_KI = 0.00000001;
 	
 	//for visionTurn()
-	private static final double VISION_TURN_KP = 1.5;
-	private static final double VISION_TURN_KI = 0.000001;
+	private static final double VISION_TURN_KP = 1.2;
+	private static final double VISION_TURN_KI = 0.0035;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
@@ -93,9 +93,13 @@ public class Drive {
     /**
      * turns to face goal
      */
-    public void visionTurn(){
+    public void visionTurn() {
     	mode = Mode_Type.VISION_TURN;
     	visionTurnPID.set(0);
+    }
+    
+    public boolean facingGoal() {
+    	return Math.abs(SmartDashboard.getNumber("DB/Slider 0", 0)) < 0.01;
     }
     
     /**
@@ -196,11 +200,11 @@ public class Drive {
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
     		// this is code for testing, remove it later
-    		if(speeed>0.5) {
-    			speeed = 0.5;
+    		if(speeed>0.32) {
+    			speeed = 0.32;
     		}
-    		if(speeed<-0.5) {
-    			speeed = -0.5;
+    		if(speeed<-0.32) {
+    			speeed = -0.32;
     		}
 //    		
 //    		// end testing code
