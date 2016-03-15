@@ -63,6 +63,8 @@ public class Robot extends IterativeRobot {
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
+        
+        shooting = false;
      	
     	u.add(intake::update);
     	u.add(drive::update);
@@ -93,40 +95,21 @@ public class Robot extends IterativeRobot {
 //    	} else if (leftJoystick.getRawButton(4)) {
 //    		flywheel.up();
 //    	}
-    	
-    	
-    	if(leftJoystick.getRawButton(3)){
-    		turret.set(-10);
-    	}
-    	else if(leftJoystick.getRawButton(4)){
-    		turret.set(10);
-    	}
-    	else if(leftJoystick.getRawButton(2)){
-    		turret.set(0);
-    	}
+
     	
     	//DRIVE
-    	drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
-    	
-    	/*
-    	//CDF ARM UP OR DOWN
-    	if(leftJoystick.getRawButton(1)){
-    		arm.up();
-    	}
-    	else if(leftJoystick.getRawButton(2)){
-    		arm.down();
-    	}
-    	*/
-    	//FLYWHEEL CONTROL SPEED
-    	if(rightJoystick.getRawButton(4)){
-    		flywheel.setSpeed(2900);
-    	}
-    	else if(rightJoystick.getRawButton(3)){
+    	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) {
+    		shooting = false;
     		flywheel.setSpeed(0);
+   			drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
+    	} else {
+    		if (shooting == false) {
+    			drive.haloDrive(0,0);
+    		}
     	}
-    	
+    	    	
     	//INTAKE UP OR DOWN
-    	
     	if(leftJoystick.getRawButton(2)){
     		intake.up();
     	}
@@ -137,7 +120,11 @@ public class Robot extends IterativeRobot {
     	
     	//SHOOTING
     	if(rightJoystick.getRawButton(1)){
-   // 		drive.visionTurn();
+    //		drive.visionTurn();
+    		flywheel.setSpeed(2900);
+    		shooting = true;
+    	}
+    	if (shooting && flywheel.atSpeed()) {
     		intake.shoot();
     	}
     	
