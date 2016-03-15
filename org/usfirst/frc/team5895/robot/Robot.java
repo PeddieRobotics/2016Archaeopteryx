@@ -2,6 +2,7 @@
 package org.usfirst.frc.team5895.robot;
 
 import org.usfirst.frc.team5895.robot.framework.Looper;
+import org.usfirst.frc.team5895.robot.framework.Waiter;
 import org.usfirst.frc.team5895.robot.Drive;
 
 import edu.wpi.first.wpilibj.CameraServer;
@@ -77,10 +78,16 @@ public class Robot extends IterativeRobot {
     	r.start();
     }
     
+    @Override
     public void autonomousInit() {
     	//recorder.startRecording("auto"+matchCount+".csv");
     	//drive.turnTo(180);
     	//recorder.stopRecording();
+
+    	
+   // 	drive.turnTo(drive.getAngle() + 45);
+   // 	Waiter.waitFor(drive::atAngle, 2000);
+   // 	drive.haloDrive(0, 0);
     }
 
     public void teleopInit() {
@@ -126,6 +133,7 @@ public class Robot extends IterativeRobot {
     	}
     	if (shooting && flywheel.atSpeed()) {
     		intake.shoot();
+    		shooting = false;
     	}
     	
     }

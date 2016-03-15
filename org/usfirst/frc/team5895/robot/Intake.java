@@ -84,7 +84,7 @@ public class Intake {
 		break;
 		
 		case SHOOTING:
-			if(Timer.getFPGATimestamp()-shootTimeStamp < 0.25){
+			if(Timer.getFPGATimestamp()-shootTimeStamp < 0.5){
 				intakeMotor.set(0.75);
 			}
 			else mode = Mode_Type.INTAKING;

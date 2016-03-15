@@ -5,6 +5,7 @@ import org.usfirst.frc.team5895.robot.FlywheelCounter.BadFlywheelException;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Timer;
 
 public class Flywheel {
 
@@ -19,6 +20,10 @@ public class Flywheel {
 	private TakeBackHalf bottomController;
 
 	private boolean upDown;
+	
+	private int atSpeed;
+	private double lastTime;
+	
 	/**
 	 * Creates a new flywheel
 	 */
@@ -34,6 +39,9 @@ public class Flywheel {
 //		topCounter.setDistancePerPulse(1);
 //		topCounter.setSamplesToAverage(2);
 		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
+		
+		atSpeed = 0;
+		lastTime = Timer.getFPGATimestamp();
 	}
 	
 	/**
@@ -41,6 +49,7 @@ public class Flywheel {
 	 * @param speed The desired speed of the flywheel, in rpm
 	 */
 	public void setSpeed(double speed) {
+		atSpeed = 0;
 		bottomController.set(speed/60);
 		bottomController.set(speed/60);
 	}
@@ -60,17 +69,10 @@ public class Flywheel {
 	
 	/**
 	 * Returns if the flywheel is at the desired speed
-	 * @return True if the flywheel is within 25 rpm of the setpoint
+	 * @return True if the flywheel is within 25 rpm of the setpoint for the last 50ms
 	 */
 	public boolean atSpeed(){
-		try {
-			if((Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(25*60)) && (Math.abs(bottomCounter.getRate()-bottomController.getSetpoint())<(50*60))){
-				return true;
-			} else
-				return false;
-		} catch (BadFlywheelException e) {
-			return false;
-		}
+		return atSpeed > 50;
 	}
 		
 	public void up(){
@@ -93,7 +95,13 @@ public class Flywheel {
 			output = bottomController.getOutput(speed);
 			bottomMotor.set(output);
 			topMotor.set(-1*output);
-			DriverStation.reportError((speed*60) + "\n",false);
+			
+			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
+			if (Math.abs(speed-bottomController.getSetpoint()) < 25.0/60) {
+				atSpeed += dt;
+			} else {
+				atSpeed = 0;
+			}
 		} catch (BadFlywheelException e) {
 		}
 		mySolenoid.set(upDown);
