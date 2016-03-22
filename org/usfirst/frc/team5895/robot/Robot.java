@@ -53,12 +53,6 @@ public class Robot extends IterativeRobot {
     	flywheel = new Flywheel();
     	intake = new Intake();
     	
-
-        USBCamera c = new USBCamera("cam1");
-        c.setBrightness(0);
-        c.setExposureManual(-8);
-        CameraServer server = CameraServer.getInstance();
-        server.startAutomaticCapture(c);
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
