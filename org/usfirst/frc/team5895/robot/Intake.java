@@ -65,6 +65,16 @@ public class Intake {
 		return (mode == Mode_Type.HAS_BALL);
 	}
 	
+	//REVERSE INTAKE
+	public void out() {
+		intakeMotor.set(-0.75);
+	}
+	
+	//INTAKE
+	public void in() {
+		intakeMotor.set(0.75);
+	}
+	
 	public void update() {
 		switch (mode) {
 		
@@ -90,6 +100,7 @@ public class Intake {
 			else mode = Mode_Type.INTAKING;
 		break;
 		}
+		
 		
 		upDownSolenoid.set(upDown);
 		lastHasBall = sensor.get();
