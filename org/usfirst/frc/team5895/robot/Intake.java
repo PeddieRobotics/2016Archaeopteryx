@@ -65,12 +65,16 @@ public class Intake {
 		return (mode == Mode_Type.HAS_BALL);
 	}
 	
-	//REVERSE INTAKE
+	/**
+	 * Reverses the intake indefinitely
+	 */
 	public void out() {
 		mode = Mode_Type.REVERSE;
 	}
 	
-	//INTAKE
+	/**
+	 * Intakes until the robot has a ball
+	 */
 	public void in() {
 		mode = Mode_Type.INTAKING;
 	}
