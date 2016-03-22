@@ -79,9 +79,9 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording();
 
     	
-    	drive.turnTo(drive.getAngle() + 30);
-    	//Waiter.waitFor(drive::atAngle, 2000);
-    	//drive.haloDrive(0, 0);
+    	drive.driveVoltage(0.6, drive.getAngle());
+    	Waiter.waitFor(7000);
+    	drive.haloDrive(0, 0);
     }
 
     public void teleopInit() {

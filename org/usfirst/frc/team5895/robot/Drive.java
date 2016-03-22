@@ -19,7 +19,7 @@ public class Drive {
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
 	private static final double DRIVE_KI = 0.0000001;
-	private static final double DRIVE_TURN_KP = 0.1;
+	private static final double DRIVE_TURN_KP = 0.05;
 	private static final double DRIVE_TURN_KI = 0;
 	
 	private enum Mode_Type {TELEOP, AUTO_TURN, VISION_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
