@@ -79,9 +79,9 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording();
 
     	
-   // 	drive.turnTo(drive.getAngle() + 45);
-   // 	Waiter.waitFor(drive::atAngle, 2000);
-   // 	drive.haloDrive(0, 0);
+    	drive.turnTo(drive.getAngle() + 30);
+    	//Waiter.waitFor(drive::atAngle, 2000);
+    	//drive.haloDrive(0, 0);
     }
 
     public void teleopInit() {
@@ -136,6 +136,5 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording(); 
     	intake.up();
     	flywheel.setSpeed(0);
-    	drive.haloDrive(0, 0);
     }  
 }

@@ -10,11 +10,11 @@ public class Drive {
 
 	//for turn()
 	private static final double TURN_KP = 0.02;
-	private static final double TURN_KI = 0.00000001;
+	private static final double TURN_KI = 0.0000001;
 	
 	//for visionTurn()
 	private static final double VISION_TURN_KP = 1.2;
-	private static final double VISION_TURN_KI = 0.0035;
+	private static final double VISION_TURN_KI = 0.00000001;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
@@ -179,11 +179,11 @@ public class Drive {
 //    		DriverStation.reportError("the output is " + speed + "\n", false);
     		
 //    		// this is code for testing, remove it later
-    		if(speed>0.8) {
-    			speed = 0.8;
+    		if(speed>0.4) {
+    			speed = 0.4;
     		}
-    		if(speed<-0.8){
-    			speed = -0.8;
+    		if(speed<-0.4){
+    			speed = -0.4;
     		}
 //    		
 //    		// end testing code
@@ -192,9 +192,9 @@ public class Drive {
 //    			speed=0;
 //    		}
     		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
-    		DriverStation.reportError("the output is " + speed + "\n", false);
-    		leftMotor.set(-speed);
-    		rightMotor.set(-speed);
+    		//DriverStation.reportError("the output is " + speed + "\n", false);
+    		leftMotor.set(speed);
+    		rightMotor.set(speed);
     		break;
     		
     	case VISION_TURN:
