@@ -27,7 +27,6 @@ public class Robot extends IterativeRobot {
 	Drive drive;
 	CDFArm arm;
 	Flywheel flywheel;
-	Turret turret;
 	Intake intake;
 	Looper u;
 	Looper r;
@@ -53,7 +52,6 @@ public class Robot extends IterativeRobot {
 //    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
-    	turret = new Turret();
     	
 
         USBCamera c = new USBCamera("cam1");

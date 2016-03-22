@@ -8,7 +8,6 @@ public class ElectricalLayout {
 	public static final int FLYWHEEL_TOPMOTOR = 5;
 	public static final int FLYWHEEL_BOTTOMMOTOR = 4;
 	public static final int INTAKE_MOTOR = 2;
-	public static final int TURRET_MOTOR = 3;
 
 	//Solenoids
 	public static final int ARM_SOLENOID = 3; //Cheval de Frise
@@ -24,6 +23,5 @@ public class ElectricalLayout {
 //	public static final int FLYWHEEL_TOPCOUNTER = 8;
 	public static final int FLYWHEEL_BOTTOMCOUNTER = 9;
 	public static final int INTAKE_SENSOR = 6;
-	public static final int TURRET_ENCODER = 4;
-	public static final int TURRET_ENCODER2 = 5;	
+	
 }

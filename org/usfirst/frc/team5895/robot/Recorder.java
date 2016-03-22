@@ -15,7 +15,6 @@ public class Recorder {
 	private CDFArm arm;
 	private Flywheel fly;
 	private Intake intake;
-	private Turret turret;
 	
 	private boolean recordFile;
 	private Formatter f;
@@ -28,12 +27,11 @@ public class Recorder {
 	 * @param in the intake
 	 * @param t the turret
 	 */
-	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in, Turret t ){
+	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in){
 		this.drive = d;
 		this.arm = a;
 		this.fly = fy;	
 		this.intake = in;
-		this.turret = t;
 		recordFile = false;
 	}
 	
@@ -75,7 +73,7 @@ public class Recorder {
      */
     public void record() {
     	if (recordFile==true) {
-    		f.format("%f,%f,%f,%b,%f,%b,%b,%b,%f\r\n",
+    		f.format("%f,%f,%f,%b,%f,%b,%b,%b\r\n",
     				Timer.getFPGATimestamp(),
     				drive.getAngle(),
     				drive.getDistance(),
@@ -83,8 +81,7 @@ public class Recorder {
     				fly.getSpeed(),
     				fly.getUpDown(),
     				intake.isDown(),
-    				intake.hasBall(),
-    				turret.getAngle());
+    				intake.hasBall());
     	}
     }
     
