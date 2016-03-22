@@ -14,7 +14,7 @@ public class Intake {
 	private double shootTimeStamp;
 	private double ballTimeStamp;
 	private boolean lastHasBall;
-	private enum Mode_Type {INTAKING, HAS_BALL, SHOOTING};
+	private enum Mode_Type {INTAKING, REVERSE, HAS_BALL, SHOOTING};
 	private Mode_Type mode = Mode_Type.INTAKING;
 	
 	public Intake() {
@@ -67,12 +67,12 @@ public class Intake {
 	
 	//REVERSE INTAKE
 	public void out() {
-		intakeMotor.set(-0.75);
+		mode = Mode_Type.REVERSE;
 	}
 	
 	//INTAKE
 	public void in() {
-		intakeMotor.set(0.75);
+		mode = Mode_Type.INTAKING;
 	}
 	
 	public void update() {
@@ -86,6 +86,9 @@ public class Intake {
 			}
 		break;
 		
+		case REVERSE:
+			intakeMotor.set(0.7);
+			
 		case HAS_BALL:
 			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.1) {
 				intakeMotor.set(-0.4);
