@@ -231,10 +231,9 @@ public class Drive {
     		break;
     		
     	case AUTO_STRAIGHT_VOLTAGE:
-    		 rightMotorSpeed = (spd+straightTurnPID.getOutput(ahrs.getAngle()));
-    	        leftMotorSpeed = -1*(spd-straightTurnPID.getOutput(ahrs.getAngle()));
-    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
-    		DriverStation.reportError("the voltage is " + spd, false);
+    		double turn = straightTurnPID.getOutput(ahrs.getAngle());
+    		rightMotor.set(-1*(spd - turn));
+    		leftMotor.set(spd+turn);
     		break;
     	}
      
