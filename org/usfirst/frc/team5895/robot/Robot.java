@@ -30,6 +30,7 @@ public class Robot extends IterativeRobot {
 	Intake intake;
 	Looper u;
 	Looper r;
+	Vision vision;
 	
 	Recorder recorder;
 	
@@ -52,6 +53,7 @@ public class Robot extends IterativeRobot {
 //    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
+    	vision = new Vision();
     	
     	
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
