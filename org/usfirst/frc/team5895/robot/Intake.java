@@ -87,7 +87,8 @@ public class Intake {
 		break;
 		
 		case REVERSE:
-			intakeMotor.set(0.7);
+			intakeMotor.set(-0.7);
+		break;
 			
 		case HAS_BALL:
 			if((Timer.getFPGATimestamp() - ballTimeStamp) < 0.1) {
