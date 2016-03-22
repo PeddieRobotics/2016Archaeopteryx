@@ -19,6 +19,10 @@ public class Vision {
 		return SmartDashboard.getNumber("DB/Slider 0", 0);
 	}
 	
+	public boolean hasTarget(){
+		return SmartDashboard.getBoolean("DB/LED 0", false);
+	}
+	
 	public double getY() {
 		return SmartDashboard.getNumber("DB/Slider 1", 0);
 	}
