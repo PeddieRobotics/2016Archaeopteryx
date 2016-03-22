@@ -21,8 +21,8 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
  */
 public class Robot extends IterativeRobot {
 
-	Joystick leftJoystick;
-    Joystick rightJoystick;
+	BetterJoystick leftJoystick;
+    BetterJoystick rightJoystick;
 	
 	Drive drive;
 	CDFArm arm;
@@ -43,8 +43,8 @@ public class Robot extends IterativeRobot {
 	
     public void robotInit() {
     	
-    	leftJoystick = new Joystick(0);
-        rightJoystick = new Joystick(1);
+    	leftJoystick = new BetterJoystick(0);
+        rightJoystick = new BetterJoystick(1);
     	
     	u = new Looper(10);
     	r = new Looper(250);
@@ -118,6 +118,13 @@ public class Robot extends IterativeRobot {
     		intake.down();
     	}
     	
+    	//INTAKE IN OR OUT
+    	if(rightJoystick.getRisingEdge(2)){
+    		intake.out();
+    	}
+    	if(rightJoystick.getFallingEdge(2)){
+    		intake.in();
+    	}
     	
     	//SHOOTING
     	if(rightJoystick.getRawButton(1)){
