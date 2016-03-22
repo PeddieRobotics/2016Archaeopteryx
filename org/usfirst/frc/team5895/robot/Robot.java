@@ -136,5 +136,6 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording(); 
     	intake.up();
     	flywheel.setSpeed(0);
+    	drive.haloDrive(0, 0);
     }  
 }
