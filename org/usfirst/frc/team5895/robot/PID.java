@@ -53,7 +53,7 @@ public class PID{
 	 * @param dV The maximum amount the voltage can change per ms
 	 */
 	public PID(double Kp, double Ki, double Kd, double dV) {
-		this(Kp, Ki, Kd, dV, true, 1);
+		this(Kp, Ki, Kd, dV, true, Double.MAX_VALUE);
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class PID{
 	 * @param reset_zero_cross If true, resets the integral term whenever the error crosses zero
 	 */
 	public PID(double Kp, double Ki, double Kd, double dV, boolean reset_zero_cross) {
-		this(Kp, Ki, Kd, dV, reset_zero_cross, 0);
+		this(Kp, Ki, Kd, dV, reset_zero_cross, Double.MAX_VALUE);
 	}
 	
 	/**
