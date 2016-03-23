@@ -2,7 +2,6 @@ package org.usfirst.frc.team5895.robot;
 
 import org.usfirst.frc.team5895.robot.FlywheelCounter.BadFlywheelException;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;

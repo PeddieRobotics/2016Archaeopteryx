@@ -1,10 +1,8 @@
 package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 
 public class Drive {
 

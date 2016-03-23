@@ -1,7 +1,6 @@
 package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.Counter;
-import edu.wpi.first.wpilibj.DriverStation;
 
 public class FlywheelCounter {
 

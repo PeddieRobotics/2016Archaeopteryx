@@ -1,15 +1,13 @@
 
 package org.usfirst.frc.team5895.robot;
 
+import org.usfirst.frc.team5895.robot.framework.BetterJoystick;
 import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.framework.Waiter;
 import org.usfirst.frc.team5895.robot.Drive;
 
-import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 
 /**

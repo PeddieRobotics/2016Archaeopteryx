@@ -1,6 +1,5 @@
 package org.usfirst.frc.team5895.robot;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 public class TakeBackHalf {
