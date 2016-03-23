@@ -12,12 +12,12 @@ public class PID{
 	private final double dV;
 	
 	private double setpoint;
+	private double capI;
 	private double lastTime = 0;
 	private double errorSum = 0;
 	private double lastError = 0;
 	private double lastSetpoint = 0;
 	private double lastOutput = 0;
-	private boolean saturated = false;
 	
 	/**
 	 * Initializes a new PID controller
@@ -27,12 +27,14 @@ public class PID{
 	 * @param Kd The derivative gain
 	 * @param dV The maximum amount the voltage can change per ms
 	 * @param reset_zero_cross If true, resets the integral term whenever the error crosses zero
+	 * @param capI The limit on how high the integral term can grow to
 	 */
-	public PID(double Kp, double Ki, double Kd, double dV, boolean reset_zero_cross) {
+	public PID(double Kp, double Ki, double Kd, double dV, boolean reset_zero_cross, double capI) {
 		this.Kp = Kp;
 		this.Ki = Ki;
 		this.Kd = Kd;
 		this.dV = dV;
+		this.capI = capI;
 		RESET_ZERO_CROSS = reset_zero_cross;
 		setpoint = 0;
 		lastTime = 0;
@@ -51,7 +53,33 @@ public class PID{
 	 * @param dV The maximum amount the voltage can change per ms
 	 */
 	public PID(double Kp, double Ki, double Kd, double dV) {
-		this(Kp, Ki, Kd, dV, true);
+		this(Kp, Ki, Kd, dV, true, 1);
+	}
+	
+	/**
+	 * Initializes a new PID controller
+	 * 
+	 * @param Kp The proportional gain
+	 * @param Ki The integral gain
+	 * @param Kd The derivative gain
+	 * @param dV The maximum amount the voltage can change per ms
+	 * @param capI The limit on how high the integral term can grow to
+	 */
+	public PID(double Kp, double Ki, double Kd, double dV, double capI) {
+		this(Kp, Ki, Kd, dV, true, capI);
+	}
+	
+	/**
+	 * Initializes a new PID controller
+	 * 
+	 * @param Kp The proportional gain
+	 * @param Ki The integral gain
+	 * @param Kd The derivative gain
+	 * @param dV The maximum amount the voltage can change per ms
+	 * @param reset_zero_cross If true, resets the integral term whenever the error crosses zero
+	 */
+	public PID(double Kp, double Ki, double Kd, double dV, boolean reset_zero_cross) {
+		this(Kp, Ki, Kd, dV, reset_zero_cross, 0);
 	}
 	
 	/**
@@ -102,29 +130,25 @@ public class PID{
 		double time = Timer.getFPGATimestamp() * 1000;
 		double dt = time - lastTime;
 		
-/*		if (!saturated) {  
-			errorSum += error * dt;   //only integrate error if output isn't saturated 
-		}
-*/
 		errorSum += error * dt; //always integrate error
+		
+		if (Ki * errorSum > capI) {
+			errorSum = capI/Ki;    //limit I term from being too high
+		} else if (Ki * errorSum < -capI) {
+			errorSum = -capI/Ki;    //limit I term from being too low
+		}
 		
 		double dError = (error - lastError) / dt;  //should this be smoothed over
 		                                           //multiple measurements?
 		
 		double output = Kp * error + Ki * errorSum + Kd * dError;
 		
-		saturated = false;
 		//limit the amount of voltage the output can change per ms
 		if (output - lastOutput > (dt * dV)) {
 			output = lastOutput + (dt * dV);
-			saturated = true;
 		}
 		if (output - lastOutput < -(dt * dV)) {
 			output = lastOutput - (dt * dV);
-			saturated = true;
-		}
-		if (output >= 1.0 || output <= -1.0) {
-			saturated = true;
 		}
 		
 		//set variables for next run through loop
