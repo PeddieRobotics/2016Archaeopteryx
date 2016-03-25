@@ -12,10 +12,10 @@ public class Flywheel {
 	private TalonSRX bottomMotor;
 	private Solenoid mySolenoid;
 	
-	//private Counter topCounter;
+	private FlywheelCounter topCounter;
 	private FlywheelCounter bottomCounter;
 	
-	//private TakeBackHalf topController;
+	private TakeBackHalf topController;
 	private TakeBackHalf bottomController;
 
 	private boolean upDown;
@@ -31,12 +31,10 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-		//topController = new TakeBackHalf(0.00001);
+		topController = new TakeBackHalf(0.00000002,6000/60,1.0/100);
 		bottomController = new TakeBackHalf(0.00000002,6000/60,1.0/100);
 		
-		//topCounter = new Counter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
-//		topCounter.setDistancePerPulse(1);
-//		topCounter.setSamplesToAverage(2);
+		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 		
 		atSpeed = 0;
@@ -87,13 +85,15 @@ public class Flywheel {
 	}
 	
 	public void update() {
-		double output;
+		double bottomOutput;
+		double topOutput;
 		double speed;
 		try {
 			speed = bottomCounter.getRate();
-			output = bottomController.getOutput(speed);
-			bottomMotor.set(output);
-			topMotor.set(-1*output);
+			bottomOutput = bottomController.getOutput(speed);
+			topOutput = topController.getOutput(speed);
+			bottomMotor.set(bottomOutput);
+			topMotor.set(-1*topOutput);
 			
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 			if (Math.abs(speed-bottomController.getSetpoint()) < 25.0/60) {

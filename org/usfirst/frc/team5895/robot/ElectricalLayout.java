@@ -20,7 +20,7 @@ public class ElectricalLayout {
 	public static final int LEFTDRIVE_ENCODER2 = 3;
 	public static final int RIGHTDRIVE_ENCODER = 0;
 	public static final int RIGHTDRIVE_ENCODER2 = 1;
-//	public static final int FLYWHEEL_TOPCOUNTER = 8;
+	public static final int FLYWHEEL_TOPCOUNTER = 8;
 	public static final int FLYWHEEL_BOTTOMCOUNTER = 9;
 	public static final int INTAKE_SENSOR = 6;
 	
