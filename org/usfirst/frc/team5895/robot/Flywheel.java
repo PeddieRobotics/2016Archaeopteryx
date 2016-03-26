@@ -48,7 +48,7 @@ public class Flywheel {
 	public void setSpeed(double speed) {
 		atSpeed = 0;
 		bottomController.set(speed/60);
-		bottomController.set(speed/60);
+		topController.set(speed/60);
 	}
 	
 	/**
