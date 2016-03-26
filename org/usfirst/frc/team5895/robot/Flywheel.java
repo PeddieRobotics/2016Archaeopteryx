@@ -51,6 +51,11 @@ public class Flywheel {
 		topController.set(speed/60);
 	}
 	
+	public void setSpeed(double topSpeed, double bottomSpeed) {
+		atSpeed = 0;
+		bottomController.set(bottomSpeed/60);
+		topController.set(topSpeed/60);
+	}
 	/**
 	 * Returns the speed that the flywheel is moving at
 	 * @return The speed of the flywheel, in rpm

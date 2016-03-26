@@ -99,8 +99,10 @@ public class Robot extends IterativeRobot {
     	//DRIVE
     	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
     			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) {
-    		shooting = false;
-    		flywheel.setSpeed(0);
+    		if(flywheel.getUpDown() == true){
+    			shooting = false;
+    			flywheel.setSpeed(0);
+    		}
    			drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
     	} else {
     		if (shooting == false) {
