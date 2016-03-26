@@ -51,6 +51,10 @@ public class Flywheel {
 		topController.set(speed/60);
 	}
 	
+	/**
+	 * Sets the flywheel's speed
+	 * @param speed The desired speed of the flywheel, in rpm
+	 */
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		atSpeed = 0;
 		bottomController.set(bottomSpeed/60);
