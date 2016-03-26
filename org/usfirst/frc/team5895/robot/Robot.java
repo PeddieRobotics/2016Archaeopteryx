@@ -89,9 +89,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
     	
-    	if (leftJoystick.getRawButton(3)) {
+    	if (rightJoystick.getRawButton(3)) {
     	flywheel.down();
-    	} else if (leftJoystick.getRawButton(4)) {
+    	} else if (rightJoystick.getRawButton(4)) {
     		flywheel.up();
     	}
 
