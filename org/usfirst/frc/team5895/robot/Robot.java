@@ -89,9 +89,9 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
     	
     	
-    	if (rightJoystick.getRawButton(3)) {
-    	flywheel.down();
-    	} else if (rightJoystick.getRawButton(4)) {
+    	if (rightJoystick.getRisingEdge(3)) {
+    		flywheel.down();
+    	} else if (rightJoystick.getRisingEdge(4)) {
     		flywheel.up();
     	}
 
@@ -111,10 +111,10 @@ public class Robot extends IterativeRobot {
     	}
     	    	
     	//INTAKE UP OR DOWN
-    	if(leftJoystick.getRawButton(2)){
+    	if(leftJoystick.getRisingEdge(2)){
     		intake.up();
     	}
-    	else if(leftJoystick.getRawButton(1)){
+    	else if(leftJoystick.getRisingEdge(1)){
     		intake.down();
     	}
     	
@@ -129,7 +129,12 @@ public class Robot extends IterativeRobot {
     	//SHOOTING
     	if(rightJoystick.getRisingEdge(1)){
     //		drive.visionTurn();
-    		flywheel.setSpeed(2600);
+    		if(flywheel.getUpDown()){
+    			flywheel.setSpeed(2700);
+    		}
+    		else {
+    			flywheel.setSpeed(2600);
+    		}
     		shooting = true;
     	}
     	if (shooting && flywheel.atSpeed()) {
