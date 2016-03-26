@@ -87,16 +87,19 @@ public class Flywheel {
 	public void update() {
 		double bottomOutput;
 		double topOutput;
-		double speed;
+		double bottomSpeed;
+		double topSpeed;
 		try {
-			speed = bottomCounter.getRate();
-			bottomOutput = bottomController.getOutput(speed);
-			topOutput = topController.getOutput(speed);
+			bottomSpeed = bottomCounter.getRate();
+			topSpeed = topCounter.getRate();
+			bottomOutput = bottomController.getOutput(bottomSpeed);
+			topOutput = topController.getOutput(topSpeed);
 			bottomMotor.set(bottomOutput);
 			topMotor.set(-1*topOutput);
 			
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
-			if (Math.abs(speed-bottomController.getSetpoint()) < 25.0/60) {
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 25.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 25.0/60) {
 				atSpeed += dt;
 			} else {
 				atSpeed = 0;
