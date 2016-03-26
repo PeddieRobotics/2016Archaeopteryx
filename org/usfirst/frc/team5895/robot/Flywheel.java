@@ -31,8 +31,8 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-		topController = new TakeBackHalf(0.00000002,6000/60,1.0/100);
-		bottomController = new TakeBackHalf(0.00000002,6000/60,1.0/100);
+		topController = new TakeBackHalf(0.00000007,6150/60,1.0/100);
+		bottomController = new TakeBackHalf(0.00000005,6050/60,1.0/100);
 		
 		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
@@ -53,7 +53,8 @@ public class Flywheel {
 	
 	/**
 	 * Sets the flywheel's speed
-	 * @param speed The desired speed of the flywheel, in rpm
+	 * @param topSpeed The desired speed of the top flywheel, in rpm
+	 * @param bottomSpeed The desired speed of the top flywheel, in rpm
 	 */
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		atSpeed = 0;
@@ -66,7 +67,7 @@ public class Flywheel {
 	 */
 	public double getSpeed() {
 		try {
-			return bottomCounter.getRate()*60;
+			return topCounter.getRate()*60;
 		}
 		catch (BadFlywheelException e){
 			return e.getLastSpeed();
@@ -101,10 +102,13 @@ public class Flywheel {
 		try {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
+			
+		//	DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60, false);
+			
 			bottomOutput = bottomController.getOutput(bottomSpeed);
 			topOutput = topController.getOutput(topSpeed);
-			bottomMotor.set(bottomOutput);
-			topMotor.set(-1*topOutput);
+			bottomMotor.set(-bottomOutput);
+			topMotor.set(topOutput);
 			
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 25.0/60 &&
