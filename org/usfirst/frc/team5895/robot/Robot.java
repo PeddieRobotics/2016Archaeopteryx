@@ -33,6 +33,7 @@ public class Robot extends IterativeRobot {
 	Recorder recorder;
 	
 	int matchCount;
+	boolean visionTurn;
 	boolean shooting;
 	
 
@@ -57,6 +58,7 @@ public class Robot extends IterativeRobot {
      	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
     	//matchCount = recorder.incrementCount();
         
+        visionTurn = false;
         shooting = false;
      	
     	u.add(intake::update);
@@ -97,17 +99,8 @@ public class Robot extends IterativeRobot {
 
     	
     	//DRIVE
-    	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
-    			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) {
-    		if(flywheel.getUpDown() == true){
-    			shooting = false;
-    			flywheel.setSpeed(0);
-    		}
-   			drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
-    	} else {
-    		if (shooting == false) {
-    			drive.haloDrive(0,0);
-    		}
+    	if (!visionTurn) {
+    		drive.haloDrive(leftJoystick.getRawAxis(1),rightJoystick.getRawAxis(0));
     	}
     	    	
     	//INTAKE UP OR DOWN
@@ -128,8 +121,9 @@ public class Robot extends IterativeRobot {
     	
     	//SHOOTING
     	if(rightJoystick.getRisingEdge(1)){
-    //		drive.visionTurn();
     		if(flywheel.getUpDown()){
+    			 //		drive.visionTurn();
+    			visionTurn = true;
     			flywheel.setSpeed(2700);
     		}
     		else {
@@ -139,7 +133,18 @@ public class Robot extends IterativeRobot {
     	}
     	if (shooting && flywheel.atSpeed()) {
     		intake.shoot();
+    		visionTurn = false;
     		shooting = false;
+    	}
+    	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) && visionTurn) {
+    		visionTurn = false;
+    		flywheel.setSpeed(0);
+    	}
+    	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.6 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.6) {
+    		shooting = false;
+    		flywheel.setSpeed(0);
     	}
     	
     }
@@ -148,5 +153,8 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording(); 
     	intake.up();
     	flywheel.setSpeed(0);
+    	flywheel.down();
+    	shooting = false;
+    	visionTurn = false;
     }  
 }
