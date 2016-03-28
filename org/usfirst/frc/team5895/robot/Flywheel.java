@@ -65,9 +65,18 @@ public class Flywheel {
 	 * Returns the speed that the flywheel is moving at
 	 * @return The speed of the flywheel, in rpm
 	 */
-	public double getSpeed() {
+	public double getTopSpeed() {
 		try {
 			return topCounter.getRate()*60;
+		}
+		catch (BadFlywheelException e){
+			return e.getLastSpeed();
+		}
+	}
+	
+	public double getBottomSpeed() {
+		try {
+			return bottomCounter.getRate()*60;
 		}
 		catch (BadFlywheelException e){
 			return e.getLastSpeed();
