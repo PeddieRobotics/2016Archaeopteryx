@@ -55,8 +55,8 @@ public class Robot extends IterativeRobot {
     	vision = new Vision();
     	
     	
-     	//recorder = new Recorder(drive,arm,flywheel,intake,turret);
-    	//matchCount = recorder.incrementCount();
+     	recorder = new Recorder(drive,arm,flywheel,intake);
+    	matchCount = recorder.incrementCount();
         
         visionTurn = false;
         shooting = false;
