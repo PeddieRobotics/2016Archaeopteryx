@@ -48,10 +48,10 @@ public class Flywheel {
 	public void setSpeed(double speed) {
 		atSpeed = 0;
 		
-		if (Math.abs(bottomController.getSetpoint()-speed) < 25)
+		if (Math.abs(bottomController.getSetpoint()-speed) > 25)
 			bottomController.set(speed/60);
 		
-		if (Math.abs(topController.getSetpoint()-speed) < 25)
+		if (Math.abs(topController.getSetpoint()-speed) > 25)
 			topController.set(speed/60);
 	}
 	
