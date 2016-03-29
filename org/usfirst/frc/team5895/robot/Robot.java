@@ -79,9 +79,16 @@ public class Robot extends IterativeRobot {
     	//recorder.stopRecording();
 
     	
+    	drive.visionTurn();
+   // 	flywheel.setSpeed(2800);
+   // 	Waiter.waitFor(drive::facingGoal, 5000);
+   // 	Waiter.waitFor(flywheel::atSpeed, 2000);
+   // 	intake.shoot();
+    	/*
     	drive.driveVoltage(0.6, drive.getAngle());
     	Waiter.waitFor(7000);
     	drive.haloDrive(0, 0);
+    	*/
     }
 
     public void teleopInit() {
@@ -124,7 +131,7 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			 //		drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2700);
+    			flywheel.setSpeed(2725);
     		}
     		else {
     			flywheel.setSpeed(2600);
@@ -132,6 +139,7 @@ public class Robot extends IterativeRobot {
     		shooting = true;
     	}
     	if (shooting && flywheel.atSpeed()) {
+    		DriverStation.reportError("rpm " + flywheel.getBottomSpeed() + "\n", false);
     		intake.shoot();
     		visionTurn = false;
     		shooting = false;

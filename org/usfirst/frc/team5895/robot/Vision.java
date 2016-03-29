@@ -12,7 +12,7 @@ public class Vision {
 		try {
 			USBCamera c = new USBCamera("cam1");
 			c.setBrightness(0);
-			c.setExposureManual(-8);
+			c.setExposureManual(-9);
         	CameraServer server = CameraServer.getInstance();
         	server.startAutomaticCapture(c);
 		} catch (Exception e) {
