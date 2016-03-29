@@ -47,8 +47,12 @@ public class Flywheel {
 	 */
 	public void setSpeed(double speed) {
 		atSpeed = 0;
-		bottomController.set(speed/60);
-		topController.set(speed/60);
+		
+		if (Math.abs(bottomController.getSetpoint()-speed) < 25)
+			bottomController.set(speed/60);
+		
+		if (Math.abs(topController.getSetpoint()-speed) < 25)
+			topController.set(speed/60);
 	}
 	
 	/**
@@ -58,8 +62,12 @@ public class Flywheel {
 	 */
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		atSpeed = 0;
-		bottomController.set(bottomSpeed/60);
-		topController.set(topSpeed/60);
+		
+		if (Math.abs(bottomController.getSetpoint()-bottomSpeed) < 25)
+			bottomController.set(bottomSpeed/60);
+		
+		if (Math.abs(topController.getSetpoint()-topSpeed) < 25)
+			topController.set(topSpeed/60);
 	}
 	/**
 	 * Returns the speed that the flywheel is moving at
