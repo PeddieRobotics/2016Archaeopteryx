@@ -12,7 +12,7 @@ public class Drive {
 	
 	//for visionTurn()
 	private static final double VISION_TURN_KP = 2.0;
-	private static final double VISION_TURN_KI = 0.0002;
+	private static final double VISION_TURN_KI = 0.0008;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;

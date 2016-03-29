@@ -147,6 +147,7 @@ public class Robot extends IterativeRobot {
     	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
     			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) && visionTurn) {
     		visionTurn = false;
+    		shooting = false;
     		flywheel.setSpeed(0);
     	}
     	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.6 ||
