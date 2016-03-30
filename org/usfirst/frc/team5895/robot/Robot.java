@@ -77,11 +77,17 @@ public class Robot extends IterativeRobot {
     	//recorder.startRecording("auto"+matchCount+".csv");
     	//drive.turnTo(180);
     	//recorder.stopRecording();
-
     	
+    	//rough terrain position 1
     	drive.driveVoltage(0.6, drive.getAngle());
-    	Waiter.waitFor(7000);
+    	Waiter.waitFor(2500);
     	drive.haloDrive(0, 0);
+    	//drive.turnTo(drive.getAngle()+10);
+    	flywheel.up();
+    	flywheel.setSpeed(2600);
+    	drive.visionTurn();
+    	Waiter.waitFor(5000);
+    	intake.shoot();
     }
 
     public void teleopInit() {
