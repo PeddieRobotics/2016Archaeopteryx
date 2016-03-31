@@ -7,17 +7,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive {
 
 	//for turn()
-	private static final double TURN_KP = 0.02;
-	private static final double TURN_KI = 0.0000001;
+	private static final double TURN_KP = 0.008;
+	private static final double TURN_KI = 0.00005;
 	
 	//for visionTurn()
-	private static final double VISION_TURN_KP = 1.2;
-	private static final double VISION_TURN_KI = 0.00000001;
+	private static final double VISION_TURN_KP = 1.8;
+	private static final double VISION_TURN_KI = 0.0008;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
 	private static final double DRIVE_KI = 0.0000001;
-	private static final double DRIVE_TURN_KP = 0.05;
+	private static final double DRIVE_TURN_KP = 0.04;
 	private static final double DRIVE_TURN_KI = 0;
 	
 	private enum Mode_Type {TELEOP, AUTO_TURN, VISION_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
@@ -43,7 +43,7 @@ public class Drive {
     	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
     	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
     	ahrs = new NavX();
-    	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05);
+    	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05, 0.35);
     	visionTurnPID = new PID (VISION_TURN_KP, VISION_TURN_KI, 0, 0.05);
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
     	straightTurnPID= new PID(DRIVE_TURN_KP, DRIVE_TURN_KI, 0, 0.05);
@@ -97,7 +97,7 @@ public class Drive {
     }
     
     public boolean facingGoal() {
-    	return Math.abs(SmartDashboard.getNumber("DB/Slider 0", 0)) < 0.01;
+    	return Math.abs(SmartDashboard.getNumber("DB/Slider 0", 0)) < 0.02;
     }
     
     /**
@@ -198,16 +198,15 @@ public class Drive {
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
     		// this is code for testing, remove it later
-    		if(speeed>0.32) {
-    			speeed = 0.32;
+    		if(speeed>0.4) {
+    			speeed = 0.4;
     		}
-    		if(speeed<-0.32) {
-    			speeed = -0.32;
+    		if(speeed<-0.4) {
+    			speeed = -0.4;
     		}
 //    		
-//    		// end testing code
-//    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
-    		DriverStation.reportError("the output is " + speeed + "\n", false);
+    		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
+   // 		DriverStation.reportError("the output is " + speeed + "\n", false);
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);
     		break;
@@ -230,6 +229,13 @@ public class Drive {
     		
     	case AUTO_STRAIGHT_VOLTAGE:
     		double turn = straightTurnPID.getOutput(ahrs.getAngle());
+    		
+    		if (turn > 0.3) {
+    			turn = 0.3;
+    		} else if (turn < -0.3) {
+    			turn = -0.3;
+    		}
+    		
     		rightMotor.set(-1*(spd - turn));
     		leftMotor.set(spd+turn);
     		break;

@@ -8,6 +8,7 @@ import org.usfirst.frc.team5895.robot.Drive;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 
 /**
@@ -78,15 +79,88 @@ public class Robot extends IterativeRobot {
     	//drive.turnTo(180);
     	//recorder.stopRecording();
     	
-    	//rough terrain position 1
-    	drive.driveVoltage(0.6, drive.getAngle());
-    	Waiter.waitFor(2500);
-    	drive.haloDrive(0, 0);
-    	//drive.turnTo(drive.getAngle()+10);
+    	String defense = SmartDashboard.getString("DB/String 0");
+    	String position = SmartDashboard.getString("DB/String 1");
+    	
+    	double angle = drive.getAngle();
+    	
     	flywheel.up();
-    	flywheel.setSpeed(2600);
+    	Waiter.waitFor(50);
+    	
+    	if (defense.contains("rough")) {
+    		drive.driveVoltage(0.6, angle);
+        	Waiter.waitFor(2300);
+        	drive.haloDrive(0, 0);
+    	} else if (defense.contains("rock")) {
+    		drive.driveVoltage(0.6, angle);
+        	Waiter.waitFor(2700);
+        	drive.haloDrive(0, 0);
+    	}
+    	
+    	
+    	if (position.contains("2")) {
+    		Waiter.waitFor(200);
+    		drive.turnTo(angle);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    	
+    		drive.driveVoltage(0.35, angle);
+    		Waiter.waitFor(1400);
+    		drive.haloDrive(0, 0);
+    		
+    		Waiter.waitFor(100);
+    		drive.turnTo(angle+35);
+    		Waiter.waitFor(3000);
+    		drive.haloDrive(0,0);
+    		
+    		Waiter.waitFor(100);
+    		drive.driveVoltage(-0.3, angle+35);
+    		Waiter.waitFor(1000);
+    		drive.haloDrive(0,0);
+    		
+    		flywheel.setSpeed(2750);
+    	
+    	} else if (position.contains("3")) {
+    		Waiter.waitFor(200);
+    		drive.turnTo(angle+5);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    		
+    		flywheel.setSpeed(2725);
+    	} else if (position.contains("4")) {
+    		Waiter.waitFor(200);
+    		drive.turnTo(angle-2);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    		
+    		flywheel.setSpeed(2725);
+    	} else if (position.contains("5")) {
+    		Waiter.waitFor(200);
+    		drive.turnTo(angle);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    	
+    		drive.driveVoltage(0.35, angle);
+    		Waiter.waitFor(1400);
+    		drive.haloDrive(0, 0);
+    		
+    		Waiter.waitFor(100);
+    		drive.turnTo(angle-35);
+    		Waiter.waitFor(3000);
+    		drive.haloDrive(0,0);
+    		
+    		Waiter.waitFor(100);
+    		drive.driveVoltage(-0.3, angle-35);
+    		Waiter.waitFor(500);
+    		drive.haloDrive(0,0);
+    		
+    		flywheel.setSpeed(2750);
+    	}
+    	
     	drive.visionTurn();
-    	Waiter.waitFor(5000);
+    	Waiter.waitFor(4000);
+    	Waiter.waitFor(flywheel::atSpeed, 1500);
+    	drive.haloDrive(0, 0);
     	intake.shoot();
     }
 
