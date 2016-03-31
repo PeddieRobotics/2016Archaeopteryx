@@ -2,6 +2,7 @@ package org.usfirst.frc.team5895.robot;
 
 import org.usfirst.frc.team5895.robot.FlywheelCounter.BadFlywheelException;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
@@ -48,10 +49,10 @@ public class Flywheel {
 	public void setSpeed(double speed) {
 		atSpeed = 0;
 		
-		if (Math.abs(bottomController.getSetpoint()-speed) > 25)
+		if (Math.abs(bottomController.getSetpoint()-speed/60) > 20.0/60)
 			bottomController.set(speed/60);
 		
-		if (Math.abs(topController.getSetpoint()-speed) > 25)
+		if (Math.abs(topController.getSetpoint()-speed/60) > 20.0/60)
 			topController.set(speed/60);
 	}
 	
@@ -63,10 +64,10 @@ public class Flywheel {
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		atSpeed = 0;
 		
-		if (Math.abs(bottomController.getSetpoint()-bottomSpeed) < 25)
+		if (Math.abs(bottomController.getSetpoint()-bottomSpeed/60) < 20.0/60)
 			bottomController.set(bottomSpeed/60);
 		
-		if (Math.abs(topController.getSetpoint()-topSpeed) < 25)
+		if (Math.abs(topController.getSetpoint()-topSpeed/60) < 20.0/60)
 			topController.set(topSpeed/60);
 	}
 	/**
@@ -128,8 +129,8 @@ public class Flywheel {
 			topMotor.set(topOutput);
 			
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
-			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 25.0/60 &&
-					Math.abs(topSpeed-topController.getSetpoint()) < 25.0/60) {
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 20.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 20.0/60) {
 				atSpeed += dt;
 			} else {
 				atSpeed = 0;
