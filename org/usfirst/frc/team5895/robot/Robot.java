@@ -89,7 +89,7 @@ public class Robot extends IterativeRobot {
     	
     	if (defense.contains("rough")) {
     		drive.driveVoltage(0.6, angle);
-        	Waiter.waitFor(2300);
+        	Waiter.waitFor(2500);
         	drive.haloDrive(0, 0);
     	} else if (defense.contains("rock")) {
     		drive.driveVoltage(0.6, angle);
