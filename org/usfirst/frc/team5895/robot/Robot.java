@@ -99,7 +99,10 @@ public class Robot extends IterativeRobot {
     	
     	
     	if (position.contains("2")) {
+    		
     		Waiter.waitFor(200);
+    		flywheel.setSpeed(2700);
+    		
     		drive.turnTo(angle);
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
@@ -110,32 +113,35 @@ public class Robot extends IterativeRobot {
     		
     		Waiter.waitFor(100);
     		drive.turnTo(angle+35);
-    		Waiter.waitFor(3000);
+    		Waiter.waitFor(2500);
     		drive.haloDrive(0,0);
     		
-    		Waiter.waitFor(100);
+    		/*Waiter.waitFor(100);
     		drive.driveVoltage(-0.3, angle+35);
     		Waiter.waitFor(1000);
     		drive.haloDrive(0,0);
-    		
-    		flywheel.setSpeed(2750);
+    		*/
     	
     	} else if (position.contains("3")) {
+    		
     		Waiter.waitFor(200);
+    		flywheel.setSpeed(2725);
     		drive.turnTo(angle+5);
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
     		
-    		flywheel.setSpeed(2725);
     	} else if (position.contains("4")) {
+    		
     		Waiter.waitFor(200);
+    		flywheel.setSpeed(2725);
     		drive.turnTo(angle-2);
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
     		
-    		flywheel.setSpeed(2725);
     	} else if (position.contains("5")) {
+    		
     		Waiter.waitFor(200);
+    		flywheel.setSpeed(2700);
     		drive.turnTo(angle);
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
@@ -149,17 +155,16 @@ public class Robot extends IterativeRobot {
     		Waiter.waitFor(3000);
     		drive.haloDrive(0,0);
     		
-    		Waiter.waitFor(100);
+    		/*Waiter.waitFor(100);
     		drive.driveVoltage(-0.3, angle-35);
     		Waiter.waitFor(500);
     		drive.haloDrive(0,0);
-    		
-    		flywheel.setSpeed(2750);
+    		*/    	
     	}
     	
     	drive.visionTurn();
-    	Waiter.waitFor(4000);
-    	Waiter.waitFor(flywheel::atSpeed, 1500);
+    	Waiter.waitFor(3000);
+    	Waiter.waitFor(flywheel::atSpeed, 1000);
     	drive.haloDrive(0, 0);
     	intake.shoot();
     }
