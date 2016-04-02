@@ -34,7 +34,6 @@ public class TakeBackHalf {
 	 * Changes the target point to be setpoint
 	 * 
 	 * @param setpoint Where the mechanism should go to
-	 * @param steady The approximate motor output to hold at constant speed
 	 */
 	public void set(double setpoint) {
 		double steady = setpoint/tSpeed;
@@ -46,6 +45,17 @@ public class TakeBackHalf {
 			h = 1.0;
 		}
 		
+		this.setpoint = setpoint;
+	}
+	
+	
+	/** 
+	 * Changes the target point to be setpoint
+	 * The new setpoint should be close to the current setpoint
+	 * 
+	 * @param setpoint Where the mechanism should go to
+	 */
+	public void setSmall(double setpoint) {
 		this.setpoint = setpoint;
 	}
 	
