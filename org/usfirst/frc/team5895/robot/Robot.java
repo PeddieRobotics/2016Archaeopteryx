@@ -258,6 +258,9 @@ public class Robot extends IterativeRobot {
     	if(operatorJoystick.getRisingEdge(2)){
     		intake.in();
     	}
+    	if(operatorJoystick.getRisingEdge(3)){
+    		intake.out();
+    	}
     	
     }
     
