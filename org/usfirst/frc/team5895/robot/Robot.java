@@ -51,11 +51,12 @@ public class Robot extends IterativeRobot {
     	u = new Looper(10);
     	r = new Looper(250);
     	
-    	drive = new Drive();
+    	vision = new Vision();
+    	drive = new Drive(vision);
 //    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
-    	vision = new Vision();
+    	
     	
     	
      	recorder = new Recorder(drive,arm,flywheel,intake);

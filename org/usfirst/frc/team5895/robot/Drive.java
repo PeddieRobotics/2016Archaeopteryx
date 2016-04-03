@@ -37,8 +37,9 @@ public class Drive {
 
     private NavX ahrs;
     private DriveEncoder enc;
+    private Vision v;
     
-    public Drive()
+    public Drive(Vision v)
     {
     	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
     	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
@@ -52,6 +53,8 @@ public class Drive {
     	
     	enc.reset();
     	ahrs.reset();
+    	
+    	this.v = v;
     }
     
     /**
@@ -98,7 +101,7 @@ public class Drive {
     }
     
     public boolean facingGoal() {
-    	return Math.abs(SmartDashboard.getNumber("DB/Slider 0", 0)) < 0.02;
+    	return v.hasTarget() && Math.abs(v.getX()) < 0.02;
     }
     
     /**
@@ -197,7 +200,7 @@ public class Drive {
     		break;
     		
     	case VISION_TURN:
-    		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
+    		double speeed = visionTurnPID.getOutput(v.getX());
     		// this is code for testing, remove it later
     		if(speeed>0.25) {
     			speeed = 0.25;
