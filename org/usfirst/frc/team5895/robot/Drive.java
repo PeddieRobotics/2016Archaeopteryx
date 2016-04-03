@@ -93,6 +93,7 @@ public class Drive {
      */
     public void visionTurn() {
     	mode = Mode_Type.VISION_TURN;
+    	visionTurnPID.resetIntegral();
     	visionTurnPID.set(0);
     }
     
@@ -198,15 +199,15 @@ public class Drive {
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(SmartDashboard.getNumber("DB/Slider 0", 0));
     		// this is code for testing, remove it later
-    		if(speeed>0.4) {
-    			speeed = 0.4;
+    		if(speeed>0.25) {
+    			speeed = 0.25;
     		}
-    		if(speeed<-0.4) {
-    			speeed = -0.4;
+    		if(speeed<-0.25) {
+    			speeed = -0.25;
     		}
 //    		
-    		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
-   // 		DriverStation.reportError("the output is " + speeed + "\n", false);
+   // 		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
+    		DriverStation.reportError("the output is " + speeed + "\n", false);
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);
     		break;

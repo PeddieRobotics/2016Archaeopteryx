@@ -22,6 +22,7 @@ public class Robot extends IterativeRobot {
 
 	BetterJoystick leftJoystick;
     BetterJoystick rightJoystick;
+    BetterJoystick operatorJoystick;
 	
 	Drive drive;
 	CDFArm arm;
@@ -45,6 +46,7 @@ public class Robot extends IterativeRobot {
     	
     	leftJoystick = new BetterJoystick(0);
         rightJoystick = new BetterJoystick(1);
+        operatorJoystick = new BetterJoystick(2);
     	
     	u = new Looper(10);
     	r = new Looper(250);
@@ -95,6 +97,10 @@ public class Robot extends IterativeRobot {
     		drive.driveVoltage(0.6, angle);
         	Waiter.waitFor(2700);
         	drive.haloDrive(0, 0);
+    	} else if (defense.contains("ramp")) {
+    		drive.driveVoltage(0.6, angle);
+    		Waiter.waitFor(3000);
+    		drive.haloDrive(0, 0);
     	}
     	
     	
@@ -146,8 +152,8 @@ public class Robot extends IterativeRobot {
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
     	
-    		drive.driveVoltage(0.35, angle);
-    		Waiter.waitFor(1400);
+    		drive.driveVoltage(0.4, angle);
+    		Waiter.waitFor(1700);
     		drive.haloDrive(0, 0);
     		
     		Waiter.waitFor(100);
@@ -166,7 +172,9 @@ public class Robot extends IterativeRobot {
     	Waiter.waitFor(3000);
     	Waiter.waitFor(flywheel::atSpeed, 1000);
     	drive.haloDrive(0, 0);
-    	intake.shoot();
+    	if (vision.hasTarget()) {
+    		intake.shoot();
+    	}
     }
 
     public void teleopInit() {
@@ -174,7 +182,6 @@ public class Robot extends IterativeRobot {
     }
     
     public void teleopPeriodic() {
-    	
 
     	if (rightJoystick.getRisingEdge(3)) {
     		flywheel.down();
@@ -209,7 +216,7 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2725);
+    			flywheel.setSpeed(2650+SmartDashboard.getNumber("DB/Slider 2"));
     		}
     		else {
     			flywheel.setSpeed(2600);
@@ -223,11 +230,13 @@ public class Robot extends IterativeRobot {
     				intake.shoot();
     	    		visionTurn = false;
     	    		shooting = false;
+    	    		
     			}
     		} else {
     			intake.shoot();
     			visionTurn = false;
     			shooting = false;
+    		
     		}
     	}
     	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
@@ -240,6 +249,13 @@ public class Robot extends IterativeRobot {
     			Math.abs(rightJoystick.getRawAxis(0)) > 0.6) {
     		shooting = false;
     		flywheel.setSpeed(0);
+    	}
+    	
+    	if (operatorJoystick.getRisingEdge(1)){
+    		flywheel.override(0.43);
+    	}
+    	if(operatorJoystick.getRisingEdge(2)){
+    		intake.in();
     	}
     	
     }

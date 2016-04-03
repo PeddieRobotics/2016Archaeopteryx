@@ -21,8 +21,13 @@ public class Flywheel {
 
 	private boolean upDown;
 	
+	private enum Mode_Type {AUTO_SHOOT, OVERRIDE};
+	
+	private Mode_Type mode = Mode_Type.AUTO_SHOOT;
+	
 	private int atSpeed;
 	private double lastTime;
+	double overrideSpeed;
 	
 	/**
 	 * Creates a new flywheel
@@ -32,8 +37,12 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-		topController = new TakeBackHalf(0.00000007,6150/60,1.0/100);
-		bottomController = new TakeBackHalf(0.00000005,6050/60,1.0/100);
+	//	topController = new TakeBackHalf(0.00000007,6150/60,1.0/100);
+	//	bottomController = new TakeBackHalf(0.00000005,6050/60,1.0/100);
+		
+		topController = new TakeBackHalf(0.000000015,6050/60,1.0/100);
+		bottomController = new TakeBackHalf(0.000000015,6050/60,1.0/100);
+			
 		
 		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
 		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
@@ -47,6 +56,7 @@ public class Flywheel {
 	 * @param speed The desired speed of the flywheel, in rpm
 	 */
 	public void setSpeed(double speed) {
+		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
 		
 		if (Math.abs(bottomController.getSetpoint()-speed/60) > 20.0/60)
@@ -62,6 +72,7 @@ public class Flywheel {
 	 * @param bottomSpeed The desired speed of the top flywheel, in rpm
 	 */
 	public void setSpeed(double topSpeed, double bottomSpeed) {
+		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
 		
 		if (Math.abs(bottomController.getSetpoint()-bottomSpeed/60) < 20.0/60)
@@ -69,6 +80,11 @@ public class Flywheel {
 		
 		if (Math.abs(topController.getSetpoint()-topSpeed/60) < 20.0/60)
 			topController.set(topSpeed/60);
+	}
+	
+	public void override(double speed){
+		mode = Mode_Type.OVERRIDE;
+		overrideSpeed = speed;
 	}
 	/**
 	 * Returns the speed that the flywheel is moving at
@@ -97,7 +113,7 @@ public class Flywheel {
 	 * @return True if the flywheel is within 25 rpm of the setpoint for the last 50ms
 	 */
 	public boolean atSpeed(){
-		return atSpeed > 50;
+		return atSpeed > 60;
 	}
 		
 	public void up(){
@@ -121,13 +137,21 @@ public class Flywheel {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
 			
-		//	DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60, false);
+		//DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
+	
 			
 			bottomOutput = bottomController.getOutput(bottomSpeed);
 			topOutput = topController.getOutput(topSpeed);
-			bottomMotor.set(-bottomOutput);
-			topMotor.set(topOutput);
-			
+			switch (mode){
+			case AUTO_SHOOT:
+				bottomMotor.set(-bottomOutput);
+				topMotor.set(topOutput);
+			break;
+			case OVERRIDE:
+				bottomMotor.set(-overrideSpeed);
+				topMotor.set(overrideSpeed);
+				break;
+			}
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 20.0/60 &&
 					Math.abs(topSpeed-topController.getSetpoint()) < 20.0/60) {
@@ -136,7 +160,7 @@ public class Flywheel {
 				atSpeed = 0;
 			}
 		} catch (BadFlywheelException e) {
-		}
+		} 
 		mySolenoid.set(upDown);
 	}
 }
