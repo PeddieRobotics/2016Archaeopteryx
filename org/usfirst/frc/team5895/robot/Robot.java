@@ -114,13 +114,13 @@ public class Robot extends IterativeRobot {
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
     	
-    		drive.driveVoltage(0.35, angle);
-    		Waiter.waitFor(1400);
+    		drive.driveVoltage(0.37, angle);
+    		Waiter.waitFor(1600);
     		drive.haloDrive(0, 0);
     		
     		Waiter.waitFor(100);
     		drive.turnTo(angle+35);
-    		Waiter.waitFor(2500);
+    		Waiter.waitFor(2200);
     		drive.haloDrive(0,0);
     		
     		/*Waiter.waitFor(100);
@@ -166,16 +166,17 @@ public class Robot extends IterativeRobot {
     		drive.driveVoltage(-0.3, angle-35);
     		Waiter.waitFor(500);
     		drive.haloDrive(0,0);
-    		*/    	
-    	}
+    		*/
     	
+    	}
     	drive.visionTurn();
     	Waiter.waitFor(3000);
-    	Waiter.waitFor(flywheel::atSpeed, 1000);
+    	Waiter.waitFor(flywheel::atSpeed, 1200);
     	drive.haloDrive(0, 0);
     	if (vision.hasTarget()) {
     		intake.shoot();
     	}
+ 
     }
 
     public void teleopInit() {
@@ -217,7 +218,7 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2650+SmartDashboard.getNumber("DB/Slider 2"));
+    			flywheel.setSpeed(2710+SmartDashboard.getNumber("DB/Slider 2"));
     		}
     		else {
     			flywheel.setSpeed(2600);
@@ -229,6 +230,7 @@ public class Robot extends IterativeRobot {
     			if (drive.facingGoal())
     			{
     				intake.shoot();
+    				DriverStation.reportError("bottom:" + (flywheel.getBottomSpeed()) + "top:" + (flywheel.getTopSpeed()), false);
     	    		visionTurn = false;
     	    		shooting = false;
     	    		
@@ -253,7 +255,9 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (operatorJoystick.getRisingEdge(1)){
-    		flywheel.override(0.43);
+    		flywheel.override(0.45);
+    		shooting = false;
+    		visionTurn = false;
     	}
     	if(operatorJoystick.getRisingEdge(2)){
     		intake.in();
@@ -261,7 +265,9 @@ public class Robot extends IterativeRobot {
     	if(operatorJoystick.getRisingEdge(3)){
     		intake.out();
     	}
-    	
+    	if(operatorJoystick.getFallingEdge(3)){
+    		intake.in();
+    	}
     }
     
     public void disabledInit() {

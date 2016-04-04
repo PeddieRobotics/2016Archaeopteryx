@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Drive {
 
 	//for turn()
-	private static final double TURN_KP = 0.008;
+	private static final double TURN_KP = 0.004;
 	private static final double TURN_KI = 0.00005;
 	
 	//for visionTurn()
@@ -17,7 +17,8 @@ public class Drive {
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
 	private static final double DRIVE_KI = 0.0000001;
-	private static final double DRIVE_TURN_KP = 0.04;
+	
+	private static final double DRIVE_TURN_KP = 0.03;
 	private static final double DRIVE_TURN_KI = 0;
 	
 	private enum Mode_Type {TELEOP, AUTO_TURN, VISION_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
@@ -181,11 +182,11 @@ public class Drive {
 //    		DriverStation.reportError("the output is " + speed + "\n", false);
     		
 //    		// this is code for testing, remove it later
-    		if(speed>0.4) {
-    			speed = 0.4;
+    		if(speed>0.3) {
+    			speed = 0.3;
     		}
-    		if(speed<-0.4){
-    			speed = -0.4;
+    		if(speed<-0.3){
+    			speed = -0.3;
     		}
 //    		
 //    		// end testing code
@@ -193,7 +194,7 @@ public class Drive {
 //    		if (atAngle()==true){
 //    			speed=0;
 //    		}
-    		DriverStation.reportError("the angle is " + getAngle() + "\n", false);
+    		DriverStation.reportError("the angle is " + (getAngle()-turnPID.getSetpoint()) + "\n", false);
     		//DriverStation.reportError("the output is " + speed + "\n", false);
     		leftMotor.set(speed);
     		rightMotor.set(speed);
@@ -202,11 +203,11 @@ public class Drive {
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(v.getX());
     		// this is code for testing, remove it later
-    		if(speeed>0.25) {
-    			speeed = 0.25;
+    		if(speeed>0.27) {
+    			speeed = 0.27;
     		}
-    		if(speeed<-0.25) {
-    			speeed = -0.25;
+    		if(speeed<-0.27) {
+    			speeed = -0.27;
     		}
 //    		
    // 		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);

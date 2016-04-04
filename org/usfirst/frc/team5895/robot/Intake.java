@@ -80,11 +80,12 @@ public class Intake {
 	}
 	
 	public void update() {
+		boolean hasBall = !sensor.get();
 		switch (mode) {
 		
 		case INTAKING:
 			intakeMotor.set(0.7);
-			if((lastHasBall == false) && (sensor.get() == false)){
+			if((lastHasBall == false) && (hasBall)){
 				ballTimeStamp = Timer.getFPGATimestamp();
 				mode = Mode_Type.HAS_BALL;
 			}
@@ -111,7 +112,7 @@ public class Intake {
 		
 		
 		upDownSolenoid.set(upDown);
-		lastHasBall = !sensor.get();
+		lastHasBall = hasBall;
 	}
 
 	

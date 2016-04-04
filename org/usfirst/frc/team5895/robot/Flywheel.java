@@ -113,7 +113,7 @@ public class Flywheel {
 	 * @return True if the flywheel is within 25 rpm of the setpoint for the last 50ms
 	 */
 	public boolean atSpeed(){
-		return atSpeed > 60;
+		return atSpeed > 75;
 	}
 		
 	public void up(){
@@ -153,6 +153,7 @@ public class Flywheel {
 				break;
 			}
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
+			lastTime = Timer.getFPGATimestamp();
 			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 20.0/60 &&
 					Math.abs(topSpeed-topController.getSetpoint()) < 20.0/60) {
 				atSpeed += dt;
