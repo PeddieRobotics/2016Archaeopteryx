@@ -74,12 +74,6 @@ public class Flywheel {
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
-		
-		if (Math.abs(bottomController.getSetpoint()-bottomSpeed/60) < 20.0/60)
-			bottomController.set(bottomSpeed/60);
-		
-		if (Math.abs(topController.getSetpoint()-topSpeed/60) < 20.0/60)
-			topController.set(topSpeed/60);
 	}
 	
 	public void override(double speed){
