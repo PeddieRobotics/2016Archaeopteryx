@@ -226,7 +226,7 @@ public class Drive {
     		}
 //    		
    // 		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
-    		DriverStation.reportError("the output is " + speeed + "\n", false);
+    //		DriverStation.reportError("the output is " + speeed + "\n", false);
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);
     		break;
@@ -263,7 +263,7 @@ public class Drive {
      
     	double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 		lastTime = Timer.getFPGATimestamp();
-		if (v.hasTarget() && Math.abs(v.getX()) < 0.02) {
+		if (v.hasTarget() && Math.abs(v.getX()) < 0.015) {
 			facingGoal += dt;
 		} else {
 			facingGoal = 0;
