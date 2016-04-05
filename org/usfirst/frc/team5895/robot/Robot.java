@@ -188,10 +188,13 @@ public class Robot extends IterativeRobot {
     	if (rightJoystick.getRisingEdge(3)) {
     		flywheel.setSpeed(0);
     		flywheel.down();
+    		shooting = false;
+    		visionTurn = false;
     	} else if (rightJoystick.getRisingEdge(4)) {
     		flywheel.setSpeed(0);
     		flywheel.up();
-    		
+    		shooting = false;
+    		visionTurn = false;
     	}
 
     	
