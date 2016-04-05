@@ -2,6 +2,7 @@ package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Drive {
@@ -35,6 +36,10 @@ public class Drive {
     private double rightMotorSpeed = 0;
     private double leftMotorSpeed = 0;
     private double spd = 0;
+    
+    private double lastTime = Timer.getFPGATimestamp();
+    private double facingGoal = 0;
+    private boolean facedGoal = false;
 
     private NavX ahrs;
     private DriveEncoder enc;
@@ -97,12 +102,14 @@ public class Drive {
      */
     public void visionTurn() {
     	mode = Mode_Type.VISION_TURN;
+    	facingGoal = 0;
+    	facedGoal = false;
     	visionTurnPID.resetIntegral();
     	visionTurnPID.set(0);
     }
     
     public boolean facingGoal() {
-    	return v.hasTarget() && Math.abs(v.getX()) < 0.02;
+    	return facingGoal > 50 || facedGoal;
     }
     
     /**
@@ -209,6 +216,14 @@ public class Drive {
     		if(speeed<-0.27) {
     			speeed = -0.27;
     		}
+    		
+    		if (facingGoal()) {
+    			facedGoal = true;
+    		}
+    		
+    		if (facedGoal) {
+    			speeed = 0;
+    		}
 //    		
    // 		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
     		DriverStation.reportError("the output is " + speeed + "\n", false);
@@ -246,6 +261,14 @@ public class Drive {
     		break;
     	}
      
+    	double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
+		lastTime = Timer.getFPGATimestamp();
+		if (v.hasTarget() && Math.abs(v.getX()) < 0.02) {
+			facingGoal += dt;
+		} else {
+			facingGoal = 0;
+		}
+    	
     }
 
 }
