@@ -71,7 +71,7 @@ public class TakeBackOnce {
 		if (!takenBack && (lastError*error) < 0) { //different signs
 			h = setpoint/tSpeed;
 			takenBack = true;
-			DriverStation.reportError("once!", false);
+		//	DriverStation.reportError("once!", false);
 		}
 		
 		if (h > 1) h = 1;

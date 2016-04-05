@@ -74,6 +74,7 @@ public class Flywheel {
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
+		
 	}
 	
 	public void override(double speed){
@@ -131,7 +132,7 @@ public class Flywheel {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
 			
-		DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
+	//	DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
 	
 			
 			bottomOutput = bottomController.getOutput(bottomSpeed);
