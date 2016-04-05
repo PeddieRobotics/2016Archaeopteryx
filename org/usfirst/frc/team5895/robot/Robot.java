@@ -186,9 +186,12 @@ public class Robot extends IterativeRobot {
     public void teleopPeriodic() {
 
     	if (rightJoystick.getRisingEdge(3)) {
+    		flywheel.setSpeed(0);
     		flywheel.down();
     	} else if (rightJoystick.getRisingEdge(4)) {
+    		flywheel.setSpeed(0);
     		flywheel.up();
+    		
     	}
 
     	
@@ -218,7 +221,7 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2710+SmartDashboard.getNumber("DB/Slider 2"));
+    			flywheel.setSpeed(2750+SmartDashboard.getNumber("DB/Slider 2"));
     		}
     		else {
     			flywheel.setSpeed(2600);
