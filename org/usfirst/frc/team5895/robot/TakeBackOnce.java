@@ -65,6 +65,7 @@ public class TakeBackOnce {
 		double error = setpoint - proccessVar;
 		double time = Timer.getFPGATimestamp() * 1000;
 		double dt = time - lastTime;
+		lastTime = time;
 		
 		h += G*error*dt;
 		
