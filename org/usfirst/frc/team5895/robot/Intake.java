@@ -80,7 +80,7 @@ public class Intake {
 	}
 	
 	public void update() {
-		boolean hasBall = !sensor.get();
+		boolean hasBall = sensor.get();
 		switch (mode) {
 		
 		case INTAKING:

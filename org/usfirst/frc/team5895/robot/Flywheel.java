@@ -16,8 +16,8 @@ public class Flywheel {
 	private FlywheelCounter topCounter;
 	private FlywheelCounter bottomCounter;
 	
-	private TakeBackHalf topController;
-	private TakeBackHalf bottomController;
+	private TakeBackOnce topController;
+	private TakeBackOnce bottomController;
 
 	private boolean upDown;
 	
@@ -40,8 +40,8 @@ public class Flywheel {
 	//	topController = new TakeBackHalf(0.00000007,6150/60,1.0/100);
 	//	bottomController = new TakeBackHalf(0.00000005,6050/60,1.0/100);
 		
-		topController = new TakeBackHalf(0.000000015,6050/60,1.0/100);
-		bottomController = new TakeBackHalf(0.000000015,6050/60,1.0/100);
+		topController = new TakeBackOnce(0.000000015,6050.0/60);
+		bottomController = new TakeBackOnce(0.000000015,6150.0/60);
 			
 		
 		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
@@ -137,7 +137,7 @@ public class Flywheel {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
 			
-		//DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
+		DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
 	
 			
 			bottomOutput = bottomController.getOutput(bottomSpeed);

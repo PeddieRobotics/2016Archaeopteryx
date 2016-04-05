@@ -214,7 +214,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	//SHOOTING
-    	if(rightJoystick.getRisingEdge(1)){
+    	if(rightJoystick.getRisingEdge(1) && !shooting){
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
