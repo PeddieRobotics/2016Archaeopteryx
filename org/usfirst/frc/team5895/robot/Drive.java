@@ -12,7 +12,7 @@ public class Drive {
 	private static final double TURN_KI = 0.00005;
 	
 	//for visionTurn()
-	private static final double VISION_TURN_KP = 1.8;
+	private static final double VISION_TURN_KP = 1.9;
 	private static final double VISION_TURN_KI = 0.0008;
 	
 	//for driveStraight()
@@ -105,7 +105,7 @@ public class Drive {
     	facingGoal = 0;
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
-    	visionTurnPID.set(0);
+    	visionTurnPID.set(0.01);
     }
     
     public boolean facingGoal() {
@@ -263,7 +263,7 @@ public class Drive {
      
     	double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 		lastTime = Timer.getFPGATimestamp();
-		if (v.hasTarget() && Math.abs(v.getX()) < 0.015) {
+		if (v.hasTarget() && Math.abs(v.getX()-visionTurnPID.getSetpoint()) < 0.015) {
 			facingGoal += dt;
 		} else {
 			facingGoal = 0;

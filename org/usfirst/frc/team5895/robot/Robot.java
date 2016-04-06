@@ -224,7 +224,7 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2750+SmartDashboard.getNumber("DB/Slider 2"));
+    			flywheel.setSpeed(2700+SmartDashboard.getNumber("DB/Slider 2"));
     		}
     		else {
     			flywheel.setSpeed(2600);
