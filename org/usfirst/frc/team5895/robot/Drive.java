@@ -105,7 +105,7 @@ public class Drive {
     	facingGoal = 0;
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
-    	visionTurnPID.set(0.01);
+    	visionTurnPID.set(0.027);
     }
     
     public boolean facingGoal() {
@@ -225,8 +225,8 @@ public class Drive {
     			speeed = 0;
     		}
 //    		
-   // 		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
-    //		DriverStation.reportError("the output is " + speeed + "\n", false);
+    		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
+   // 		DriverStation.reportError("the output is " + speeed + "\n", false);
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);
     		break;
@@ -263,7 +263,7 @@ public class Drive {
      
     	double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 		lastTime = Timer.getFPGATimestamp();
-		if (v.hasTarget() && Math.abs(v.getX()-visionTurnPID.getSetpoint()) < 0.015) {
+		if (v.hasTarget() && Math.abs(v.getX()-visionTurnPID.getSetpoint()) < 0.016) {
 			facingGoal += dt;
 		} else {
 			facingGoal = 0;

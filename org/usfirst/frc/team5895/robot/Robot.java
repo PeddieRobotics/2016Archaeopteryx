@@ -224,10 +224,12 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(2700+SmartDashboard.getNumber("DB/Slider 2"));
+    		//	flywheel.setSpeed(2700+SmartDashboard.getNumber("DB/Slider 2"));
+    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 3"), 2100 + SmartDashboard.getNumber("DB/Slider 3"));
     		}
     		else {
-    			flywheel.setSpeed(2600);
+    		//	flywheel.setSpeed(2600);
+    			flywheel.setSpeed(3600 + SmartDashboard.getNumber("DB/Slider 2"), 2300 + SmartDashboard.getNumber("DB/Slider 2"));
     		}
     		shooting = true;
     	}

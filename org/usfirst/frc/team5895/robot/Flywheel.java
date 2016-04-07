@@ -132,7 +132,7 @@ public class Flywheel {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
 			
-		DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
+	//	DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
 	
 			
 			bottomOutput = bottomController.getOutput(bottomSpeed);
@@ -149,8 +149,8 @@ public class Flywheel {
 			}
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 			lastTime = Timer.getFPGATimestamp();
-			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 20.0/60 &&
-					Math.abs(topSpeed-topController.getSetpoint()) < 20.0/60) {
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 15.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 15.0/60) {
 				atSpeed += dt;
 			} else {
 				atSpeed = 0;
