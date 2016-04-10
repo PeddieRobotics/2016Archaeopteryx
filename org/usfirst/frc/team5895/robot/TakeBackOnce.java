@@ -13,6 +13,8 @@ public class TakeBackOnce {
 	private double G;
 	private double tSpeed;
 	private boolean takenBack;
+	private boolean locked;
+	private double lockTime;
 	
 	/**
 	 * Creates a new TakeBackHalf controller
@@ -27,6 +29,8 @@ public class TakeBackOnce {
 		h = 1;
 		setpoint = 0;
 		takenBack = false;
+		locked = false;
+		lockTime = 0;
 	}
 	
 	/**
@@ -40,8 +44,8 @@ public class TakeBackOnce {
 			h = 0;
 		} else if (setpoint > (this.setpoint + 100.0/60)) {
 			h = 1.0;
+			takenBack = false;
 		}
-		takenBack = false;
 		this.setpoint = setpoint;
 	}
 	
@@ -54,6 +58,11 @@ public class TakeBackOnce {
 		return setpoint;
 	}
 
+	public void lock(){
+		locked = true;
+		lockTime = Timer.getFPGATimestamp()*1000;
+	}
+	
 	/**
 	 * Returns the output for the mechanism (should be called periodically)
 	 * 
@@ -67,9 +76,25 @@ public class TakeBackOnce {
 		double dt = time - lastTime;
 		lastTime = time;
 		
+		if (time - lockTime > 500){
+			locked = false;
+		}
+		
 		h += G*error*dt;
 		
-		if (!takenBack && (lastError*error) < 0) { //different signs
+		if(error > 250.0/60 && !locked){
+			h=1;
+			takenBack = false;
+			DriverStation.reportError("Error > 250", false);
+		}
+		
+		if (error < -250.0/60){
+			h=0;
+			takenBack = false;
+			DriverStation.reportError("Error < -250", false);
+		}
+		
+		if (!takenBack && (error) < 0) { //different signs
 			h = setpoint/tSpeed;
 			takenBack = true;
 		//	DriverStation.reportError("once!", false);

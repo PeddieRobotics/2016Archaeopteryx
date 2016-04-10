@@ -7,16 +7,35 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Vision {
 	
+	USBCamera c;
+	
 	public Vision() 
 	{
 		try {
-			USBCamera c = new USBCamera("cam1");
+			c = new USBCamera("cam1");
 			c.setBrightness(0);
 			c.setExposureManual(-8);
         	CameraServer server = CameraServer.getInstance();
         	server.startAutomaticCapture(c);
 		} catch (Exception e) {
 			DriverStation.reportError("No Camera!", false);
+		}
+	}
+	
+	public void reset(){
+		try{
+			c.closeCamera();
+		} catch (Exception e){
+			DriverStation.reportError("Failed to close camera", false);
+		}
+		try{
+			c = new USBCamera("cam1");
+			c.setBrightness(0);
+			c.setExposureManual(-8);
+        	CameraServer server = CameraServer.getInstance();
+        	server.startAutomaticCapture(c);
+		} catch (Exception e){
+			DriverStation.reportError("Failed to restart camera", false);
 		}
 	}
 	

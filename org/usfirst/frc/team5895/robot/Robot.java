@@ -37,6 +37,7 @@ public class Robot extends IterativeRobot {
 	int matchCount;
 	boolean visionTurn;
 	boolean shooting;
+	boolean primed;
 	
 
 //	TalonSRX turMotor;
@@ -64,6 +65,7 @@ public class Robot extends IterativeRobot {
         
         visionTurn = false;
         shooting = false;
+        primed = false;
      	
     	u.add(intake::update);
     	u.add(drive::update);
@@ -92,15 +94,21 @@ public class Robot extends IterativeRobot {
     	
     	if (defense.contains("rough")) {
     		drive.driveVoltage(0.6, angle);
-        	Waiter.waitFor(2500);
+        	Waiter.waitFor(2400);
         	drive.haloDrive(0, 0);
     	} else if (defense.contains("rock")) {
     		drive.driveVoltage(0.6, angle);
-        	Waiter.waitFor(2700);
+        	Waiter.waitFor(2600);
         	drive.haloDrive(0, 0);
     	} else if (defense.contains("ramp")) {
     		drive.driveVoltage(0.6, angle);
     		Waiter.waitFor(3000);
+    		drive.haloDrive(0, 0);
+    	} else if (defense.contains("moat")){
+    		intake.down();
+    		drive.driveVoltage(0.6, angle);
+    		Waiter.waitFor(3500);
+    	} else if (defense.contains("nope")){
     		drive.haloDrive(0, 0);
     	}
     	
@@ -174,6 +182,7 @@ public class Robot extends IterativeRobot {
     	Waiter.waitFor(flywheel::atSpeed, 1200);
     	drive.haloDrive(0, 0);
     	if (vision.hasTarget()) {
+    		flywheel.lock();
     		intake.shoot();
     	}
  
@@ -190,11 +199,13 @@ public class Robot extends IterativeRobot {
     		flywheel.down();
     		shooting = false;
     		visionTurn = false;
+    		primed = false;
     	} else if (rightJoystick.getRisingEdge(4)) {
     		flywheel.setSpeed(0);
     		flywheel.up();
     		shooting = false;
     		visionTurn = false;
+    		primed = false;
     	}
 
     	
@@ -225,18 +236,20 @@ public class Robot extends IterativeRobot {
     			drive.visionTurn();
     			visionTurn = true;
     		//	flywheel.setSpeed(2700+SmartDashboard.getNumber("DB/Slider 2"));
-    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 3"), 2100 + SmartDashboard.getNumber("DB/Slider 3"));
+    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1"), 2100 + SmartDashboard.getNumber("DB/Slider 1"));
     		}
     		else {
-    		//	flywheel.setSpeed(2600);
-    			flywheel.setSpeed(3600 + SmartDashboard.getNumber("DB/Slider 2"), 2300 + SmartDashboard.getNumber("DB/Slider 2"));
+    		//	flywheel.setSpeed(2600+SmartDashboard.getNumber("DB/Slider 2"));
+    			flywheel.setSpeed(2600 + SmartDashboard.getNumber("DB/Slider 2"), 2600 + SmartDashboard.getNumber("DB/Slider 3"));
     		}
     		shooting = true;
+    		primed = false;
     	}
     	if (shooting && flywheel.atSpeed()) {
     		if (visionTurn) {
     			if (drive.facingGoal())
     			{
+    				flywheel.lock();
     				intake.shoot();
     				DriverStation.reportError("bottom:" + (flywheel.getBottomSpeed()) + "top:" + (flywheel.getTopSpeed()), false);
     	    		visionTurn = false;
@@ -244,28 +257,30 @@ public class Robot extends IterativeRobot {
     	    		
     			}
     		} else {
+    			flywheel.lock();
     			intake.shoot();
     			visionTurn = false;
     			shooting = false;
-    		
+    			
     		}
     	}
-    	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
-    			Math.abs(rightJoystick.getRawAxis(0)) > 0.1) && visionTurn) {
+    	if (((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.1)) && visionTurn && !primed) {
     		visionTurn = false;
     		shooting = false;
     		flywheel.setSpeed(0);
     	}
-    	if (Math.abs(leftJoystick.getRawAxis(1)) > 0.6 ||
-    			Math.abs(rightJoystick.getRawAxis(0)) > 0.6) {
+    	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.6 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.6) && !primed) {
     		shooting = false;
     		flywheel.setSpeed(0);
     	}
     	
     	if (operatorJoystick.getRisingEdge(1)){
-    		flywheel.override(0.45);
-    		shooting = false;
-    		visionTurn = false;
+    			flywheel.override(0.45);
+    			shooting = false;
+    			visionTurn = false;
+    		
     	}
     	if(operatorJoystick.getRisingEdge(2)){
     		intake.in();
@@ -275,6 +290,17 @@ public class Robot extends IterativeRobot {
     	}
     	if(operatorJoystick.getFallingEdge(3)){
     		intake.in();
+    	}
+//    	if(operatorJoystick.getRisingEdge(4)){
+//    		vision.reset();
+//    	}
+    	if(operatorJoystick.getRisingEdge(5)){
+    		if(flywheel.getUpDown()){
+    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1"), 2100 + SmartDashboard.getNumber("DB/Slider 1"));
+    		} else {
+    			flywheel.setSpeed(2600+SmartDashboard.getNumber("DB/Slider 2"), 2600 + SmartDashboard.getNumber("DB/Slider 3"));
+    		}
+    		primed = true;
     	}
     }
     

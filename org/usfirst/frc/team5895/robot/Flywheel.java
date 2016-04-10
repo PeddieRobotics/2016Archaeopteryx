@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Flywheel {
 
@@ -37,8 +38,8 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-	//	topController = new TakeBackHalf(0.00000007,6150/60,1.0/100);
-	//	bottomController = new TakeBackHalf(0.00000005,6050/60,1.0/100);
+	//	topController = new TakeBackHalf(SmartDashboard.getNumber("DB/Slider 1"),6150/60,1.0/100);
+	//	bottomController = new TakeBackHalf(SmartDashboard.getNumber('DB/Slider 1"),6050/60,1.0/100);
 		
 		topController = new TakeBackOnce(0.00005,6050.0/60);
 		bottomController = new TakeBackOnce(0.00005,6000.0/60);
@@ -81,6 +82,12 @@ public class Flywheel {
 		mode = Mode_Type.OVERRIDE;
 		overrideSpeed = speed;
 	}
+	
+	public void lock(){
+		topController.lock();
+		bottomController.lock();
+	}
+	
 	/**
 	 * Returns the speed that the flywheel is moving at
 	 * @return The speed of the flywheel, in rpm
@@ -132,7 +139,7 @@ public class Flywheel {
 			bottomSpeed = bottomCounter.getRate();
 			topSpeed = topCounter.getRate();
 			
-	//	DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
+		DriverStation.reportError("bottom:" + bottomSpeed*60+" top:" + topSpeed*60 +"\n", false);
 	
 			
 			bottomOutput = bottomController.getOutput(bottomSpeed);
