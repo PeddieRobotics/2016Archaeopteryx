@@ -37,10 +37,10 @@ public class TakeBackHalf {
 	 */
 	public void set(double setpoint) {
 		double steady = setpoint/tSpeed;
-		if (setpoint < this.setpoint) {
+		if (setpoint < (this.setpoint - 100.0/60)) {
 			h = 0;
 			h0 = 0;
-		} else {
+		} else if (setpoint > (this.setpoint + 100.0/60)) {
 			h0 = 2*steady - 1.0;
 			h = 1.0;
 		}

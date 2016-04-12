@@ -19,7 +19,7 @@ public class Drive {
 	private static final double DRIVE_KP = 0.04;
 	private static final double DRIVE_KI = 0.0000001;
 	
-	private static final double DRIVE_TURN_KP = 0.03;
+	private static final double DRIVE_TURN_KP = 0.02;
 	private static final double DRIVE_TURN_KI = 0;
 	
 	private enum Mode_Type {TELEOP, AUTO_TURN, VISION_TURN, AUTO_STRAIGHT_DISTANCE, AUTO_STRAIGHT_VOLTAGE};
@@ -50,7 +50,7 @@ public class Drive {
     	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
     	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
     	ahrs = new NavX();
-    	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05, 0.35);
+    	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05, 0.27);
     	visionTurnPID = new PID (VISION_TURN_KP, VISION_TURN_KI, 0, 0.05);
     	straightPID = new PID(DRIVE_KP, DRIVE_KI, 0, 0.05);
     	straightTurnPID= new PID(DRIVE_TURN_KP, DRIVE_TURN_KI, 0, 0.05);
@@ -189,11 +189,11 @@ public class Drive {
 //    		DriverStation.reportError("the output is " + speed + "\n", false);
     		
 //    		// this is code for testing, remove it later
-    		if(speed>0.3) {
-    			speed = 0.3;
+    		if(speed>0.5) {
+    			speed = 0.5;
     		}
-    		if(speed<-0.3){
-    			speed = -0.3;
+    		if(speed<-0.5){
+    			speed = -0.5;
     		}
 //    		
 //    		// end testing code

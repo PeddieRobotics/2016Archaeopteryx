@@ -112,8 +112,24 @@ public class Robot extends IterativeRobot {
     		drive.haloDrive(0, 0);
     	}
     	
-    	
-    	if (position.contains("2")) {
+    	if(position.contains("alt2")){
+    		Waiter.waitFor(200);
+    		flywheel.setSpeed(2700);
+    		
+    		drive.turnTo(angle+85);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    		
+    		drive.driveVoltage(0.37, angle+85);
+    		Waiter.waitFor(1000);
+    		drive.haloDrive(0, 0);
+    		
+    		Waiter.waitFor(100);
+    		drive.turnTo(angle);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0,0);
+    	}
+    	else if (position.contains("2")) {
     		
     		Waiter.waitFor(200);
     		flywheel.setSpeed(2700);
@@ -302,6 +318,13 @@ public class Robot extends IterativeRobot {
     		}
     		primed = true;
     	}
+    	if(operatorJoystick.getRisingEdge(6)){
+    		vision.cam0();
+    	}
+    	if(operatorJoystick.getRisingEdge(7)){
+    		vision.cam1();
+    	}
+    	
     }
     
     public void disabledInit() {

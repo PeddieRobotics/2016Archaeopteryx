@@ -17,8 +17,12 @@ public class Flywheel {
 	private FlywheelCounter topCounter;
 	private FlywheelCounter bottomCounter;
 	
-	private TakeBackOnce topController;
-	private TakeBackOnce bottomController;
+//	private TakeBackOnce topController;
+//	private TakeBackOnce bottomController;
+	private TakeBackHalf topController;
+	private TakeBackHalf bottomController;
+//	private BangBang topController;
+//	private BangBang bottomController;
 
 	private boolean upDown;
 	
@@ -38,11 +42,14 @@ public class Flywheel {
 		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
-	//	topController = new TakeBackHalf(SmartDashboard.getNumber("DB/Slider 1"),6150/60,1.0/100);
-	//	bottomController = new TakeBackHalf(SmartDashboard.getNumber('DB/Slider 1"),6050/60,1.0/100);
+		topController = new TakeBackHalf(0.00005, 6150/60, 1.0);
+		bottomController = new TakeBackHalf(0.00005, 6050/60, 1.0);
 		
-		topController = new TakeBackOnce(0.00005,6050.0/60);
-		bottomController = new TakeBackOnce(0.00005,6000.0/60);
+//		topController = new TakeBackOnce(0.00005,6050.0/60);
+//		bottomController = new TakeBackOnce(0.00005,6000.0/60);
+		
+//		topController = new BangBang();
+//		bottomController = new BangBang();
 			
 		
 		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
@@ -84,8 +91,8 @@ public class Flywheel {
 	}
 	
 	public void lock(){
-		topController.lock();
-		bottomController.lock();
+//		topController.lock();
+//		bottomController.lock();
 	}
 	
 	/**
