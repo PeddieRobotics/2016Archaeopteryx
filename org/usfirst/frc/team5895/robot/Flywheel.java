@@ -32,6 +32,9 @@ public class Flywheel {
 	
 	private int atSpeed;
 	private double lastTime;
+	
+	private int atSpeedLoose;
+	
 	double overrideSpeed;
 	
 	/**
@@ -56,6 +59,7 @@ public class Flywheel {
 		bottomCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_BOTTOMCOUNTER);
 		
 		atSpeed = 0;
+		atSpeedLoose = 0;
 		lastTime = Timer.getFPGATimestamp();
 	}
 	
@@ -66,6 +70,7 @@ public class Flywheel {
 	public void setSpeed(double speed) {
 		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
+		atSpeedLoose = 0;
 		
 		bottomController.set(speed/60);
 		
@@ -80,6 +85,7 @@ public class Flywheel {
 	public void setSpeed(double topSpeed, double bottomSpeed) {
 		mode = Mode_Type.AUTO_SHOOT;
 		atSpeed = 0;
+		atSpeedLoose = 0;
 		bottomController.set(bottomSpeed/60);
 		topController.set(topSpeed/60);
 		
@@ -119,10 +125,18 @@ public class Flywheel {
 	
 	/**
 	 * Returns if the flywheel is at the desired speed
-	 * @return True if the flywheel is within 25 rpm of the setpoint for the last 50ms
+	 * @return True if the flywheel is within 15 rpm of the setpoint for the last 75ms
 	 */
 	public boolean atSpeed(){
 		return atSpeed > 75;
+	}
+	
+	/**
+	 * Returns if the flywheel is at the desired speed
+	 * @return True if the flywheel is within 50 rpm of the setpoint for the last 75ms
+	 */
+	public boolean atSpeedLoose(){
+		return atSpeedLoose > 75;
 	}
 		
 	public void up(){
@@ -166,6 +180,12 @@ public class Flywheel {
 			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 15.0/60 &&
 					Math.abs(topSpeed-topController.getSetpoint()) < 15.0/60) {
 				atSpeed += dt;
+			} else {
+				atSpeed = 0;
+			}
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 50.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 50.0/60) {
+				atSpeedLoose += dt;
 			} else {
 				atSpeed = 0;
 			}

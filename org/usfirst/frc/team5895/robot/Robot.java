@@ -261,24 +261,19 @@ public class Robot extends IterativeRobot {
     		shooting = true;
     		primed = false;
     	}
-    	if (shooting && flywheel.atSpeed()) {
-    		if (visionTurn) {
-    			if (drive.facingGoal())
-    			{
-    				flywheel.lock();
-    				intake.shoot();
-    				DriverStation.reportError("bottom:" + (flywheel.getBottomSpeed()) + "top:" + (flywheel.getTopSpeed()), false);
-    	    		visionTurn = false;
-    	    		shooting = false;
-    	    		
-    			}
-    		} else {
+    	if (shooting && visionTurn && flywheel.atSpeed()) {
+    		if (drive.facingGoal())
+    		{
     			flywheel.lock();
     			intake.shoot();
-    			visionTurn = false;
-    			shooting = false;
-    			
+    	   		visionTurn = false;
+    	   		shooting = false;	
     		}
+    	}
+    	if (shooting && !visionTurn && flywheel.atSpeedLoose()) {
+    			flywheel.lock();
+    			intake.shoot();
+    			shooting = false;
     	}
     	if (((Math.abs(leftJoystick.getRawAxis(1)) > 0.1 ||
     			Math.abs(rightJoystick.getRawAxis(0)) > 0.1)) && visionTurn && !primed) {
@@ -286,8 +281,8 @@ public class Robot extends IterativeRobot {
     		shooting = false;
     		flywheel.setSpeed(0);
     	}
-    	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.6 ||
-    			Math.abs(rightJoystick.getRawAxis(0)) > 0.6) && !primed) {
+    	if ((Math.abs(leftJoystick.getRawAxis(1)) > 0.5 ||
+    			Math.abs(rightJoystick.getRawAxis(0)) > 0.5) && !primed) {
     		shooting = false;
     		flywheel.setSpeed(0);
     	}
