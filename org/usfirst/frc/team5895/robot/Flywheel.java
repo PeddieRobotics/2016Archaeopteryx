@@ -133,7 +133,7 @@ public class Flywheel {
 	
 	/**
 	 * Returns if the flywheel is at the desired speed
-	 * @return True if the flywheel is within 50 rpm of the setpoint for the last 75ms
+	 * @return True if the flywheel is within 35 rpm of the setpoint for the last 75ms
 	 */
 	public boolean atSpeedLoose(){
 		return atSpeedLoose > 75;
