@@ -16,7 +16,9 @@ public class FlywheelCounter {
 	public double getRate() throws BadFlywheelException {
 		double speed = c.getRate();
 		
-		if (speed > 20000/60) {
+		if (speed > 20000/60.0) {
+			throw new BadFlywheelException(lastSpeed);
+		} else if (lastSpeed < 3600/60.0 && speed > 4600/60.0) {
 			throw new BadFlywheelException(lastSpeed);
 		} else {
 			lastSpeed = speed;
