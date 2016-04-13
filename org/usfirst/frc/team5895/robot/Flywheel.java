@@ -183,8 +183,8 @@ public class Flywheel {
 			} else {
 				atSpeed = 0;
 			}
-			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 50.0/60 &&
-					Math.abs(topSpeed-topController.getSetpoint()) < 50.0/60) {
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 35.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 35.0/60) {
 				atSpeedLoose += dt;
 			} else {
 				atSpeed = 0;
