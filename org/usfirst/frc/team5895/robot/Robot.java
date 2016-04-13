@@ -318,12 +318,6 @@ public class Robot extends IterativeRobot {
     		}
     		primed = true;
     	}
-    	if(operatorJoystick.getRisingEdge(6)){
-    		vision.cam0();
-    	}
-    	if(operatorJoystick.getRisingEdge(7)){
-    		vision.cam1();
-    	}
     	
     }
     
