@@ -13,7 +13,7 @@ public class Drive {
 	
 	//for visionTurn()
 	private static final double VISION_TURN_KP = 1.9;
-	private static final double VISION_TURN_KI = 0.0008;
+	private static final double VISION_TURN_KI = 0.0009;
 	
 	//for driveStraight()
 	private static final double DRIVE_KP = 0.04;
@@ -45,6 +45,9 @@ public class Drive {
     private DriveEncoder enc;
     private Vision v;
     
+    private boolean side;
+    //left = true, right = false
+    
     public Drive(Vision v)
     {
     	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
@@ -61,6 +64,8 @@ public class Drive {
     	ahrs.reset();
     	
     	this.v = v;
+    	
+    	side = false;
     }
     
     /**
@@ -105,7 +110,17 @@ public class Drive {
     	facingGoal = 0;
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
-    	visionTurnPID.set(0.027);
+    	if(side == true){
+    		visionTurnPID.set(0.025);
+    	}
+    	else visionTurnPID.set(0.024);
+    }
+    
+    public void left(){
+    	side = true;
+    }
+    public void right(){
+    	side = false;
     }
     
     public boolean facingGoal() {

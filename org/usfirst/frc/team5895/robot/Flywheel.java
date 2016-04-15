@@ -177,8 +177,8 @@ public class Flywheel {
 			}
 			double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
 			lastTime = Timer.getFPGATimestamp();
-			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 15.0/60 &&
-					Math.abs(topSpeed-topController.getSetpoint()) < 15.0/60) {
+			if (Math.abs(bottomSpeed-bottomController.getSetpoint()) < 25.0/60 &&
+					Math.abs(topSpeed-topController.getSetpoint()) < 25.0/60) {
 				atSpeed += dt;
 			} else {
 				atSpeed = 0;

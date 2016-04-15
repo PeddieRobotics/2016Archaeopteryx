@@ -30,6 +30,8 @@ public class Robot extends IterativeRobot {
 	Intake intake;
 	Looper u;
 	Looper r;
+//	Looper v;
+//	NewVision newVision;
 	Vision vision;
 	
 	Recorder recorder;
@@ -51,14 +53,15 @@ public class Robot extends IterativeRobot {
     	
     	u = new Looper(10);
     	r = new Looper(250);
-    	
+//    	v = new Looper(50);
+   	
     	vision = new Vision();
+//    	newVision = new NewVision();
     	drive = new Drive(vision);
+//		drive = new Drive(newVision);
 //    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
-    	
-    	
     	
      	recorder = new Recorder(drive,arm,flywheel,intake);
     	matchCount = recorder.incrementCount();
@@ -67,15 +70,17 @@ public class Robot extends IterativeRobot {
         shooting = false;
         primed = false;
      	
+//        v.add(newVision::update);
     	u.add(intake::update);
     	u.add(drive::update);
     	u.add(flywheel::update);
-  //  	u.add(turret::update);
+//    	u.add(turret::update);
     	
 //    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
      	
     	u.start();
     	r.start();
+//    	v.start();
     }
     
     @Override
@@ -112,7 +117,18 @@ public class Robot extends IterativeRobot {
     		drive.haloDrive(0, 0);
     	}
     	
-    	if(position.contains("alt2")){
+    	if(position.contains("alt5")){
+    		Waiter.waitFor(200);
+    		flywheel.setSpeed(2700);
+    		
+    		drive.turnTo(angle-20);
+    		Waiter.waitFor(2000);
+    		
+    		drive.driveVoltage(0.37, angle-20);
+    		Waiter.waitFor(300);
+    		drive.haloDrive(0, 0);
+    	}
+    	else if(position.contains("alt2")){
     		Waiter.waitFor(200);
     		flywheel.setSpeed(2700);
     		
@@ -313,7 +329,12 @@ public class Robot extends IterativeRobot {
     		}
     		primed = true;
     	}
-    	
+//    	if(operatorJoystick.getRisingEdge(6)){
+//    		newVision.cam0;
+//    	}
+//    	if(operatorJoystick.getRisingEdge(7)){
+//    		newVision.cam1;
+//    	}
     }
     
     public void disabledInit() {
