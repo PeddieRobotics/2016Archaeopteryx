@@ -106,13 +106,13 @@ public class Robot extends IterativeRobot {
         	Waiter.waitFor(2600);
         	drive.haloDrive(0, 0);
     	} else if (defense.contains("ramp")) {
-    		drive.driveVoltage(0.6, angle);
-    		Waiter.waitFor(3000);
+    		drive.driveVoltage(0.7, angle);
+    		Waiter.waitFor(2300);
     		drive.haloDrive(0, 0);
     	} else if (defense.contains("moat")){
     		intake.down();
-    		drive.driveVoltage(0.6, angle);
-    		Waiter.waitFor(3500);
+    		drive.driveVoltage(1.00, angle);
+    		Waiter.waitFor(4000);
     	} else if (defense.contains("nope")){
     		drive.haloDrive(0, 0);
     	}
@@ -121,11 +121,14 @@ public class Robot extends IterativeRobot {
     		Waiter.waitFor(200);
     		flywheel.setSpeed(2700);
     		
-    		drive.turnTo(angle-20);
+    		drive.turnTo(angle-45);
     		Waiter.waitFor(2000);
     		
     		drive.driveVoltage(0.37, angle-20);
-    		Waiter.waitFor(300);
+    		Waiter.waitFor(1000);
+    		
+    		drive.turnTo(angle-10);
+    		Waiter.waitFor(1500);
     		drive.haloDrive(0, 0);
     	}
     	else if(position.contains("alt2")){
@@ -172,7 +175,7 @@ public class Robot extends IterativeRobot {
     	} else if (position.contains("3")) {
     		
     		Waiter.waitFor(200);
-    		flywheel.setSpeed(2725);
+    		flywheel.setSpeed(2710);
     		drive.turnTo(angle+5);
     		Waiter.waitFor(2000);
     		drive.haloDrive(0,0);
@@ -209,6 +212,7 @@ public class Robot extends IterativeRobot {
     		*/
     	
     	}
+    	
     	drive.visionTurn();
     	Waiter.waitFor(3000);
     	Waiter.waitFor(flywheel::atSpeed, 1200);
@@ -217,7 +221,7 @@ public class Robot extends IterativeRobot {
     		flywheel.lock();
     		intake.shoot();
     	}
- 
+    	
     }
 
     public void teleopInit() {

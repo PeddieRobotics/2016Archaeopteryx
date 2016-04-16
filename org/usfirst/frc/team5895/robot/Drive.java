@@ -111,7 +111,7 @@ public class Drive {
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
     	if(side == true){
-    		visionTurnPID.set(0.025);
+    		visionTurnPID.set(0.024);
     	}
     	else visionTurnPID.set(0.024);
     }
