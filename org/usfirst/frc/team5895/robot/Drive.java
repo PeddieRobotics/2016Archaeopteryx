@@ -37,16 +37,13 @@ public class Drive {
     private double leftMotorSpeed = 0;
     private double spd = 0;
     
-    private double lastTime = Timer.getFPGATimestamp();
+    private double lastTime = Timer.getFPGATimestamp()*1000;
     private double facingGoal = 0;
     private boolean facedGoal = false;
 
     private NavX ahrs;
     private DriveEncoder enc;
     private Vision v;
-    
-    private boolean side;
-    //left = true, right = false
     
     public Drive(Vision v)
     {
@@ -64,8 +61,6 @@ public class Drive {
     	ahrs.reset();
     	
     	this.v = v;
-    	
-    	side = false;
     }
     
     /**
@@ -114,7 +109,7 @@ public class Drive {
     }
     
     public boolean facingGoal() {
-    	return facingGoal > 50 || facedGoal;
+    	return (facingGoal > 75) || facedGoal;
     }
     
     /**
@@ -266,8 +261,9 @@ public class Drive {
     		break;
     	}
      
-    	double dt = (Timer.getFPGATimestamp() - lastTime)*1000;
-		lastTime = Timer.getFPGATimestamp();
+    	double time = Timer.getFPGATimestamp() * 1000;
+		double dt = time - lastTime;
+		lastTime = time;
 		if (v.hasTarget() && Math.abs(v.getX()-visionTurnPID.getSetpoint()) < 0.016) {
 			facingGoal += dt;
 		} else {
