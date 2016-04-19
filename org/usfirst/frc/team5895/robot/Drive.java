@@ -110,17 +110,7 @@ public class Drive {
     	facingGoal = 0;
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
-    	if(side == true){
-    		visionTurnPID.set(0.024);
-    	}
-    	else visionTurnPID.set(0.024);
-    }
-    
-    public void left(){
-    	side = true;
-    }
-    public void right(){
-    	side = false;
+    	visionTurnPID.set(0.024);
     }
     
     public boolean facingGoal() {
