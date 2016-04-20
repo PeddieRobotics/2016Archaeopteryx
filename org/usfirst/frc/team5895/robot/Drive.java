@@ -105,7 +105,8 @@ public class Drive {
     	facingGoal = 0;
     	facedGoal = false;
     	visionTurnPID.resetIntegral();
-    	visionTurnPID.set(0.024);
+    	//left higher, right lower ********
+    	visionTurnPID.set(0.05); //IF DOESNT TURN PROPERLY ***********
     }
     
     public boolean facingGoal() {

@@ -158,11 +158,11 @@ public class Robot extends IterativeRobot {
     		drive.haloDrive(0,0);
     	
     		drive.driveVoltage(0.37, angle);
-    		Waiter.waitFor(1600);
+    		Waiter.waitFor(1600); //driving forward *********
     		drive.haloDrive(0, 0);
     		
     		Waiter.waitFor(100);
-    		drive.turnTo(angle+35);
+    		drive.turnTo(angle+35); //turn to goal (not Vision Turn) ****
     		Waiter.waitFor(2200);
     		drive.haloDrive(0,0);
     		
@@ -197,11 +197,11 @@ public class Robot extends IterativeRobot {
     		drive.haloDrive(0,0);
     	
     		drive.driveVoltage(0.4, angle);
-    		Waiter.waitFor(1700);
+    		Waiter.waitFor(1700); //driving forward *****
     		drive.haloDrive(0, 0);
     		
     		Waiter.waitFor(100);
-    		drive.turnTo(angle-35);
+    		drive.turnTo(angle-35); //turn to goal (not Vision Turn) ****
     		Waiter.waitFor(3000);
     		drive.haloDrive(0,0);
     		
@@ -308,7 +308,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (operatorJoystick.getRisingEdge(1)){
-    			flywheel.override(0.45);
+    			flywheel.override(0.45); //OVERRIDE VOLTAGE **********
     			shooting = false;
     			visionTurn = false;
     		
