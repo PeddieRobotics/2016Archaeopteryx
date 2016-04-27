@@ -97,6 +97,8 @@ public class Robot extends IterativeRobot {
     	flywheel.up();
     	Waiter.waitFor(50);
     	
+    	boolean shoot = true;
+    	
     	if (defense.contains("rough")) {
     		drive.driveVoltage(0.6, angle);
         	Waiter.waitFor(2400);
@@ -113,8 +115,14 @@ public class Robot extends IterativeRobot {
     		intake.down();
     		drive.driveVoltage(1.00, angle);
     		Waiter.waitFor(4000);
+    	} else if (defense.contains("reach")) {
+    		drive.driveVoltage(0.4, angle);
+    		Waiter.waitFor(2000);
+    		drive.haloDrive(0, 0);
+    		shoot = false;
     	} else if (defense.contains("nope")){
     		drive.haloDrive(0, 0);
+    		shoot = false;
     	}
     	
     	if(position.contains("alt5")){
@@ -213,13 +221,15 @@ public class Robot extends IterativeRobot {
     	
     	}
     	
-    	drive.visionTurn();
-    	Waiter.waitFor(3000);
-    	Waiter.waitFor(flywheel::atSpeed, 1200);
-    	drive.haloDrive(0, 0);
-    	if (vision.hasTarget()) {
-    		flywheel.lock();
-    		intake.shoot();
+    	if (shoot) {
+    		drive.visionTurn();
+    		Waiter.waitFor(3000);
+    		Waiter.waitFor(flywheel::atSpeed, 1200);
+    		drive.haloDrive(0, 0);
+    		if (vision.hasTarget()) {
+    			flywheel.lock();
+    			intake.shoot();
+    		}
     	}
     	
     }
