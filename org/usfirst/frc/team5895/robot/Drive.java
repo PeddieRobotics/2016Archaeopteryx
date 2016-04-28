@@ -109,6 +109,19 @@ public class Drive {
     	visionTurnPID.set(0.05); //IF DOESNT TURN PROPERLY ***********
     }
     
+    /**
+     * turns to face goal
+     * 
+     * @param Where to aim to (from -1 to 1)
+     */
+    public void visionTurn(double setpoint) {
+    	mode = Mode_Type.VISION_TURN;
+    	facingGoal = 0;
+    	facedGoal = false;
+    	visionTurnPID.resetIntegral();
+    	visionTurnPID.set(setpoint);
+    }
+    
     public boolean facingGoal() {
     	return (facingGoal > 75) || facedGoal;
     }

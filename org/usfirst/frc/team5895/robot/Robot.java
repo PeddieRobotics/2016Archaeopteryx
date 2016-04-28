@@ -222,7 +222,7 @@ public class Robot extends IterativeRobot {
     	}
     	
     	if (shoot) {
-    		drive.visionTurn();
+    		drive.visionTurn(0.05);
     		Waiter.waitFor(3000);
     		Waiter.waitFor(flywheel::atSpeed, 1200);
     		drive.haloDrive(0, 0);
