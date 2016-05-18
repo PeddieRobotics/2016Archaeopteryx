@@ -10,7 +10,6 @@ public class ElectricalLayout {
 	public static final int INTAKE_MOTOR = 2;
 
 	//Solenoids
-	public static final int ARM_SOLENOID = 3; //Cheval de Frise
 	public static final int INTAKE_SOLENOID = 1;
 	public static final int FLYWHEEL_SOLENOID = 2; //Shooter Hood
 	

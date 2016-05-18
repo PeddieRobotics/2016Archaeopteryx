@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class Recorder {	
 	private Drive drive;
-	private CDFArm arm;
 	private Flywheel fly;
 	private Intake intake;
 	
@@ -21,15 +20,12 @@ public class Recorder {
 	
 	/**
 	 * Makes a new Recorder
-	 * @param d the drivetrain 
-	 * @param a the arm 
+	 * @param d the drivetrain
 	 * @param fy the flywheel 
 	 * @param in the intake
-	 * @param t the turret
 	 */
-	public Recorder(Drive d, CDFArm a, Flywheel fy, Intake in){
+	public Recorder(Drive d, Flywheel fy, Intake in){
 		this.drive = d;
-		this.arm = a;
 		this.fly = fy;	
 		this.intake = in;
 		recordFile = false;
@@ -73,11 +69,10 @@ public class Recorder {
      */
     public void record() {
     	if (recordFile==true) {
-    		f.format("%f,%f,%f,%b,%f,%f,%b,%b,%b\r\n",
+    		f.format("%f,%f,%f,%f,%f,%b,%b,%b\r\n",
     				Timer.getFPGATimestamp(),
     				drive.getAngle(),
     				drive.getDistance(),
-    				arm.getArmPosition(),
     				fly.getTopSpeed(),
     				fly.getBottomSpeed(),
     				fly.getUpDown(),

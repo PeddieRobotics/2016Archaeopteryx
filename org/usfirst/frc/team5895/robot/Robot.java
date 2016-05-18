@@ -6,7 +6,6 @@ import org.usfirst.frc.team5895.robot.framework.Looper;
 import org.usfirst.frc.team5895.robot.framework.Waiter;
 import org.usfirst.frc.team5895.robot.Drive;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -25,13 +24,10 @@ public class Robot extends IterativeRobot {
     BetterJoystick operatorJoystick;
 	
 	Drive drive;
-	CDFArm arm;
 	Flywheel flywheel;
 	Intake intake;
 	Looper u;
 	Looper r;
-//	Looper v;
-//	NewVision newVision;
 	Vision vision;
 	
 	Recorder recorder;
@@ -53,41 +49,30 @@ public class Robot extends IterativeRobot {
     	
     	u = new Looper(10);
     	r = new Looper(250);
-//    	v = new Looper(50);
    	
     	vision = new Vision();
-//    	newVision = new NewVision();
     	drive = new Drive(vision);
-//		drive = new Drive(newVision);
-//    	arm = new CDFArm();
     	flywheel = new Flywheel();
     	intake = new Intake();
     	
-     	recorder = new Recorder(drive,arm,flywheel,intake);
+     	recorder = new Recorder(drive,flywheel,intake);
     	matchCount = recorder.incrementCount();
         
         visionTurn = false;
         shooting = false;
         primed = false;
      	
-//        v.add(newVision::update);
     	u.add(intake::update);
     	u.add(drive::update);
     	u.add(flywheel::update);
-//    	u.add(turret::update);
     	
-//    	turMotor = new TalonSRX(ElectricalLayout.TURRET_MOTOR);
      	
     	u.start();
     	r.start();
-//    	v.start();
     }
     
     @Override
     public void autonomousInit() {
-    	//recorder.startRecording("auto"+matchCount+".csv");
-    	//drive.turnTo(180);
-    	//recorder.stopRecording();
     	
     	String defense = SmartDashboard.getString("DB/String 0");
     	String position = SmartDashboard.getString("DB/String 1");
@@ -173,12 +158,6 @@ public class Robot extends IterativeRobot {
     		drive.turnTo(angle+35); //turn to goal (not Vision Turn) ****
     		Waiter.waitFor(2200);
     		drive.haloDrive(0,0);
-    		
-    		/*Waiter.waitFor(100);
-    		drive.driveVoltage(-0.3, angle+35);
-    		Waiter.waitFor(1000);
-    		drive.haloDrive(0,0);
-    		*/
     	
     	} else if (position.contains("3")) {
     		
@@ -212,12 +191,6 @@ public class Robot extends IterativeRobot {
     		drive.turnTo(angle-35); //turn to goal (not Vision Turn) ****
     		Waiter.waitFor(3000);
     		drive.haloDrive(0,0);
-    		
-    		/*Waiter.waitFor(100);
-    		drive.driveVoltage(-0.3, angle-35);
-    		Waiter.waitFor(500);
-    		drive.haloDrive(0,0);
-    		*/
     	
     	}
     	
@@ -227,7 +200,6 @@ public class Robot extends IterativeRobot {
     		Waiter.waitFor(flywheel::atSpeed, 1200);
     		drive.haloDrive(0, 0);
     		if (vision.hasTarget()) {
-    			flywheel.lock();
     			intake.shoot();
     		}
     	}
@@ -281,11 +253,9 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    		//	flywheel.setSpeed(2700+SmartDashboard.getNumber("DB/Slider 2"));
     			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1"), 2100 + SmartDashboard.getNumber("DB/Slider 1"));
     		}
     		else {
-    		//	flywheel.setSpeed(2600+SmartDashboard.getNumber("DB/Slider 2"));
     			flywheel.setSpeed(2600 + SmartDashboard.getNumber("DB/Slider 2"), 2600 + SmartDashboard.getNumber("DB/Slider 3"));
     		}
     		shooting = true;
@@ -294,14 +264,12 @@ public class Robot extends IterativeRobot {
     	if (shooting && visionTurn && flywheel.atSpeed()) {
     		if (drive.facingGoal())
     		{
-    			flywheel.lock();
     			intake.shoot();
     	   		visionTurn = false;
     	   		shooting = false;	
     		}
     	}
     	if (shooting && !visionTurn && flywheel.atSpeedLoose()) {
-    			flywheel.lock();
     			intake.shoot();
     			shooting = false;
     	}
@@ -343,12 +311,6 @@ public class Robot extends IterativeRobot {
     		}
     		primed = true;
     	}
-//    	if(operatorJoystick.getRisingEdge(6)){
-//    		newVision.cam0;
-//    	}
-//    	if(operatorJoystick.getRisingEdge(7)){
-//    		newVision.cam1;
-//    	}
     }
     
     public void disabledInit() {

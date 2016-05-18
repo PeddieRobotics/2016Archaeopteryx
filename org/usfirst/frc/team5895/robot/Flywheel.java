@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Flywheel {
 
@@ -17,12 +16,8 @@ public class Flywheel {
 	private FlywheelCounter topCounter;
 	private FlywheelCounter bottomCounter;
 	
-//	private TakeBackOnce topController;
-//	private TakeBackOnce bottomController;
 	private TakeBackHalf topController;
 	private TakeBackHalf bottomController;
-//	private BangBang topController;
-//	private BangBang bottomController;
 
 	private boolean upDown;
 	
@@ -47,12 +42,6 @@ public class Flywheel {
 		
 		topController = new TakeBackHalf(0.00005, 6150/60, 1.0);
 		bottomController = new TakeBackHalf(0.00005, 6050/60, 1.0);
-		
-//		topController = new TakeBackOnce(0.00005,6050.0/60);
-//		bottomController = new TakeBackOnce(0.00005,6000.0/60);
-		
-//		topController = new BangBang();
-//		bottomController = new BangBang();
 			
 		
 		topCounter = new FlywheelCounter(ElectricalLayout.FLYWHEEL_TOPCOUNTER);
@@ -94,11 +83,6 @@ public class Flywheel {
 	public void override(double speed){
 		mode = Mode_Type.OVERRIDE;
 		overrideSpeed = speed;
-	}
-	
-	public void lock(){
-//		topController.lock();
-//		bottomController.lock();
 	}
 	
 	/**
