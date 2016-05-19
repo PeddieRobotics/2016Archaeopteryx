@@ -200,30 +200,21 @@ public class Drive {
     		
     	case AUTO_TURN:
     		double speed=turnPID.getOutput(ahrs.getAngle());
-//    		DriverStation.reportError("the output is " + speed + "\n", false);
-    		
-//    		// this is code for testing, remove it later
+
     		if(speed>0.3) {
     			speed = 0.3;
     		}
     		if(speed<-0.3){
     			speed = -0.3;
     		}
-//    		
-//    		// end testing code
-    		
-//    		if (atAngle()==true){
-//    			speed=0;
-//    		}
+
     		DriverStation.reportError("the angle is " + (getAngle()-turnPID.getSetpoint()) + "\n", false);
-    		//DriverStation.reportError("the output is " + speed + "\n", false);
     		leftMotor.set(speed);
     		rightMotor.set(speed);
     		break;
     		
     	case VISION_TURN:
     		double speeed = visionTurnPID.getOutput(v.getX());
-    		// this is code for testing, remove it later
     		if(speeed>0.27) {
     			speeed = 0.27;
     		}
@@ -238,9 +229,9 @@ public class Drive {
     		if (facedGoal) {
     			speeed = 0;
     		}
-//    		
+    		
     		DriverStation.reportError(SmartDashboard.getNumber("DB/Slider 0", 0) + "\n", false);
-   // 		DriverStation.reportError("the output is " + speeed + "\n", false);
+
     		leftMotor.set(-speeed);
     		rightMotor.set(-speeed);
     		break;
