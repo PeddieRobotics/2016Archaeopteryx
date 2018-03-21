@@ -74,8 +74,8 @@ public class Robot extends IterativeRobot {
     @Override
     public void autonomousInit() {
     	
-    	String defense = SmartDashboard.getString("DB/String 0");
-    	String position = SmartDashboard.getString("DB/String 1");
+    	String defense = SmartDashboard.getString("DB/String 0", "nothing");
+    	String position = SmartDashboard.getString("DB/String 1", "nothing");
     	
     	double angle = drive.getAngle();
     	
@@ -253,10 +253,10 @@ public class Robot extends IterativeRobot {
     		if(flywheel.getUpDown()){
     			drive.visionTurn();
     			visionTurn = true;
-    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1"), 2100 + SmartDashboard.getNumber("DB/Slider 1"));
+    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1", 0), 2100 + SmartDashboard.getNumber("DB/Slider 1", 0));
     		}
     		else {
-    			flywheel.setSpeed(2600 + SmartDashboard.getNumber("DB/Slider 2"), 2600 + SmartDashboard.getNumber("DB/Slider 3"));
+    			flywheel.setSpeed(2600 + SmartDashboard.getNumber("DB/Slider 2", 0), 2600 + SmartDashboard.getNumber("DB/Slider 3", 0));
     		}
     		shooting = true;
     		primed = false;
@@ -305,9 +305,9 @@ public class Robot extends IterativeRobot {
 //    	}
     	if(operatorJoystick.getRisingEdge(5)){
     		if(flywheel.getUpDown()){
-    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1"), 2100 + SmartDashboard.getNumber("DB/Slider 1"));
+    			flywheel.setSpeed(3550 + SmartDashboard.getNumber("DB/Slider 1", 0), 2100 + SmartDashboard.getNumber("DB/Slider 1", 0));
     		} else {
-    			flywheel.setSpeed(2600+SmartDashboard.getNumber("DB/Slider 2"), 2600 + SmartDashboard.getNumber("DB/Slider 3"));
+    			flywheel.setSpeed(2600+SmartDashboard.getNumber("DB/Slider 2", 0), 2600 + SmartDashboard.getNumber("DB/Slider 3", 0));
     		}
     		primed = true;
     	}

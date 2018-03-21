@@ -1,7 +1,7 @@
 package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -30,8 +30,8 @@ public class Drive {
 	private PID straightPID;
 	private PID straightTurnPID;
 	
-	private TalonSRX rightMotor;
-    private TalonSRX leftMotor;
+	private Talon rightMotor;
+    private Talon leftMotor;
     
     private double rightMotorSpeed = 0;
     private double leftMotorSpeed = 0;
@@ -47,8 +47,8 @@ public class Drive {
     
     public Drive(Vision v)
     {
-    	rightMotor = new TalonSRX(ElectricalLayout.DRIVE_RIGHTMOTOR);
-    	leftMotor = new TalonSRX(ElectricalLayout.DRIVE_LEFTMOTOR);
+    	rightMotor = new Talon(ElectricalLayout.DRIVE_RIGHTMOTOR);
+    	leftMotor = new Talon(ElectricalLayout.DRIVE_LEFTMOTOR);
     	ahrs = new NavX();
     	turnPID = new PID(TURN_KP, TURN_KI , 0, 0.05, 0.35);
     	visionTurnPID = new PID (VISION_TURN_KP, VISION_TURN_KI, 0, 0.05);

@@ -2,12 +2,12 @@ package org.usfirst.frc.team5895.robot;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Intake {
 	
-	private TalonSRX intakeMotor;
+	private Talon intakeMotor;
 	private Solenoid upDownSolenoid;
 	private DigitalInput sensor; 
 	private boolean upDown;
@@ -18,7 +18,7 @@ public class Intake {
 	private Mode_Type mode = Mode_Type.INTAKING;
 	
 	public Intake() {
-		intakeMotor = new TalonSRX(ElectricalLayout.INTAKE_MOTOR);
+		intakeMotor = new Talon(ElectricalLayout.INTAKE_MOTOR);
 		upDownSolenoid = new Solenoid(ElectricalLayout.INTAKE_SOLENOID);
 		sensor = new DigitalInput(ElectricalLayout.INTAKE_SENSOR);
 		upDown = false;

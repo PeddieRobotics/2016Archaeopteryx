@@ -1,18 +1,18 @@
 package org.usfirst.frc.team5895.robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class Vision {
-	
-	USBCamera c;
+
+	UsbCamera c;
 	
 	public Vision() 
 	{
 		try {
-			c = new USBCamera("cam1");
+			c = new UsbCamera("cam1", 0);
 			c.setBrightness(0);
 			c.setExposureManual(-8);
         	CameraServer server = CameraServer.getInstance();
@@ -24,12 +24,7 @@ public class Vision {
 	
 	public void reset(){
 		try{
-			c.closeCamera();
-		} catch (Exception e){
-			DriverStation.reportError("Failed to close camera", false);
-		}
-		try{
-			c = new USBCamera("cam1");
+			c = new UsbCamera("cam1", 0);
 			c.setBrightness(0);
 			c.setExposureManual(-8);
         	CameraServer server = CameraServer.getInstance();

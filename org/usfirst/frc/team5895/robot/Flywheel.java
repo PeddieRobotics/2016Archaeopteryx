@@ -4,13 +4,13 @@ import org.usfirst.frc.team5895.robot.FlywheelCounter.BadFlywheelException;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.TalonSRX;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
 
 public class Flywheel {
 
-	private TalonSRX topMotor;
-	private TalonSRX bottomMotor;
+	private Talon topMotor;
+	private Talon bottomMotor;
 	private Solenoid mySolenoid;
 	
 	private FlywheelCounter topCounter;
@@ -36,8 +36,8 @@ public class Flywheel {
 	 * Creates a new flywheel
 	 */
 	public Flywheel() {
-		topMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_TOPMOTOR);
-		bottomMotor = new TalonSRX(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
+		topMotor = new Talon(ElectricalLayout.FLYWHEEL_TOPMOTOR);
+		bottomMotor = new Talon(ElectricalLayout.FLYWHEEL_BOTTOMMOTOR);
 		mySolenoid = new Solenoid(ElectricalLayout.FLYWHEEL_SOLENOID);
 		
 		topController = new TakeBackHalf(0.00005, 6150/60, 1.0);
